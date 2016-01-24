@@ -1,0 +1,38 @@
+#OSX
+.DS_Store
+
+#Gradle files
+build/
+.gradle
+
+#IDEA
+*.iml
+/.idea/.name
+/.idea/encodings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/libraries
+
+#Buit application files
+*.apk
+*.ap_
+
+#Java class files
+*.class
+
+#Generated files
+bin/
+gen/
+
+/captures
+
+#Loval configuration file(sdk path, etc)
+/local.properties
+
+#Log Files 
+*.log
+

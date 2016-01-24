@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wjustudio.evenbusdemo.MainActivity">
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="跳转到MainActivity"/>
+    <Button
+        android:id="@+id/first_event"
+        android:layout_below="@id/btn_skip"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="firstEvent"/>
+
+    <Button
+        android:id="@+id/second_event"
+        android:layout_below="@id/first_event"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="firstEvent"/>
+    <Button
+        android:id="@+id/third_event"
+        android:layout_below="@id/second_event"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="firstEvent"/>
+
+</RelativeLayout>
