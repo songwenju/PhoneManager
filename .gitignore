@@ -36,3 +36,6 @@ gen/
 #Log Files 
 *.log
 
+#window
+gradlew
+gradlew.bat
