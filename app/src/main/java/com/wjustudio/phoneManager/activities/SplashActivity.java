@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -7,14 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
+import com.wjustudio.phoneManager.utils.SpUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SplashActivity extends AppCompatActivity {
-
     @Bind(R.id.tv_splash_activity)
     TextView mTvSplashActivity;
     @Bind(R.id.pb_splash_activity)
@@ -25,6 +27,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //判断应用是否是第一次开启应用
+        boolean isFirstOpen = SpUtil.getBoolean(AppConstants.FIRST_OPEN, true);
+        if (isFirstOpen) {
+            Intent intent = new Intent(this,WelcomeGuideActivity.class);
+            startActivity(intent);
+            finish();
+        }
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         initView();
