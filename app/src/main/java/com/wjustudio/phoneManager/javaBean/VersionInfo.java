@@ -7,11 +7,14 @@ package com.wjustudio.phoneManager.javaBean;
 public class VersionInfo {
     public String version;
     public String downloadUrl;
-    public String des;
+    public String desc;
 
+    public VersionInfo() {
+        super();
+    }
     public VersionInfo(String version, String downloadUrl, String des) {
         this.version = version;
         this.downloadUrl = downloadUrl;
-        this.des = des;
+        this.desc = des;
     }
 }

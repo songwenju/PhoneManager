@@ -7,4 +7,5 @@ package com.wjustudio.phoneManager.biz;
  */
 public interface ICheckVersionBiz {
     void checkVersion(String versionCode);
+    void enterHomeActivity();
 }

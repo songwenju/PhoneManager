@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.WelcomeGuideActivity"/>
+        <activity android:name=".activities.HomeActivity"/>
     </application>
 
 </manifest>

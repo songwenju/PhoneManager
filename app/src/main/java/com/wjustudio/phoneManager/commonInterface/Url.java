@@ -6,5 +6,5 @@ package com.wjustudio.phoneManager.commonInterface;
  */
 public interface Url {
     String hostUrl="http://192.168.191.1:8080/";
-    String checkVersion=hostUrl+"VersionInfo.json";
+    String checkVersion=hostUrl+"versionInfo.json";
 }

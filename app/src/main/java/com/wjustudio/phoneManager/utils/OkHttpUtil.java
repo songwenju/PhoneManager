@@ -71,6 +71,12 @@ public class OkHttpUtil {
             String responseUrl = response.body().string();
             return  responseUrl;
         } else {
+            CommonUtil.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtil.showToast("网络连接错误!");
+                }
+            });
             throw new IOException("Unexpected code " + response);
         }
     }

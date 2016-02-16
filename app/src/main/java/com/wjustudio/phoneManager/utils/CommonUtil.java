@@ -90,31 +90,33 @@ public class CommonUtil {
      * @param message
      */
     public static void showInfoDialog(Context context, String message){
-        showInfoDialog(context,message,"提示","确定",null);
+        showInfoDialog(context,message,"提示","确定","",null,null);
     }
     /**
      * 显示dialog弹框
      * @param context
      * @param message
      * @param titleStr
-     * @param postiviveStr
-     * @param onClickListener
+     * @param positiveStr
+     * @param positiveListener
      */
     public static void showInfoDialog(Context context, String message,
-                                      String titleStr , String postiviveStr,
-                                      DialogInterface.OnClickListener onClickListener){
+                                      String titleStr , String positiveStr,String negativeStr,
+                                      DialogInterface.OnClickListener positiveListener,
+                                      DialogInterface.OnClickListener negativeListener){
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(context);
         localBuilder.setTitle(titleStr);
         localBuilder.setMessage(message);
-        if (onClickListener == null){
-            onClickListener = new DialogInterface.OnClickListener() {
+        if (positiveListener == null){
+            positiveListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
                 }
             };
         }
-        localBuilder.setPositiveButton(postiviveStr,onClickListener);
+        localBuilder.setPositiveButton(positiveStr,positiveListener);
+        localBuilder.setNegativeButton(negativeStr,negativeListener);
         localBuilder.show();
 
     }

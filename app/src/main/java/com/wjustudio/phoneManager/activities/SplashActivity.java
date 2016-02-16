@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,10 +24,12 @@ public class SplashActivity extends AppCompatActivity {
     ProgressBar mPbSplashActivity;
     //包管理器
     private PackageManager mPackageManager;
+    private CheckVersionBizImpl mCheckVersionBiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         //判断应用是否是第一次开启应用
         boolean isFirstOpen = SpUtil.getBoolean(AppConstants.FIRST_OPEN, true);
         if (isFirstOpen) {
@@ -34,7 +37,6 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         initView();
     }
@@ -49,15 +51,14 @@ public class SplashActivity extends AppCompatActivity {
             String versionName = packageInfo.versionName;
             mTvSplashActivity.setText(versionName);
             final int versionCode = packageInfo.versionCode;
-            final CheckVersionBizImpl cvb = new CheckVersionBizImpl();
+            mCheckVersionBiz = new CheckVersionBizImpl((Context) SplashActivity.this);
             //请求网络在子线程
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    cvb.checkVersion(String.valueOf(versionCode));
+                    mCheckVersionBiz.checkVersion(String.valueOf(versionCode));
                 }
             }).start();
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
