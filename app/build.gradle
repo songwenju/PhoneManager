@@ -30,4 +30,5 @@ dependencies {
     compile files('libs/fastjson-1.2.4.jar')
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile files('libs/xUtils-2.6.14.jar')
 }

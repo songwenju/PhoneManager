@@ -3,8 +3,13 @@ package com.wjustudio.phoneManager.biz;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 
 import com.alibaba.fastjson.JSON;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.wjustudio.phoneManager.activities.HomeActivity;
 import com.wjustudio.phoneManager.activities.SplashActivity;
 import com.wjustudio.phoneManager.commonInterface.Url;
@@ -14,6 +19,7 @@ import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.OkHttpUtil;
 import com.wjustudio.phoneManager.utils.ToastUtil;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -49,6 +55,7 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //下载app
                                         ToastUtil.showToast("开始下载");
+                                        download(versionInfo.downloadUrl);
 
                                     }
                                 },
@@ -76,6 +83,35 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
         }
     }
 
+    /**
+     * 多线程下载器
+     * @param downloadUrl
+     */
+    private void download(String downloadUrl){
+
+        HttpUtils httpUtils = new HttpUtils();
+        final String fileUrl = Environment.getExternalStorageDirectory().getAbsolutePath();
+        httpUtils.download(downloadUrl, fileUrl+"/temp.apk", new RequestCallBack<File>() {
+            @Override
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+                //下载完毕
+                ToastUtil.showToast("下载完毕:"+fileUrl);
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) {
+                //下载中
+                super.onLoading(total, current, isUploading);
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                ToastUtil.showToast("下载失败");
+                LogUtil.e("CheckVersionBizImpl",e.toString());
+                enterHomeActivity();
+            }
+        });
+    }
     @Override
     public void enterHomeActivity() {
         Intent intent = new Intent(mContext, HomeActivity.class);
