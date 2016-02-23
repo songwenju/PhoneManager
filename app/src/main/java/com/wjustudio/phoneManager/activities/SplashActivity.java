@@ -62,5 +62,12 @@ public class SplashActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCheckVersionBiz.enterHomeActivity();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

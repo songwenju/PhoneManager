@@ -17,4 +17,13 @@ public class VersionInfo {
         this.downloadUrl = downloadUrl;
         this.desc = des;
     }
+
+    @Override
+    public String toString() {
+        return "VersionInfo{" +
+                "version='" + version + '\'' +
+                ", downloadUrl='" + downloadUrl + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }

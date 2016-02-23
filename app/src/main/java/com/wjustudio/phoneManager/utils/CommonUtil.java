@@ -1,14 +1,19 @@
 package com.wjustudio.phoneManager.utils;
 
+import android.app.Activity;
+import android.graphics.Rect;
 import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
 
 import java.security.MessageDigest;
+import java.util.HashMap;
 
 /**
  * 作者：songwenju on 2016/1/24 20:29
@@ -90,7 +95,7 @@ public class CommonUtil {
      * @param message
      */
     public static void showInfoDialog(Context context, String message){
-        showInfoDialog(context,message,"提示","确定","",null,null);
+        showInfoDialog(context,message,"提示","确定","",null,null,null);
     }
     /**
      * 显示dialog弹框
@@ -103,7 +108,8 @@ public class CommonUtil {
     public static void showInfoDialog(Context context, String message,
                                       String titleStr , String positiveStr,String negativeStr,
                                       DialogInterface.OnClickListener positiveListener,
-                                      DialogInterface.OnClickListener negativeListener){
+                                      DialogInterface.OnClickListener negativeListener,
+                                      DialogInterface.OnCancelListener cancelListener){
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(context);
         localBuilder.setTitle(titleStr);
         localBuilder.setMessage(message);
@@ -117,6 +123,7 @@ public class CommonUtil {
         }
         localBuilder.setPositiveButton(positiveStr,positiveListener);
         localBuilder.setNegativeButton(negativeStr,negativeListener);
+        localBuilder.setOnCancelListener(cancelListener);
         localBuilder.show();
 
     }
@@ -171,4 +178,52 @@ public class CommonUtil {
         return (int) (pxValue / scale + 0.5f);
     }
 
+    /**
+     * 获得宽度和除去通知栏的屏幕的高度
+     * @param activity
+     * @return
+     */
+    public static HashMap<String,Integer> getWindowSize(Activity activity){
+        WindowManager wm = activity.getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        height -= getStatusBarHeight(activity);
+        HashMap<String,Integer> windowSize = new HashMap<>();
+        windowSize.put("height",height);
+        windowSize.put("width",width);
+        return windowSize;
+    }
+
+    /**
+     * 获得状态栏的高度
+     * @param activity
+     * @return
+     */
+    public static int getStatusBarHeight(Activity activity){
+        int statusHeight = 0;
+        Rect frame = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        statusHeight = frame.top;
+        if (0 == statusHeight){
+            Class<?> localClass;
+            try {
+                localClass = Class.forName("com.android.internal.R$dimen");
+                Object localObject = localClass.newInstance();
+                int i5 = Integer.parseInt(localClass.getField("status_bar_height").
+                        get(localObject).toString());
+                statusHeight = activity.getResources().getDimensionPixelSize(i5);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+        return statusHeight;
+    }
 }

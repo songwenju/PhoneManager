@@ -1,8 +1,10 @@
 package com.wjustudio.phoneManager.biz;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 
 import com.alibaba.fastjson.JSON;
@@ -54,14 +56,18 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //下载app
-                                        ToastUtil.showToast("开始下载");
                                         download(versionInfo.downloadUrl);
-
                                     }
                                 },
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        enterHomeActivity();
+                                    }
+                                },
+                                new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
                                         enterHomeActivity();
                                     }
                                 }
@@ -90,18 +96,50 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
     private void download(String downloadUrl){
 
         HttpUtils httpUtils = new HttpUtils();
-        final String fileUrl = Environment.getExternalStorageDirectory().getAbsolutePath();
-        httpUtils.download(downloadUrl, fileUrl+"/temp.apk", new RequestCallBack<File>() {
+        final String fileUrl = Environment.getExternalStorageDirectory().
+                getAbsolutePath()+"/phoneManager.apk";
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setTitle("下载进度");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+        httpUtils.download(downloadUrl, fileUrl, new RequestCallBack<File>() {
             @Override
             public void onSuccess(ResponseInfo<File> responseInfo) {
                 //下载完毕
-                ToastUtil.showToast("下载完毕:"+fileUrl);
+                progressDialog.dismiss();
+                //安装
+                install();
             }
+
+            /**
+             * 安装
+             */
+            private void install() {
+              /*
+                <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="application/vnd.android.package-archive" />
+                </intent-filter>*/
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setDataAndType(Uri.fromFile(new File(fileUrl)),"application/vnd.android.package-archive");
+                if (mContext instanceof SplashActivity){
+                    ((SplashActivity)mContext).startActivityForResult(intent,0);
+                }
+            }
+
+
 
             @Override
             public void onLoading(long total, long current, boolean isUploading) {
-                //下载中
+                //下载中，弹出对话框
                 super.onLoading(total, current, isUploading);
+                progressDialog.setMax((int) total);
+                progressDialog.setProgress((int) current);
             }
 
             @Override
@@ -109,6 +147,7 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
                 ToastUtil.showToast("下载失败");
                 LogUtil.e("CheckVersionBizImpl",e.toString());
                 enterHomeActivity();
+                progressDialog.dismiss();
             }
         });
     }
