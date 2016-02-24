@@ -1,15 +1,25 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--状态栏颜色-->
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">#FF4081</item>
-    </style>
-    <style name="AppTheme" parent="BaseAppTheme">
-        <!-- Customize your theme here. -->
+        <!--Toolbar颜色-->
+        <item name="colorPrimary">@color/primary</item>
+        <!--返回键样式-->
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+        <!-- 标题颜色 -->
+        <item name="android:textColorPrimary">@color/white</item>
+
     </style>
 
-    <style name="noTileTheme" parent="@style/Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <!-- popup style -->
+    <style name="ToolBarStyle" parent="">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
 
 </resources>

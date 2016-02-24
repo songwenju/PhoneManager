@@ -18,7 +18,9 @@ public class OkHttpUtil {
     private static final OkHttpClient mOkHttpClient = new OkHttpClient();
     static {
         //设置超时时间
-        mOkHttpClient.setConnectTimeout(30, TimeUnit.SECONDS);
+        mOkHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
+        mOkHttpClient.setWriteTimeout(10,TimeUnit.SECONDS);
+        mOkHttpClient.setReadTimeout(30,TimeUnit.SECONDS);
     }
 
     /**
@@ -27,8 +29,14 @@ public class OkHttpUtil {
      * @return
      * @throws IOException
      */
-    public static Response execute(Request request) throws IOException{
-        return mOkHttpClient.newCall(request).execute();
+    public static Response execute(Request request) {
+
+        try {
+            return mOkHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -67,7 +75,7 @@ public class OkHttpUtil {
     public static String getStringFromServer(String url) throws IOException{
         Request request = new Request.Builder().url(url).build();
         Response response = execute(request);
-        if (response.isSuccessful()){
+        if (response != null && response.isSuccessful()){
             String responseUrl = response.body().string();
             return  responseUrl;
         } else {
@@ -77,7 +85,7 @@ public class OkHttpUtil {
                     ToastUtil.showToast("网络连接错误!");
                 }
             });
-            throw new IOException("Unexpected code " + response);
+            return null;
         }
     }
 

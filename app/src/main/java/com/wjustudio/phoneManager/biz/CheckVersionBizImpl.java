@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
@@ -40,64 +41,70 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
     public void checkVersion(String versionCode) {
         try {
             String jsonString = OkHttpUtil.getStringFromServer(Url.checkVersion);
-            final VersionInfo versionInfo = JSON.parseObject(jsonString, VersionInfo.class);
-            LogUtil.e(this, versionInfo.desc);
-            LogUtil.e(this, versionInfo.version);
-            LogUtil.e(this, jsonString);
-            if (!versionCode.equals(versionInfo.version)) {
-                //存在新版本,弹出对话框,下载后弹出安装界面.
-                LogUtil.e(this, "存在新版本");
-                CommonUtil.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        CommonUtil.showInfoDialog(mContext, versionInfo.desc, "发现新版本"
-                                , "确定", "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //下载app
-                                        download(versionInfo.downloadUrl);
-                                    }
-                                },
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        enterHomeActivity();
-                                    }
-                                },
-                                new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        enterHomeActivity();
-                                    }
-                                }
-                        );
-                    }
-                });
+            if (TextUtils.isEmpty(jsonString)) {
+                enterHomeActivity();
             } else {
-                //不存在新版本,进入主界面
-                LogUtil.e(this, "不存在新版本");
-                CommonUtil.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        enterHomeActivity();
-                    }
-                },2000);
+                final VersionInfo versionInfo = JSON.parseObject(jsonString, VersionInfo.class);
+                LogUtil.e(this, versionInfo.desc);
+                LogUtil.e(this, versionInfo.version);
+                LogUtil.e(this, jsonString);
+                if (!versionCode.equals(versionInfo.version)) {
+                    //存在新版本,弹出对话框,下载后弹出安装界面.
+                    LogUtil.e(this, "存在新版本");
+                    CommonUtil.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            CommonUtil.showInfoDialog(mContext, versionInfo.desc, "发现新版本"
+                                    , "确定", "取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //下载app
+                                            download(versionInfo.downloadUrl);
+                                        }
+                                    },
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            enterHomeActivity();
+                                        }
+                                    },
+                                    new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            enterHomeActivity();
+                                        }
+                                    }
+                            );
+                        }
+                    });
+                } else {
+                    //不存在新版本,进入主界面
+                    LogUtil.e(this, "不存在新版本");
+                    CommonUtil.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            enterHomeActivity();
+                        }
+                    }, 2000);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
      * 多线程下载器
+     *
      * @param downloadUrl
      */
-    private void download(String downloadUrl){
+    private void download(String downloadUrl) {
 
         HttpUtils httpUtils = new HttpUtils();
         final String fileUrl = Environment.getExternalStorageDirectory().
-                getAbsolutePath()+"/phoneManager.apk";
+                getAbsolutePath() + "/phoneManager.apk";
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle("下载进度");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -126,12 +133,11 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 intent.addCategory("android.intent.category.DEFAULT");
-                intent.setDataAndType(Uri.fromFile(new File(fileUrl)),"application/vnd.android.package-archive");
-                if (mContext instanceof SplashActivity){
-                    ((SplashActivity)mContext).startActivityForResult(intent,0);
+                intent.setDataAndType(Uri.fromFile(new File(fileUrl)), "application/vnd.android.package-archive");
+                if (mContext instanceof SplashActivity) {
+                    ((SplashActivity) mContext).startActivityForResult(intent, 0);
                 }
             }
-
 
 
             @Override
@@ -145,18 +151,19 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
             @Override
             public void onFailure(HttpException e, String s) {
                 ToastUtil.showToast("下载失败");
-                LogUtil.e("CheckVersionBizImpl",e.toString());
+                LogUtil.e("CheckVersionBizImpl", e.toString());
                 enterHomeActivity();
                 progressDialog.dismiss();
             }
         });
     }
+
     @Override
     public void enterHomeActivity() {
         Intent intent = new Intent(mContext, HomeActivity.class);
         mContext.startActivity(intent);
-        if (mContext instanceof SplashActivity){
-            ((SplashActivity)mContext).finish();
+        if (mContext instanceof SplashActivity) {
+            ((SplashActivity) mContext).finish();
         }
     }
 }

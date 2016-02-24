@@ -2,6 +2,9 @@ package com.wjustudio.phoneManager.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -38,8 +41,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView mLvAppList;
     @Bind(R.id.disc_view)
     DiscView mDiscView;
-    @Bind(R.id.id_toolbar)
+    @Bind(R.id.tb_custom)
     Toolbar mToolbar;
+    @Bind(R.id.dl_left)
+    DrawerLayout mDrawerLayout;
+    @Bind(R.id.ll_left_menu)
+    LinearLayout mLlLeftMenu;
 
     private List<IconInfo> mIcons;
     private Context mContext;
@@ -47,6 +54,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
             R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache,};
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ActionBar mActionBar;
+    private Integer mWindowWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +70,52 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private void init() {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
+
         mContext = this;
+        //设置Toolbar
+        mToolbar.setTitle("手机管理系统");
+        setSupportActionBar(mToolbar);
+        //设置drawerLayout
+        setDrawerLayout();
+        //获得数据
         getIconList();
+        //初始化view
+        initView();
+    }
+
+    /**
+     * 初始化view
+     */
+    private void initView() {
         mDiscView.setValue(300);
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
         mWindowHeight = windowSize.get("height");
+        mWindowWidth = windowSize.get("width");
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mDiscView.getLayoutParams();
-        params.height = (int) (mWindowHeight / 2 + 0.5);
+        params.height = (int) (mWindowHeight / 3 + 0.5) - mActionBar.getHeight();
         mDiscView.setLayoutParams(params);
         mLvAppList.setAdapter(new AppListAdapter(mIcons));
         mLvAppList.setOnItemClickListener(this);
+
+        params = (LinearLayout.LayoutParams)mLlLeftMenu.getLayoutParams();
+        params.width = mWindowWidth *2 / 3;
+        mLlLeftMenu.setLayoutParams(params);
+    }
+
+    /**
+     * 设置drawerLayout
+     */
+    private void setDrawerLayout() {
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true); //设置返回键可用
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
     }
 
     /**
@@ -88,12 +133,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
+        switch (position) {
             case 0:
                 //进入手机防盗
-                if (isSetPwd()){
+                if (isSetPwd()) {
                     showEnterPwdDialog();
-                }else {
+                } else {
                     showSetPwdDialog();
                 }
                 break;
@@ -115,6 +160,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     /**
      * 是否设置了密码
+     *
      * @return
      */
     private boolean isSetPwd() {
@@ -141,7 +187,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 convertView.setTag(holder);
                 RelativeLayout.LayoutParams params =
                         (RelativeLayout.LayoutParams) holder.icon.getLayoutParams();
-                params.height = mWindowHeight / (getCount() * 2);
+                params.height = mWindowHeight * 4 / (getCount() * 9);
                 convertView.setLayoutParams(params);
             } else {
                 holder = (ViewHolder) convertView.getTag();
