@@ -2,4 +2,7 @@
     <string name="app_name">手机管理系统</string>
     <string name="open">开</string>
     <string name="close">关</string>
+    <string name="setting">设置</string>
+    <string name="switch_model">切换主题</string>
+    <string name="login_out">未登录</string>
 </resources>

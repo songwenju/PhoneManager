@@ -10,8 +10,6 @@ import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
  */
 public class CheckVersionBizImplTest extends InstrumentationTestCase {
     public void testCheckVersionBiz() throws Exception {
-        CheckVersionBizImpl mCheckVersionBiz = new CheckVersionBizImpl();
-        mCheckVersionBiz.checkVersion("1");
     }
 
 }

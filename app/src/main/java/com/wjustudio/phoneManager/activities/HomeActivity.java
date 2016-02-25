@@ -18,12 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
+import com.wjustudio.phoneManager.adapter.HomeMainAdapter;
 import com.wjustudio.phoneManager.base.BaiscAdapter;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 import com.wjustudio.phoneManager.lib.dicview.DiscView;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
+import com.wjustudio.phoneManager.widgt.AvatarView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,18 +47,23 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     Toolbar mToolbar;
     @Bind(R.id.dl_left)
     DrawerLayout mDrawerLayout;
-    @Bind(R.id.ll_left_menu)
-    LinearLayout mLlLeftMenu;
+    @Bind(R.id.iv_avatar)
+    AvatarView mIvAvatar;
+    @Bind(R.id.lv_left_menu_content)
+    ListView mLvLeftMenuContent;
+    @Bind(R.id.tv_left_switch_model)
+    TextView mTvLeftSwitchModel;
+    @Bind(R.id.tv_left_setting)
+    TextView mTvLeftSetting;
 
     private List<IconInfo> mIcons;
     private Context mContext;
     private int mWindowHeight;
 
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
-            R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache,};
+            R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar mActionBar;
-    private Integer mWindowWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +94,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
      * 初始化view
      */
     private void initView() {
-        mDiscView.setValue(300);
+        mDiscView.setValue(100);
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
         mWindowHeight = windowSize.get("height");
-        mWindowWidth = windowSize.get("width");
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mDiscView.getLayoutParams();
         params.height = (int) (mWindowHeight / 3 + 0.5) - mActionBar.getHeight();
         mDiscView.setLayoutParams(params);
-        mLvAppList.setAdapter(new AppListAdapter(mIcons));
+        mLvAppList.setAdapter(new HomeMainAdapter(mContext,mIcons,mWindowHeight));
         mLvAppList.setOnItemClickListener(this);
-
-        params = (LinearLayout.LayoutParams)mLlLeftMenu.getLayoutParams();
-        params.width = mWindowWidth *2 / 3;
-        mLlLeftMenu.setLayoutParams(params);
     }
 
     /**
@@ -114,8 +116,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-
     }
 
     /**
@@ -168,38 +168,4 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         return !TextUtils.isEmpty(password);
     }
 
-    /**
-     * AppListAdapter列表适配器
-     */
-    class AppListAdapter extends BaiscAdapter {
-        public AppListAdapter(List list) {
-            super(list);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                convertView = View.inflate(mContext, R.layout.item_home, null);
-                holder = new ViewHolder();
-                holder.icon = (ImageView) convertView.findViewById(R.id.img_icon);
-                holder.iconName = (TextView) convertView.findViewById(R.id.tv_icon_name);
-                convertView.setTag(holder);
-                RelativeLayout.LayoutParams params =
-                        (RelativeLayout.LayoutParams) holder.icon.getLayoutParams();
-                params.height = mWindowHeight * 4 / (getCount() * 9);
-                convertView.setLayoutParams(params);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            holder.icon.setImageResource(mIconArray[position]);
-            holder.iconName.setText(mIcons.get(position).iconName);
-            return convertView;
-        }
-    }
-
-    private static class ViewHolder {
-        public ImageView icon;
-        public TextView iconName;
-    }
 }
