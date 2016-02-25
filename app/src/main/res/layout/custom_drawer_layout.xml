@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/dl_left"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--主布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--Toolbar-->
+        <include layout="@layout/custom_toolbar"/>
+
+        <!--com.wjustudio.phoneManager.lib.dicview.DiscView
+            android:id="@+id/disc_view"
+            android:layout_width="fill_parent"
+            android:layout_height="220dp"
+            android:background="@color/mainColor"
+            app:dvBottomCircleIsShow="true"
+            app:dvCircleMode="dot"
+            app:dvStrokenWidth="13dp"/-->
+        <com.wjustudio.phoneManager.lib.dicview.DiscView
+            android:id="@+id/disc_view"
+            app:dvStrokenWidth="15dp"
+            app:dvBottomCircleIsShow="true"
+            android:background="@color/mainColor"
+            app:dvStartRotateAngle="60"
+            app:dvAngleRotateSpan="240"
+            app:dvOuterCircleShow="true"
+            android:layout_width="fill_parent"
+            android:layout_height="220dp" />
+
+        <ListView
+            android:id="@+id/lv_appList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <!--侧滑菜单-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#fff">
+
+        <include layout="@layout/main_menu" />
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
