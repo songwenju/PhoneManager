@@ -9,4 +9,5 @@
     <color name="divide_line_color">#7f7f7f</color>
     <color name="black">#000000</color>
     <color name="left_bg_color">#E7E5E4</color>
+    <color name="reveal_color">#1b000000</color>
 </resources>

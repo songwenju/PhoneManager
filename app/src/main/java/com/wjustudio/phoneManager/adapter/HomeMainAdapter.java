@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
@@ -19,8 +19,6 @@ import java.util.List;
 public class HomeMainAdapter extends BaiscAdapter {
     private Context mContext ;
     private List<IconInfo> mIcons;
-    private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
-            R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
     private int mWindowHeight;
     public HomeMainAdapter(Context context,List list, int windowHeight) {
         super(list);
@@ -38,14 +36,14 @@ public class HomeMainAdapter extends BaiscAdapter {
             holder.icon = (ImageView) convertView.findViewById(R.id.img_icon);
             holder.iconName = (TextView) convertView.findViewById(R.id.tv_icon_name);
             convertView.setTag(holder);
-            RelativeLayout.LayoutParams params =
-                    (RelativeLayout.LayoutParams) holder.icon.getLayoutParams();
+            LinearLayout.LayoutParams params =
+                    (LinearLayout.LayoutParams) holder.icon.getLayoutParams();
             params.height = mWindowHeight * 4 / (getCount() * 9);
             convertView.setLayoutParams(params);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.icon.setImageResource(mIconArray[position]);
+        holder.icon.setImageResource(mIcons.get(position).icon);
         holder.iconName.setText(mIcons.get(position).iconName);
         return convertView;
     }

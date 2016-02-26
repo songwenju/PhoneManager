@@ -10,6 +10,8 @@
         <!-- 标题颜色 -->
         <item name="android:textColorPrimary">@color/white</item>
 
+        <!--item name="android:listDivider">@drawable/divider_bg</item-->
+
     </style>
 
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">

@@ -1,12 +1,12 @@
 package com.wjustudio.phoneManager.widgt;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.wjustudio.phoneManager.R;
+import com.wjustudio.phoneManager.utils.CommonUtil;
 
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.bitmap.BitmapCallBack;
@@ -22,7 +22,6 @@ public class AvatarView extends CircleImageView {
 
     private int id;
     private String name;
-    private Activity aty;
 
     public AvatarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -40,7 +39,6 @@ public class AvatarView extends CircleImageView {
     }
 
     private void init(Context context) {
-        aty = (Activity) context;
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +73,7 @@ public class AvatarView extends CircleImageView {
                     @Override
                     public void onFailure(Exception e) {
                         super.onFailure(e);
-                        aty.runOnUiThread(new Runnable() {
+                        CommonUtil.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 setImageResource(R.mipmap.login_dface);

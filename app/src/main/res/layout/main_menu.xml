@@ -40,8 +40,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/lv_left_menu_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_left_menu_content"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"/>
 
