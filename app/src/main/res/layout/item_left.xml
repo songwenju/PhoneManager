@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.wjustudio.phoneManager.widgt.RevealLayout
     android:id="@+id/item_home"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:background="@drawable/left_item_selector"
     android:gravity="center_vertical">
 
     <ImageView
@@ -24,4 +26,4 @@
         android:text="应用管理"
         android:textColor="@color/textColor"
         android:textSize="20sp"/>
-</LinearLayout>
+</com.wjustudio.phoneManager.widgt.RevealLayout>

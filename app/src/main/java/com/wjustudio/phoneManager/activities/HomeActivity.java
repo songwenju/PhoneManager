@@ -137,7 +137,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         //RecyclerView设置布局管理器
         mRvLeftMenuContent.setLayoutManager(layoutManager);
         //设置侧拉菜单的recyclerView的布局
-        mRvLeftMenuContent.setAdapter(new LeftMenuAdapter(mContext, mLeftPageIcons, mWindowHeight));
+        mRvLeftMenuContent.setAdapter(new LeftMenuAdapter(mContext, mLeftPageIcons, windowSize));
         //添加分割线
         mRvLeftMenuContent.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST

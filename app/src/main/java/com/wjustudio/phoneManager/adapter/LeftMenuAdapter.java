@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<IconInfo> mLeftPageIcons;
     private int mWindowHeight;
+    private int mWindowWidth;
+
 
     /**
      * 点击事件的监听接口
@@ -34,10 +37,11 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
         mOnItemClickLitener = listener;
     }
 
-    public LeftMenuAdapter(Context context, List<IconInfo> leftPageIcons, int windowHeight) {
+    public LeftMenuAdapter(Context context, List<IconInfo> leftPageIcons,  HashMap<String, Integer> windowSize) {
         mContext = context;
         mLeftPageIcons = leftPageIcons;
-        mWindowHeight = windowHeight;
+        mWindowHeight = windowSize.get("height");
+        mWindowWidth = windowSize.get("width");
     }
 
 
@@ -54,7 +58,10 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
             iconName = (TextView) itemView.findViewById(R.id.tv_icon_name);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) icon.getLayoutParams();
             params.height = mWindowHeight / 9;
-            itemView.setLayoutParams(params);
+            icon.setLayoutParams(params);
+            params = (LinearLayout.LayoutParams) iconName.getLayoutParams();
+            params.width = mWindowWidth - icon.getWidth();
+            iconName.setLayoutParams(params);
         }
     }
 
@@ -62,7 +69,7 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //在该方法中我们创建一个ViewHolder并返回，ViewHolder必须有一个带有View的构造函数，
         //这个View就是我们Item的根布局，在这里我们使用自定义Item的布局；
-        View item = View.inflate(mContext, R.layout.item_home, null);
+        View item = View.inflate(mContext, R.layout.item_left, null);
         return new NormalViewHolder(item);
     }
 

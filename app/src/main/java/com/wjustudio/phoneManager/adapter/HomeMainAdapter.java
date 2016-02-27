@@ -19,6 +19,8 @@ import java.util.List;
 public class HomeMainAdapter extends BaiscAdapter {
     private Context mContext ;
     private List<IconInfo> mIcons;
+    private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
+            R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
     private int mWindowHeight;
     public HomeMainAdapter(Context context,List list, int windowHeight) {
         super(list);
@@ -39,11 +41,11 @@ public class HomeMainAdapter extends BaiscAdapter {
             LinearLayout.LayoutParams params =
                     (LinearLayout.LayoutParams) holder.icon.getLayoutParams();
             params.height = mWindowHeight * 4 / (getCount() * 9);
-            convertView.setLayoutParams(params);
+            holder.icon.setLayoutParams(params);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.icon.setImageResource(mIcons.get(position).icon);
+        holder.icon.setImageResource(mIconArray[position]);
         holder.iconName.setText(mIcons.get(position).iconName);
         return convertView;
     }

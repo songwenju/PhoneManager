@@ -10,4 +10,7 @@
     <color name="black">#000000</color>
     <color name="left_bg_color">#E7E5E4</color>
     <color name="reveal_color">#1b000000</color>
+    <drawable name="reveal_color">#1b000000</drawable>
+    <drawable name="left_bg_color">#E7E5E4</drawable>
+
 </resources>
