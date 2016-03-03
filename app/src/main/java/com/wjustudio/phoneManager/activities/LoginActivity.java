@@ -1,16 +1,42 @@
 package com.wjustudio.phoneManager.activities;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import com.wjustudio.phoneManager.base.BaseActivity;
 
 
 /**
  * 登陆对应的activity
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
+
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected int getLayoutID() {
+        return 0;
+    }
+
+    @Override
+    protected void onInitView() {
+
+    }
+
+    @Override
+    protected void onInitData() {
+
+    }
+
+    @Override
+    protected void onSetViewData() {
+
+    }
+
+    @Override
+    protected void onIntListener() {
+
+    }
+
+    @Override
+    protected void processClick(View v) {
+
     }
 }

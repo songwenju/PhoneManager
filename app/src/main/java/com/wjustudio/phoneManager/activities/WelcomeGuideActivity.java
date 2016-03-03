@@ -1,8 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
+import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
 
@@ -25,7 +24,7 @@ import java.util.List;
  * 作者：songwenju on 2016/1/31 15:13
  * 邮箱：songwenju01@163.com
  */
-public class WelcomeGuideActivity extends Activity implements View.OnClickListener {
+public class WelcomeGuideActivity extends BaseActivity {
     ViewPager mVpGuide;
 
     //引入页面图片资源
@@ -38,45 +37,58 @@ public class WelcomeGuideActivity extends Activity implements View.OnClickListen
     //记录当前选中位置
     private int currentIndex;
     private ArrayList<View> mViews;
-    private Button mStartBtn;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    protected int getLayoutID() {
+        return R.layout.activity_guid;
     }
 
-    /**
-     * 初始化内容
-     */
-    private void init() {
-        mViews = new ArrayList<>();
+    @Override
+    protected void onInitView() {
+        mVpGuide = (ViewPager) findViewById(R.id.vp_guide);
+    }
 
+    @Override
+    protected void onIntListener() {
+
+    }
+
+    @Override
+    protected void onInitData() {
+        mViews = new ArrayList<>();
         //初始化引导页视图列表
         for (int i = 0; i < pics.length; i++) {
             View view = LayoutInflater.from(this).inflate(pics[i], null);
 
             if (i == pics.length - 1) {
-                mStartBtn = (Button) view.findViewById(R.id.btn_enter);
-                mStartBtn.setTag("enter");
-                mStartBtn.setOnClickListener(this);
+                Button startBtn = (Button) view.findViewById(R.id.btn_enter);
+                startBtn.setTag("enter");
+                startBtn.setOnClickListener(this);
             }
 
             mViews.add(view);
         }
-        initView();
     }
 
-    /**
-     * 初始化view
-     */
-    private void initView() {
-        setContentView(R.layout.activity_guid);
-        mVpGuide = (ViewPager) findViewById(R.id.vp_guide);
+    @Override
+    protected void onSetViewData() {
         PagerAdapter adapter = new GuideViewPagerAdapter(mViews);
         mVpGuide.setAdapter(adapter);
         mVpGuide.addOnPageChangeListener(new PageChangeListener());
         initDos();
+    }
+
+
+    @Override
+    protected void processClick(View v) {
+        if(v.getTag().equals("enter")){
+            enterMainActivity();
+            return;
+        }
+        int position = (int) v.getTag();
+        setCurView(position);
+        setCurDot(position);
     }
 
     /**
@@ -96,20 +108,9 @@ public class WelcomeGuideActivity extends Activity implements View.OnClickListen
         mDots[currentIndex].setEnabled(true); //设置为白色,即选中状态
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getTag().equals("enter")){
-            enterMainActivity();
-            return;
-        }
-        int position = (int) v.getTag();
-        setCurView(position);
-        setCurDot(position);
-    }
-
     /**
      * 设置当前的指示点
-     * @param position
+     * @param position 位置
      */
     private void setCurDot(int position) {
         if (position < 0 || position > pics.length || currentIndex == position){
@@ -123,7 +124,7 @@ public class WelcomeGuideActivity extends Activity implements View.OnClickListen
 
     /**
      * 设置当前的view
-     * @param position
+     * @param position 位置
      */
     private void setCurView(int position) {
         if (position < 0 || position >= pics.length){

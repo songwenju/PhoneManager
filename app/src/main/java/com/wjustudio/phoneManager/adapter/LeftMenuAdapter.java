@@ -44,7 +44,6 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
         mWindowWidth = windowSize.get("width");
     }
 
-
     /**
      * 自定义的ViewHolder，持有每个Item的的所有界面元素
      */

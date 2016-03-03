@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +13,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.HomeMainAdapter;
 import com.wjustudio.phoneManager.adapter.LeftMenuAdapter;
+import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 import com.wjustudio.phoneManager.lib.dicview.DiscView;
 import com.wjustudio.phoneManager.utils.CommonUtil;
@@ -38,7 +39,7 @@ import butterknife.ButterKnife;
  * 作者：songwenju on 2016/1/31 20:26
  * 邮箱：songwenju01@163.com
  */
-public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     @Bind(R.id.lv_appList)
     ListView mLvAppList;
     @Bind(R.id.disc_view)
@@ -55,6 +56,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView mTvLeftSetting;
     @Bind(R.id.rv_left_menu_content)
     RecyclerView mRvLeftMenuContent;
+    @Bind(R.id.rl_left_head)
+    RelativeLayout mRlLeftHead;
 
     private List<IconInfo> mMainPageIcons;
     private List<IconInfo> mLeftPageIcons;
@@ -64,39 +67,35 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
             R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
 
-    private int[] mLeftIconArray = {R.mipmap.icon_safe,R.mipmap.icon_safe};
+    private int[] mLeftIconArray = {R.mipmap.icon_safe, R.mipmap.icon_safe};
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar mActionBar;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
+    protected int getLayoutID() {
+        return R.layout.activity_home;
     }
 
-    /**
-     * 初始化相关数据
-     */
-    private void init() {
-        setContentView(R.layout.activity_home);
+    @Override
+    protected void onInitView() {
         ButterKnife.bind(this);
+    }
 
+    @Override
+    protected void onIntListener() {
+
+    }
+
+    @Override
+    protected void onInitData() {
         mContext = this;
         //设置Toolbar
         mToolbar.setTitle("手机管理系统");
         setSupportActionBar(mToolbar);
         //设置drawerLayout
         setDrawerLayout();
-        //获得数据
-        initData();
-        //初始化view
-        initView();
-    }
 
-    /**
-     * 获得图标的列表
-     */
-    private void initData() {
         mMainPageIcons = new ArrayList<>();
         String[] iconNames = CommonUtil.getStringArray(R.array.icon_name);
         for (int i = 0; i < mIconArray.length; i++) {
@@ -107,16 +106,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mLeftPageIcons = new ArrayList<>();
         iconNames = CommonUtil.getStringArray(R.array.left_menu_text);
-        for (int j = 0; j < mLeftIconArray.length;j++){
+        for (int j = 0; j < mLeftIconArray.length; j++) {
             IconInfo iconInfo = new IconInfo(mLeftIconArray[j], iconNames[j]);
             mLeftPageIcons.add(iconInfo);
         }
     }
 
-    /**
-     * 初始化view
-     */
-    private void initView() {
+    @Override
+    protected void onSetViewData() {
         mDiscView.setValue(100);
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
         mWindowHeight = windowSize.get("height");
@@ -127,9 +124,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mLvAppList.setAdapter(new HomeMainAdapter(mContext, mMainPageIcons, mWindowHeight));
         mLvAppList.setOnItemClickListener(this);
 
+        //设置左侧布局各部分的高度
+        params = (LinearLayout.LayoutParams) mRlLeftHead.getLayoutParams();
+        params.height = (int)(mWindowHeight / 3 + 0.5);
+        mRlLeftHead.setLayoutParams(params);
+        mRvLeftMenuContent.setLayoutParams(params);
 
         //设置RecyclerView
-
         // 创建一个线性布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         //设置垂直滚动，也可以设置横向滚动
@@ -158,7 +159,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -197,4 +197,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         return !TextUtils.isEmpty(password);
     }
 
+    @Override
+    protected void processClick(View v) {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
