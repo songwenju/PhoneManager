@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -178,6 +180,16 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
      * 显示设置密码的Dialog
      */
     private void showSetPwdDialog() {
+       View dialogView = setDialog(R.layout.dialog_set_password);
+        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
+        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        cancelBtn.setOnClickListener(null);
 
     }
 
@@ -185,8 +197,21 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
      * 显示填写密码的Dialog
      */
     private void showEnterPwdDialog() {
+
     }
 
+    /**
+     * 设置dialog
+     * @param layout
+     */
+    private View setDialog(int layout){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog dialog = builder.create();
+        View dialogView = View.inflate(mContext, layout, null);
+        dialog.setView(dialogView, 0, 0, 0, 0);
+        dialog.show();
+        return dialogView;
+    }
     /**
      * 是否设置了密码
      *

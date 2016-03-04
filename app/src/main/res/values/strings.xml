@@ -5,4 +5,9 @@
     <string name="setting">设置</string>
     <string name="switch_model">切换主题</string>
     <string name="login_out">未登录</string>
+    <string name="set_pwd_title">设置密码</string>
+    <string name="input_pwd">输入密码：</string>
+    <string name="input_pwd_again">再次输入：</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
 </resources>
