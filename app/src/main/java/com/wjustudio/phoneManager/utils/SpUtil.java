@@ -34,7 +34,7 @@ public class SpUtil {
      */
     public static void putString(String key, String value) {
         mSp = checkoutSP();
-        mSp.edit().putString(key, value).commit();
+        mSp.edit().putString(key, value).apply();
     }
 
     /**
@@ -56,7 +56,7 @@ public class SpUtil {
      */
     public static void putBoolean(String key, boolean value) {
         mSp = checkoutSP();
-        mSp.edit().putBoolean(key, value).commit();
+        mSp.edit().putBoolean(key, value).apply();
     }
 
     /**
@@ -78,7 +78,7 @@ public class SpUtil {
      */
     public static void putInt(String key, int value) {
         mSp = checkoutSP();
-        mSp.edit().putInt(key, value).commit();
+        mSp.edit().putInt(key, value).apply();
     }
 
     /**
