@@ -6,10 +6,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.utils.CommonUtil;
 
-import org.kymjs.kjframe.KJBitmap;
-import org.kymjs.kjframe.bitmap.BitmapCallBack;
+/*import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.bitmap.BitmapCallBack;*/
 
 
 /**
@@ -68,20 +67,20 @@ public class AvatarView extends CircleImageView {
             headUrl = url;
         }
 
-        new KJBitmap().display(this, headUrl, R.mipmap.login_dface, 0, 0,
-                new BitmapCallBack() {
-                    @Override
-                    public void onFailure(Exception e) {
-                        super.onFailure(e);
-                        CommonUtil.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setImageResource(R.mipmap.login_dface);
-                            }
-                        });
-                        setImageResource(R.mipmap.login_dface);
-                    }
-                });
+//        new KJBitmap().display(this, headUrl, R.mipmap.login_dface, 0, 0,
+//                new BitmapCallBack() {
+//                    @Override
+//                    public void onFailure(Exception e) {
+//                        super.onFailure(e);
+//                        CommonUtil.runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                setImageResource(R.mipmap.login_dface);
+//                            }
+//                        });
+//                        setImageResource(R.mipmap.login_dface);
+//                    }
+//                });
     }
 
     public static String getSmallAvatar(String source) {
