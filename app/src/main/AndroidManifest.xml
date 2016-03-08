@@ -26,6 +26,7 @@
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.SecurityActivity"/>
+        <activity android:name=".activities.SecuritySettingActivity"/>
     </application>
 
 </manifest>
