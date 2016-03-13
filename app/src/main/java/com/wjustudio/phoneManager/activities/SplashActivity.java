@@ -31,28 +31,28 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void onInitData() {
+    protected void onInitData() {}
+
+    @Override
+    protected void onSetViewData() {
         //判断应用是否是第一次开启应用
         boolean isFirstOpen = SpUtil.getBoolean(AppConstants.FIRST_OPEN, true);
         if (isFirstOpen) {
             Intent intent = new Intent(this,WelcomeGuideActivity.class);
             startActivity(intent);
             finish();
-        }
-    }
-
-    @Override
-    protected void onSetViewData() {
-        //获得包管理器
-        PackageManager packageManager = getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo("com.wjustudio.phoneManager", 0);
-            String versionName = packageInfo.versionName;
-            mTvSplashActivity.setText(versionName);
-            mSplashPresenter = new SplashPresenter(this);
-            mSplashPresenter.getUpdate(packageInfo);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        }else {
+            //获得包管理器
+            PackageManager packageManager = getPackageManager();
+            try {
+                PackageInfo packageInfo = packageManager.getPackageInfo("com.wjustudio.phoneManager", 0);
+                String versionName = packageInfo.versionName;
+                mTvSplashActivity.setText(versionName);
+                mSplashPresenter = new SplashPresenter(this);
+                mSplashPresenter.getUpdate(packageInfo);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,7 +68,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void onIntListener() {
+    protected void onInitListener() {
 
     }
 

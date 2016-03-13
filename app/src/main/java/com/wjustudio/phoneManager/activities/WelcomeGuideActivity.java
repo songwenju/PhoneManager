@@ -50,7 +50,7 @@ public class WelcomeGuideActivity extends BaseActivity {
     }
 
     @Override
-    protected void onIntListener() {
+    protected void onInitListener() {
 
     }
 
@@ -63,7 +63,6 @@ public class WelcomeGuideActivity extends BaseActivity {
 
             if (i == pics.length - 1) {
                 Button startBtn = (Button) view.findViewById(R.id.btn_enter);
-                startBtn.setTag("enter");
                 startBtn.setOnClickListener(this);
             }
 
@@ -82,7 +81,7 @@ public class WelcomeGuideActivity extends BaseActivity {
 
     @Override
     protected void processClick(View v) {
-        if(v.getTag().equals("enter")){
+        if(v.getId() == R.id.btn_enter){
             enterMainActivity();
             return;
         }

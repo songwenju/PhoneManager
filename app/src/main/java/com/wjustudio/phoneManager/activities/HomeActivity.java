@@ -27,6 +27,7 @@ import com.wjustudio.phoneManager.javaBean.IconInfo;
 import com.wjustudio.phoneManager.lib.dicview.DiscView;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
+import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
 import com.wjustudio.phoneManager.widgt.AvatarView;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
@@ -86,7 +87,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     @Override
-    protected void onIntListener() {
+    protected void onInitListener() {
 
     }
 
@@ -192,8 +193,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdStr = pwd.getText().toString().trim();
-                String rePwdStr = rePwd.getText().toString().trim();
+                String pwdStr = MD5Utils.decode(pwd.getText().toString().trim());
+                String rePwdStr = MD5Utils.decode(rePwd.getText().toString().trim());
                 if (TextUtils.isEmpty(pwdStr)) {
                     toast("密码不能为空！");
                 } else if (TextUtils.isEmpty(rePwdStr)) {
@@ -240,7 +241,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdStr = pwd.getText().toString().trim();
+                String pwdStr = MD5Utils.decode(pwd.getText().toString().trim());
                 String spPwd = SpUtil.getString("enterPwd", "");
                 if (TextUtils.isEmpty(pwdStr)) {
                     toast("密码不能为空！");

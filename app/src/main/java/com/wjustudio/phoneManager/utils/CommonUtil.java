@@ -1,12 +1,12 @@
 package com.wjustudio.phoneManager.utils;
 
 import android.app.Activity;
-import android.graphics.Rect;
-import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -14,6 +14,8 @@ import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 作者：songwenju on 2016/1/24 20:29
@@ -225,5 +227,42 @@ public class CommonUtil {
             }
         }
         return statusHeight;
+    }
+
+    /**
+     * 手机号验证
+     *
+     * @param  str
+     * @return 验证通过返回true
+     */
+    public static boolean isMobile(String str) {
+        Pattern p;
+        Matcher m;
+        boolean b;
+        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+    /**
+     * 电话号码验证
+     *
+     * @param  str
+     * @return 验证通过返回true
+     */
+    public static boolean isPhone(String str) {
+        Pattern p1,p2;
+        Matcher m;
+        boolean b;
+        p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$");  // 验证带区号的
+        p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
+        if(str.length() >9)
+        {   m = p1.matcher(str);
+            b = m.matches();
+        }else{
+            m = p2.matcher(str);
+            b = m.matches();
+        }
+        return b;
     }
 }

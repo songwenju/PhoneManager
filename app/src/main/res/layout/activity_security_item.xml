@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        android:padding="5dp"
+        android:background="@color/white"
+        app:cardElevation="2dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_security_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/phone_lost_delete"/>
+            <TextView
+                android:id="@+id/tv_security_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/img_security_item"
+                android:layout_marginLeft="20dp"
+                android:text="换卡通知"
+                android:textColor="@color/dialogTextColor"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_security_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_security_item_title"
+                android:layout_toRightOf="@id/img_security_item"
+                android:layout_marginLeft="20dp"
+                android:text="换卡通知"
+                android:textColor="@color/textColor"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <ImageView
+              android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        style="@style/common_title"
+        android:text="@string/security_welcome"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="您的手机防盗有以下功能:"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"/>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pic_guidepage_1"/>
+        android:layout_height="wrap_content"
+        android:text="SIM卡变更报警"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location_str"
+        android:textSize="18sp"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="远程数据销毁"
+        android:textSize="18sp"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="远程锁屏"
+        android:textSize="18sp"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"/>
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:clickable="false"
+        android:textSize="18sp"
+        android:textColor="@color/ButtonTextColor"/>
 </LinearLayout>

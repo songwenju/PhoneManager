@@ -8,7 +8,7 @@ import com.wjustudio.phoneManager.base.BaseFragment;
 /**
  * 设置页面的第一个fragment
  */
-public class setUpOneFragment extends BaseFragment{
+public class SetUpOneFragment extends BaseFragment{
     @Override
     protected int getLayoutID() {
         return R.layout.fragment_setup_one;

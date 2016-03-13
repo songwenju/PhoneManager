@@ -19,7 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
         onInitView();
-        onIntListener();
+        onInitListener();
         onInitData();
         onSetViewData();
         registerCommonButton();
@@ -58,9 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected abstract void onSetViewData();
 
     /**
-     * 初始化listener
+     * 初始化listener，注册监听器，适配器
      */
-    protected abstract void onIntListener();
+    protected abstract void onInitListener();
 
     /**
      * BaseActivity没有处理的点击事件，将在这个里面处理

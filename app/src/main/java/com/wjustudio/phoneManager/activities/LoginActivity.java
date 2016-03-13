@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected void onIntListener() {
+    protected void onInitListener() {
 
     }
 
