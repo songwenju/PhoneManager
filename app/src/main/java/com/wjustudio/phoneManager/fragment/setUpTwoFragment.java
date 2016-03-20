@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class SetUpTwoFragment extends BaseFragment {
     @Bind(R.id.et_safe_number)
     EditText mEtSafeNumber;
-    @Bind(R.id.ibtn_select_number)
+    @Bind(R.id.btn_select_number)
     ImageButton mIbtnSelectNumber;
     @Bind(R.id.btn_complete)
     Button mBtnComplete;
@@ -31,7 +31,7 @@ public class SetUpTwoFragment extends BaseFragment {
 
     @Override
     protected int getLayoutID() {
-        return R.layout.fragment_setup_two;
+        return R.layout.activity_security_setup_two;
     }
 
     @Override
@@ -58,16 +58,7 @@ public class SetUpTwoFragment extends BaseFragment {
     protected void processClick(View v) {
         mSafeNum = mEtSafeNumber.getText().toString().trim();
         LogUtil.e(this,"====="+mSafeNum);
-        if (v.getId() == R.id.btn_complete){
-            if (TextUtils.isEmpty(mSafeNum)) {
-                ToastUtil.showToast("手机号码不能为空!");
-            }else if (!CommonUtil.isMobile(mSafeNum)){
-                ToastUtil.showToast("手机号码的格式不正确！");
-            }else {
-                SpUtil.putString("safeNum", MD5Utils.decode(mSafeNum));
-                getActivity().finish();
-            }
-        }
+
     }
 
     @Override

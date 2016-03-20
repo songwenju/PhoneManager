@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/setting_two"
+              android:visibility="gone"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:orientation="vertical">
-   <TextView
-       style="@style/common_title"
-       android:text="@string/set_security_num"/>
+              android:orientation="vertical">
+
     <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        style="@style/common_title"
+        android:text="@string/set_security_num"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/security_description"
         android:textColor="@color/dialogTextColor"
         android:textSize="18sp"/>
+
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
+
         <EditText
             android:id="@+id/et_safe_number"
-            android:layout_weight="1"
-            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/dialogTextColor"
-            android:hint="请输入安全号码"/>
+            android:layout_weight="1"
+            android:hint="请输入安全号码"
+            android:inputType="phone"
+            android:textColor="@color/dialogTextColor"/>
+
         <ImageButton
-            android:id="@+id/ibtn_select_number"
-            android:layout_gravity="center"
+            android:id="@+id/btn_select_number"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:src="@mipmap/select_contact"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_complete"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/start_security"
-        android:textSize="18sp"
-        android:textColor="@color/ButtonTextColor"/>
+        android:textColor="@color/ButtonTextColor"
+        android:textSize="18sp"/>
 </LinearLayout>

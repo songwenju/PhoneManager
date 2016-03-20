@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/setting_one"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:orientation="vertical">
+
     <TextView
         style="@style/common_title"
         android:text="@string/security_welcome"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,43 +20,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SIM卡变更报警"
-        android:textSize="18sp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:text="SIM卡变更报警"
+        android:textSize="18sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"
         android:text="@string/location_str"
-        android:textSize="18sp"
-        android:layout_marginLeft="25dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"/>
+        android:textSize="18sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:drawableLeft="@android:drawable/star_big_on"
+        android:gravity="center_vertical"
         android:text="远程数据销毁"
-        android:textSize="18sp"
-        android:layout_marginLeft="25dp"
-        android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"/>
+        android:textSize="18sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="远程锁屏"
-        android:textSize="18sp"
         android:layout_marginLeft="25dp"
         android:drawableLeft="@android:drawable/star_big_on"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:text="远程锁屏"
+        android:textSize="18sp"/>
+
     <Button
         android:id="@+id/btn_next"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:layout_marginTop="20dp"
         android:clickable="false"
-        android:textSize="18sp"
-        android:textColor="@color/ButtonTextColor"/>
+        android:text="@string/next"
+        android:textColor="@color/ButtonTextColor"
+        android:textSize="18sp"/>
 </LinearLayout>

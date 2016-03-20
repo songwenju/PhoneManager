@@ -10,4 +10,7 @@ import android.content.Context;
 public class AppConstants {
     public static String FIRST_OPEN = "first_open";
     public static Context CONTEXT = PhoneManagerApplication.mAppContext;
+    public static String SAFE_NUM = "safeNum";
+    public static String IS_OPEN_PROTECT = "isOpenProtect";
+    public static String SIM_SERIAL_NUM = "simSerialNum";
 }

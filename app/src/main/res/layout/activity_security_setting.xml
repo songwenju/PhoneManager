@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_security_setting"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation"/>
+    <include  layout="@layout/activity_security_setup_one"/>
+    <include  layout="@layout/activity_security_setup_two"/>
 
-</LinearLayout>
+</FrameLayout>
