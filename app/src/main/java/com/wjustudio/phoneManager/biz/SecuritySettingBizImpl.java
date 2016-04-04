@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.biz;
 
 import android.Manifest;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -27,9 +28,11 @@ public class SecuritySettingBizImpl implements ISecuritySettingBiz {
     private Context mContext;
     private LocationManager mLocationManager;
     private MyLocalListener mLocalListener;
+    private final DevicePolicyManager mDpm;
 
     public SecuritySettingBizImpl(Context context) {
         this.mContext = context;
+        mDpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 
     public String getSIM() {
@@ -117,23 +120,6 @@ public class SecuritySettingBizImpl implements ISecuritySettingBiz {
             }
         }
 
-        /**
-         * 停止监听
-         */
-        public void stopLocationListener() {
-            if (mLocationManager != null) {
-                if (mLocalListener != null) {
-                    if (ActivityCompat.checkSelfPermission(mContext,
-                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            && ActivityCompat.checkSelfPermission(mContext,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    mLocationManager.removeUpdates(mLocalListener);
-                }
-                mLocationManager = null;
-            }
-        }
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
 
@@ -150,18 +136,37 @@ public class SecuritySettingBizImpl implements ISecuritySettingBiz {
         }
     }
 
+    /**
+     * 停止监听
+     */
+    public void stopLocationListener() {
+        if (mLocationManager != null) {
+            if (mLocalListener != null) {
+                if (ActivityCompat.checkSelfPermission(mContext,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(mContext,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                mLocationManager.removeUpdates(mLocalListener);
+            }
+            mLocationManager = null;
+        }
+    }
+
     @Override
     public void lockScreen() {
-        
+        mDpm.lockNow();
     }
 
     @Override
     public void resetPhonePwd(String newNum) {
-
+        mDpm.resetPassword("swj123",0);
     }
 
     @Override
     public void cleanData() {
-
+        //清除sd卡数据
+       mDpm.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE);
     }
 }

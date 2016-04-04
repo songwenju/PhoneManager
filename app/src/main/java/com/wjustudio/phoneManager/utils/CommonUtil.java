@@ -13,7 +13,9 @@ import android.view.WindowManager;
 import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
 
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,83 +26,95 @@ import java.util.regex.Pattern;
 public class CommonUtil {
     /**
      * 在主线程执行任务,该方法在fragment中也可以使用.
+     *
      * @param r
      */
-    public static void runOnUiThread(Runnable r){
+    public static void runOnUiThread(Runnable r) {
         PhoneManagerApplication.mAppHandler.post(r);
     }
 
     /**
      * 在主线程中执行延迟任务
+     *
      * @param r
      * @param delayMillis
      */
-    public static void runOnUiThread(Runnable r,long delayMillis){
-        PhoneManagerApplication.mAppHandler.postDelayed(r,delayMillis);
+    public static void runOnUiThread(Runnable r, long delayMillis) {
+        PhoneManagerApplication.mAppHandler.postDelayed(r, delayMillis);
     }
 
     /**
      * 获得Resources对象
+     *
      * @return
      */
-    public static Resources getResources(){
+    public static Resources getResources() {
         return PhoneManagerApplication.mAppContext.getResources();
     }
 
     /**
      * 获得String
+     *
      * @param id
      * @return
      */
-    public static String getString(int id){
+    public static String getString(int id) {
         return getResources().getString(id);
     }
 
     /**
      * 获取字符数组
+     *
      * @param id
      * @return
      */
-    public static String[] getStringArray(int id){
+    public static String[] getStringArray(int id) {
         return getResources().getStringArray(id);
     }
+
     /**
      * 获得颜色值
+     *
      * @param id
      * @return
      */
-    public static int getColor(int id){
+    public static int getColor(int id) {
         return getResources().getColor(id);
     }
 
     /**
      * 获得Dimens值
+     *
      * @param id
      * @return
      */
-    public static int getDimens(int id){
+    public static int getDimens(int id) {
         return (int) getResources().getDimension(id);
     }
 
     /**
      * 获得Drawable对象
+     *
      * @param id
      * @return
      */
-    public static Drawable getDrawable(int id){
+    public static Drawable getDrawable(int id) {
         return getResources().getDrawable(id);
     }
 
     /**
      * 显示dialog弹框
+     *
      * @param context
      * @param message
      */
-    public static void showInfoDialog(Context context, String message){
-        showInfoDialog(context,message,"提示","确定","",null,null,null);
+    public static void showInfoDialog(Context context, String message) {
+        showInfoDialog(context, message, "提示", "确定", "", null, null, null);
     }
+
     /**
      * 显示dialog弹框
+     *
      * @param context
      * @param message
      * @param titleStr
@@ -108,14 +122,14 @@ public class CommonUtil {
      * @param positiveListener
      */
     public static void showInfoDialog(Context context, String message,
-                                      String titleStr , String positiveStr,String negativeStr,
+                                      String titleStr, String positiveStr, String negativeStr,
                                       DialogInterface.OnClickListener positiveListener,
                                       DialogInterface.OnClickListener negativeListener,
-                                      DialogInterface.OnCancelListener cancelListener){
+                                      DialogInterface.OnCancelListener cancelListener) {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(context);
         localBuilder.setTitle(titleStr);
         localBuilder.setMessage(message);
-        if (positiveListener == null){
+        if (positiveListener == null) {
             positiveListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -123,8 +137,8 @@ public class CommonUtil {
                 }
             };
         }
-        localBuilder.setPositiveButton(positiveStr,positiveListener);
-        localBuilder.setNegativeButton(negativeStr,negativeListener);
+        localBuilder.setPositiveButton(positiveStr, positiveListener);
+        localBuilder.setNegativeButton(negativeStr, negativeListener);
         localBuilder.setOnCancelListener(cancelListener);
         localBuilder.show();
 
@@ -132,36 +146,38 @@ public class CommonUtil {
 
     /**
      * md5加密
+     *
      * @param paramString
      * @return
      */
-    public static String md5(String paramString){
+    public static String md5(String paramString) {
         String returnStr;
         try {
             MessageDigest localMessageDigest = MessageDigest.getInstance("MD5");
             localMessageDigest.update(paramString.getBytes());
             returnStr = byteToHexString(localMessageDigest.digest());
             return returnStr;
-        }catch (Exception e){
+        } catch (Exception e) {
             return paramString;
         }
     }
 
     /**
      * 将制定的byte数组转换为16进制的字符串
+     *
      * @param digest
      * @return
      */
     private static String byteToHexString(byte[] digest) {
         StringBuffer hexString = new StringBuffer();
-        for (int i = 0;i < digest.length; i++){
+        for (int i = 0; i < digest.length; i++) {
             String hex = Integer.toHexString(digest[i] & 0xFF);
-            if (hex.length() == 1){
+            if (hex.length() == 1) {
                 hex = '0' + hex;
             }
             hexString.append(hex.toUpperCase());
         }
-        return  hexString.toString();
+        return hexString.toString();
     }
 
     /**
@@ -182,33 +198,35 @@ public class CommonUtil {
 
     /**
      * 获得宽度和除去通知栏的屏幕的高度
+     *
      * @param activity
      * @return
      */
-    public static HashMap<String,Integer> getWindowSize(Activity activity){
+    public static HashMap<String, Integer> getWindowSize(Activity activity) {
         WindowManager wm = activity.getWindowManager();
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         height -= getStatusBarHeight(activity);
-        HashMap<String,Integer> windowSize = new HashMap<>();
-        windowSize.put("height",height);
-        windowSize.put("width",width);
+        HashMap<String, Integer> windowSize = new HashMap<>();
+        windowSize.put("height", height);
+        windowSize.put("width", width);
         return windowSize;
     }
 
     /**
      * 获得状态栏的高度
+     *
      * @param activity
      * @return
      */
-    public static int getStatusBarHeight(Activity activity){
+    public static int getStatusBarHeight(Activity activity) {
         int statusHeight = 0;
         Rect frame = new Rect();
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         statusHeight = frame.top;
-        if (0 == statusHeight){
+        if (0 == statusHeight) {
             Class<?> localClass;
             try {
                 localClass = Class.forName("com.android.internal.R$dimen");
@@ -232,7 +250,7 @@ public class CommonUtil {
     /**
      * 手机号验证
      *
-     * @param  str
+     * @param str
      * @return 验证通过返回true
      */
     public static boolean isMobile(String str) {
@@ -244,25 +262,35 @@ public class CommonUtil {
         b = m.matches();
         return b;
     }
+
     /**
      * 电话号码验证
      *
-     * @param  str
+     * @param str
      * @return 验证通过返回true
      */
     public static boolean isPhone(String str) {
-        Pattern p1,p2;
+        Pattern p1, p2;
         Matcher m;
         boolean b;
         p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$");  // 验证带区号的
         p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
-        if(str.length() >9)
-        {   m = p1.matcher(str);
+        if (str.length() > 9) {
+            m = p1.matcher(str);
             b = m.matches();
-        }else{
+        } else {
             m = p2.matcher(str);
             b = m.matches();
         }
         return b;
+    }
+
+    private static final String[] LETTERS = new String[]{"A", "B", "C", "D", "E", "F", "G", "H",
+            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
+            "Z"};
+
+    public static boolean isInLatter(String s) {
+        List<String> letters = Arrays.asList(LETTERS);
+        return letters.contains(s);
     }
 }

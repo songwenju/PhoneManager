@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/select_contact_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.wjustudio.phoneManager.widgt.QuickIndexBar
+        android:id="@+id/indexBar"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@color/primary"/>
+    <TextView
+        android:id="@+id/tv_index"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tv_index_bg"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 
@@ -31,17 +32,17 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
         void onItemClick(View view, int position);
     }
 
-    private OnItemClickListener mOnItemClickLitener;
+    private OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClicklistener(OnItemClickListener listener){
-        mOnItemClickLitener = listener;
+        mOnItemClickListener = listener;
     }
 
     public LeftMenuAdapter(Context context, List<IconInfo> leftPageIcons,  HashMap<String, Integer> windowSize) {
         mContext = context;
         mLeftPageIcons = leftPageIcons;
-        mWindowHeight = windowSize.get("height");
-        mWindowWidth = windowSize.get("width");
+        mWindowHeight = windowSize.get(AppConstants.WINDOW_HEIGHT);
+        mWindowWidth = windowSize.get(AppConstants.WINDOW_WIDTH);
     }
 
     /**
@@ -79,11 +80,11 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
         normalHolder.icon.setImageResource(mLeftPageIcons.get(position).icon);
         normalHolder.iconName.setText(mLeftPageIcons.get(position).iconName);
 
-        if (mOnItemClickLitener != null){
+        if (mOnItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickLitener.onItemClick(holder.itemView,position);
+                    mOnItemClickListener.onItemClick(holder.itemView,position);
                 }
             });
         }
