@@ -80,19 +80,21 @@ public class SelectContactAdapter extends RecyclerView.Adapter {
         String pinYin = String.valueOf(contact.pinYin.charAt(0));
         if (CommonUtil.isInLatter(pinYin)) {
             normalViewHolder.pingYin.setText(pinYin);
-        }else {
+        } else {
             normalViewHolder.pingYin.setText("#");
         }
 
-        boolean isNotLatter =  CommonUtil.isInLatter(""+contact.pinYin.charAt(0)) &&
-                CommonUtil.isInLatter(""+ mContactList.get(position - 1).pinYin.charAt(0)) ;
-        
-        if (position > 0 && (contact.pinYin.charAt(0) ==
-                mContactList.get(position - 1).pinYin.charAt(0) || isNotLatter)) {
-            normalViewHolder.pingYin.setVisibility(View.GONE);
-        } else {
-            normalViewHolder.pingYin.setVisibility(View.VISIBLE);
+        if (position > 0) {
+            boolean isNotLatter = CommonUtil.isInLatter("" + contact.pinYin.charAt(0)) &&
+                    CommonUtil.isInLatter("" + mContactList.get(position - 1).pinYin.charAt(0));
+            if ((contact.pinYin.charAt(0) ==
+                    mContactList.get(position - 1).pinYin.charAt(0) || isNotLatter)) {
+                normalViewHolder.pingYin.setVisibility(View.GONE);
+            } else {
+                normalViewHolder.pingYin.setVisibility(View.VISIBLE);
+            }
         }
+
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

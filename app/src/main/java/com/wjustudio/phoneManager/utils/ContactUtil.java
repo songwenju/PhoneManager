@@ -31,7 +31,7 @@ public class ContactUtil {
             LogUtil.i("ContactUtil", "the number of contact:" + rawCursor.getCount());
             while (rawCursor.moveToNext()) {
                 String contact_id = rawCursor.getString(rawCursor.getColumnIndex("contact_id"));
-                LogUtil.i("ContactUtil", contact_id);
+                LogUtil.i("contactUtil","contact_id:"+contact_id);
                 if (contact_id != null) {
                     Cursor dataCursor = context.getContentResolver().query(
                             Uri.parse(AppConstants.DATA_CONTACTS), projection,
@@ -64,6 +64,7 @@ public class ContactUtil {
                 }
             }
         }
+        LogUtil.e("contactUtil","contactNum:"+contacts.size());
         return contacts;
     }
 

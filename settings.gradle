@@ -1,1 +1,1 @@
-include ':app', ':evenbusdemo'
+include ':app', ':evenbusdemo', ':contactdemo'
