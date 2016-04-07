@@ -44,7 +44,7 @@ public class ContactUtil {
                             String mimetype = dataCursor.getString(dataCursor.getColumnIndex("mimetype"));
                             switch (mimetype) {
                                 case "vnd.android.cursor.item/name":
-                                    contact.name = data1;
+                                    contact.contact_name = data1;
                                     if (ChineseUtil.isChinese(data1.charAt(0))){
                                         contact.pinYin = PinYinUtil.toPinyin(data1);
                                     }else {
@@ -55,7 +55,7 @@ public class ContactUtil {
                                     contact.email = data1;
                                     break;
                                 case "vnd.android.cursor.item/phone_v2":
-                                    contact.telephoneNumber.add(data1);
+                                    contact.contact_phoneNum = data1;
                                     break;
                             }
                         }

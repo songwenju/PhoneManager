@@ -16,6 +16,7 @@ import com.wjustudio.phoneManager.adapter.SelectContactAdapter;
 import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.Contact;
 import com.wjustudio.phoneManager.utils.ContactUtil;
+import com.wjustudio.phoneManager.utils.ContactUtils;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 import com.wjustudio.phoneManager.widgt.QuickIndexBar;
@@ -53,7 +54,7 @@ public class SelectContactActivity extends BaseActivity {
     @Override
     protected void onInitData() {
         mContext = this;
-        mContactList = ContactUtil.getContact(mContext);
+        mContactList = ContactUtils.getContact(mContext);
         for (Contact contact:mContactList) {
             LogUtil.i(this,contact.toString());
         }
@@ -75,7 +76,7 @@ public class SelectContactActivity extends BaseActivity {
         adapter.setOnItemClickListener(new SelectContactAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                contactNum = mContactList.get(position).telephoneNumber.get(0);
+                contactNum = mContactList.get(position).contact_phoneNum;
                 LogUtil.d(this,"contactNum:"+contactNum);
                 if (!TextUtils.isEmpty(contactNum)){
                     Intent intent = getIntent();

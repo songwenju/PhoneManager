@@ -12,6 +12,7 @@ public class Contact {
     public String pinYin;
     public List<String> telephoneNumber = new ArrayList<>();
     public String email;
+    public String sortKey;
 
     @Override
     public String toString() {

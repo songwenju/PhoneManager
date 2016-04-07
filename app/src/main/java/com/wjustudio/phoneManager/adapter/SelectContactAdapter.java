@@ -73,10 +73,10 @@ public class SelectContactAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         LogUtil.i(this, "onBindViewHolder");
         NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
-        LogUtil.d(this, "name:" + mContactList.get(position).name);
+
         Contact contact = mContactList.get(position);
-        normalViewHolder.contactName.setText(contact.name);
-        normalViewHolder.contactNum.setText(contact.telephoneNumber.get(0));
+        normalViewHolder.contactName.setText(contact.contact_name);
+        normalViewHolder.contactNum.setText(contact.contact_phoneNum);
         String pinYin = String.valueOf(contact.pinYin.charAt(0));
         if (CommonUtil.isInLatter(pinYin)) {
             normalViewHolder.pingYin.setText(pinYin);

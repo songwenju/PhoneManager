@@ -1,26 +1,24 @@
-package com.wjustudio.phoneManager.javaBean;
+package com.wjustudio.contactdemo;
 
 /**
  * author：songwenju on 16-4-7 11 : 07
  * Email: songwenju01@163.com
  */
-public class Contact {
+public class ContactMember {
     public String contact_name;
     public String contact_phoneNum;
     public int contact_id;
-    public String email;
-    //public List<String> telephoneNumber = new ArrayList<>();
+
     public String pinYin;
+
     @Override
     public String toString() {
-        return "Contact{" +
+        return "ContactMember{" +
                 "contact_name='" + contact_name + '\'' +
                 ", contact_phoneNum='" + contact_phoneNum + '\'' +
                 ", contact_id=" + contact_id +
-                ", email='" + email + '\'' +
                 ", pinYin='" + pinYin + '\'' +
                 '}';
     }
-
 }
 
