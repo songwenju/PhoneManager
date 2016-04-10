@@ -1,7 +1,5 @@
 package com.wjustudio.contactdemo;
 
-import android.content.Context;
-
 /**
  * App所用的常量
  * 作者：songwenju on 2016/1/31 11:39

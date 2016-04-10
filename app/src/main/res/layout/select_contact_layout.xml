@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/select_contact_item"
+        android:id="@+id/rcv_contact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <com.wjustudio.phoneManager.widgt.QuickIndexBar
@@ -11,7 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:background="@color/primary"/>
+        />
     <TextView
         android:id="@+id/tv_index"
         android:layout_width="100dp"

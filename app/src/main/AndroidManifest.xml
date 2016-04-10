@@ -31,9 +31,10 @@
         <activity android:name=".activities.WelcomeGuideActivity"/>
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.LoginActivity"/>
-        <activity android:name=".activities.SecurityActivity"/>
-        <activity android:name=".activities.SecuritySettingActivity"/>
+        <activity android:name=".activities.TheftProofActivity"/>
+        <activity android:name=".activities.TheftProofSelectActivity"/>
         <activity android:name=".activities.SelectContactActivity"/>
+        <activity android:name=".activities.TheftProofSettingActivity"/>
         <receiver
             android:name=".receive.MyDeviceAdminReceiver"
             android:description="@string/sample_device_admin_description"

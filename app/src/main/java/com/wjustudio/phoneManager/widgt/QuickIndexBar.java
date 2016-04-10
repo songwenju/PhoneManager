@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.wjustudio.phoneManager.utils.LogUtil;
+
 public class QuickIndexBar extends View {
 
     private Paint mPaint;
@@ -48,10 +50,9 @@ public class QuickIndexBar extends View {
 
     private void init() {
         mPaint = new Paint();
-        mPaint.setColor(Color.WHITE);
         mPaint.setAntiAlias(true);
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
-        mPaint.setTextSize(16f);
+        mPaint.setTextSize(50f);
         mBounds = new Rect();
     }
 
@@ -67,7 +68,7 @@ public class QuickIndexBar extends View {
             float textHeight = mBounds.height();
             float x = mCellWidth * 0.5f - textWidth * 0.5f;
             float y = mCellHeight * 0.5f + textHeight * 0.5f + i * mCellHeight;
-            mPaint.setColor(mCurrentIndex == i ? Color.BLUE : Color.WHITE);
+            mPaint.setColor(mCurrentIndex == i ? Color.BLUE : Color.GRAY);
             canvas.drawText(text, x, y, mPaint);
         }
     }

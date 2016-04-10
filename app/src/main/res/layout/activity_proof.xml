@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary">
+        android:background="@color/primary_dark">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/back"/>
         <TextView
             android:layout_margin="15dp"
            android:layout_centerInParent="true"
@@ -17,6 +23,7 @@
             android:textSize="20sp"
             android:textColor="@color/white"/>
         <ImageView
+            android:id="@+id/theft_proof_setting"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
@@ -28,7 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/primary">
+        android:background="#3E7BFE">
         <ImageView
             android:id="@+id/img_lost_title"
             android:layout_centerHorizontal="true"

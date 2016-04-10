@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <include  layout="@layout/activity_security_setup_one"/>
-    <include  layout="@layout/activity_security_setup_two"/>
+    <include  layout="@layout/activity_proof_setup_one"/>
+    <include  layout="@layout/activity_proof_setup_two"/>
 
 </FrameLayout>

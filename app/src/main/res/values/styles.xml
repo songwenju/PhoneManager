@@ -9,9 +9,7 @@
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
         <!-- 标题颜色 -->
         <item name="android:textColorPrimary">@color/white</item>
-
         <!--item name="android:listDivider">@drawable/divider_bg</item-->
-
     </style>
 
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
@@ -31,5 +29,24 @@
         <item name="android:padding">15dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="mSwitchButtonMD">
+        <item name="kswThumbDrawable">@drawable/ksw_md_thumb</item>
+        <item name="kswBackColor">@color/ksw_md_back_color</item>
+        <item name="kswBackMeasureRatio">1.45</item>
+        <item name="kswThumbMarginLeft">-16dp</item>
+        <item name="kswThumbMarginTop">-14dp</item>
+        <item name="kswThumbMarginRight">-16dp</item>
+        <item name="kswThumbMarginBottom">-14dp</item>
+        <item name="kswThumbWidth">@dimen/ksw_md_thumb_ripple_size</item>
+        <item name="kswThumbHeight">@dimen/ksw_md_thumb_ripple_size</item>
+    </style>
+
+    <style name="SwitchButtonStyleMD" parent="mSwitchButtonMD">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 </resources>

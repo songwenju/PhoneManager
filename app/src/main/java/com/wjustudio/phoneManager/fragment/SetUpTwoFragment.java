@@ -1,6 +1,5 @@
 package com.wjustudio.phoneManager.fragment;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,11 +7,7 @@ import android.widget.ImageButton;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseFragment;
-import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
-import com.wjustudio.phoneManager.utils.MD5Utils;
-import com.wjustudio.phoneManager.utils.SpUtil;
-import com.wjustudio.phoneManager.utils.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,7 +26,7 @@ public class SetUpTwoFragment extends BaseFragment {
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_security_setup_two;
+        return R.layout.activity_proof_setup_two;
     }
 
     @Override

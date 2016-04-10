@@ -61,6 +61,6 @@
         android:layout_marginTop="20dp"
         android:clickable="false"
         android:text="@string/next"
-        android:textColor="@color/ButtonTextColor"
+        android:textColor="@color/btn_text_color"
         android:textSize="18sp"/>
 </LinearLayout>

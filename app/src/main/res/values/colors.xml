@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#4381ff</color>
-    <color name="primary_dark">#4381ff</color>
+    <color name="primary_dark">#154B7A</color>
     <color name="mainColor">#4381E7</color>
     <color name="textColor">#848484</color>
     <color name="status_bar_color">@color/primary_dark</color>
     <color name="white">#ffffff</color>
-    <color name="divide_line_color">#7f7f7f</color>
+    <color name="divide_line_color">#A6A6A6</color>
     <color name="black">#000000</color>
     <color name="left_bg_color">#E7E5E4</color>
     <color name="reveal_color">#1b000000</color>
-    <color name="dialogTextColor">#333333</color>
-    <color name="ButtonTextColor">#333333</color>
+    <color name="dialog_text_color">#333333</color>
+    <color name="btn_text_color">#333333</color>
+    <color name="btn_press_color">#bebebe</color>
     <drawable name="reveal_color">#1b000000</drawable>
     <drawable name="left_bg_color">#E7E5E4</drawable>
 
-
+    <!-- switchButton-->
+    <color name="ksw_md_ripple_normal">#1E000000</color>
+    <color name="ksw_md_ripple_checked">#327FC2</color>
+    <color name="ksw_md_solid_shadow">#33000000</color>
+    <color name="ksw_md_solid_normal">#ECECEC</color>
+    <color name="ksw_md_solid_checked">#154B7A</color>
+    <color name="ksw_md_solid_disable">#FFFFFF</color>
+    <color name="ksw_md_solid_checked_disable">#aaaaaa</color>
 
 </resources>

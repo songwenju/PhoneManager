@@ -12,7 +12,6 @@ import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.utils.CommonUtil;
-import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
 import com.wjustudio.phoneManager.utils.ToastUtil;
@@ -23,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * 手机防盗的相关设置界面
  */
-public class SecuritySettingActivity extends BaseActivity {
+public class TheftProofSelectActivity extends BaseActivity {
     @Bind(R.id.btn_next)
     Button mBtnNext;
     @Bind(R.id.et_safe_number)
@@ -40,7 +39,7 @@ public class SecuritySettingActivity extends BaseActivity {
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_security_setting;
+        return R.layout.activity_proof_setup;
     }
 
     @Override

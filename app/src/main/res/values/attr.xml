@@ -39,6 +39,29 @@
         <attr name="border_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="SwitchButton">
+        <attr name="kswThumbDrawable" format="reference"/>
+        <attr name="kswThumbColor" format="color|reference"/>
+        <attr name="kswThumbMargin" format="dimension|reference"/>
+        <attr name="kswThumbMarginTop" format="dimension|reference"/>
+        <attr name="kswThumbMarginBottom" format="dimension|reference"/>
+        <attr name="kswThumbMarginLeft" format="dimension|reference"/>
+        <attr name="kswThumbMarginRight" format="dimension|reference"/>
+        <attr name="kswThumbWidth" format="dimension|reference"/>
+        <attr name="kswThumbHeight" format="dimension|reference"/>
+        <attr name="kswThumbRadius" format="dimension|reference"/>
+        <attr name="kswBackRadius" format="dimension|reference"/>
+        <attr name="kswBackDrawable" format="reference"/>
+        <attr name="kswBackColor" format="color|reference"/>
+        <attr name="kswFadeBack" format="boolean"/>
+        <attr name="kswBackMeasureRatio" format="float"/>
+        <attr name="kswAnimationDuration" format="integer"/>
+        <attr name="kswTintColor" format="color|reference"/>
+        <attr name="kswTextOn" format="string"/>
+        <attr name="kswTextOff" format="string"/>
+        <attr name="kswTextMarginH" format="dimension"/>
+    </declare-styleable>
+
 
     <string-array name="icon_name">
         <item>手机防盗</item>
@@ -47,6 +70,23 @@
         <item>软件管家</item>
         <item>缓存清理</item>
     </string-array>
+    <string-array name="proof_title">
+        <item>换卡通知</item>
+        <item>定位手机位置</item>
+        <item>远程锁屏手机</item>
+        <item>远程清理数据</item>
+        <item>播放报警音乐</item>
+    </string-array>
+
+    <string-array name="proof_info">
+        <item>SIM卡更换时，锁屏并向安全号码发送短信</item>
+        <item>回复#L防盗密码可定位手机位置</item>
+        <item>回复#S防盗密码可定远程锁屏手机</item>
+        <item>回复#P防盗密码远程清除手机的数据</item>
+        <item>回复#W防盗密码可播放报警音乐</item>
+
+    </string-array>
+
     <string-array name="left_menu_text">
         <item>信息备份</item>
         <item>二维码扫描</item>

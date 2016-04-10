@@ -11,7 +11,7 @@ import com.wjustudio.phoneManager.base.BaseFragment;
 public class SetUpOneFragment extends BaseFragment{
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_security_setup_one;
+        return R.layout.activity_proof_setup_one;
     }
 
     @Override

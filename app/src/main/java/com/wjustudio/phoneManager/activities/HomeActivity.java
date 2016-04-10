@@ -223,7 +223,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
      */
     private void enterSecurityActivity() {
         LogUtil.e(this, "进入手机防盗的设置界面");
-        Intent intent = new Intent(this, SecurityActivity.class);
+        Intent intent = new Intent(this, TheftProofActivity.class);
         startActivity(intent);
     }
 

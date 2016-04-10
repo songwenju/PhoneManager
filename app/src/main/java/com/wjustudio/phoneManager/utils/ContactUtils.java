@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
-import com.wjustudio.phoneManager.javaBean.Contact;
+import com.wjustudio.phoneManager.javaBean.ContactInfo;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class ContactUtils {
 
-    public static ArrayList<Contact> getContact(Context context) {
-        ArrayList<Contact> listMembers = new ArrayList<>();
+    public static ArrayList<ContactInfo> getContact(Context context) {
+        ArrayList<ContactInfo> listMembers = new ArrayList<>();
         Cursor cursor = null;
         try {
             Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -33,7 +33,7 @@ public class ContactUtils {
             if (cursor != null && cursor.moveToFirst()) {
                 LogUtil.e("contactUtil", "ContactCount:" + cursor.getCount());
                 while (cursor.moveToNext()){
-                    Contact contact = new Contact();
+                    ContactInfo contact = new ContactInfo();
                     String contact_phoneNum = cursor.getString(cursor
                             .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     String name = cursor.getString(cursor.getColumnIndex(
@@ -44,7 +44,7 @@ public class ContactUtils {
                     contact.contact_phoneNum = contact_phoneNum.replaceAll("[^0-9]", "");
                     contact.contact_id = contact_id;
                     contact.pinYin = getPingYin(name);
-                    LogUtil.e("contactUtils", "contact:" + contact.toString());
+                   // LogUtil.e("contactUtils", "contact:" + contact.toString());
                     if (name != null)
                         listMembers.add(contact);
                 }

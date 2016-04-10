@@ -1,49 +1,27 @@
 package com.wjustudio.phoneManager.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.javaBean.Contact;
+import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
+import com.wjustudio.phoneManager.javaBean.ContactInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * 联系人选择的adapter
  */
-public class SelectContactAdapter extends RecyclerView.Adapter {
-    private Context mContext;
-    private List<Contact> mContactList;
-    private OnItemClickListener mOnItemClickListener;
-    private int mWindowHeight;
-    private int mWindowWidth;
+public class SelectContactAdapter extends BaseRecycleViewAdapter {
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mOnItemClickListener = listener;
-    }
-
-    public SelectContactAdapter(Context context, List<Contact> contactList) {
-        LogUtil.i(this, "SelectContactAdapter");
-        mContext = context;
-        mContactList = contactList;
-        HashMap<String, Integer> windowSize = CommonUtil.getWindowSize((Activity) mContext);
-        mWindowHeight = windowSize.get(AppConstants.WINDOW_HEIGHT);
-        mWindowWidth = windowSize.get(AppConstants.WINDOW_WIDTH);
-        LogUtil.i(this, "mContactList.size:" + mContactList.size());
+    public SelectContactAdapter(Context context, List<ContactInfo> contactList) {
+       super(context,contactList);
     }
 
     public class NormalViewHolder extends RecyclerView.ViewHolder {
@@ -71,13 +49,15 @@ public class SelectContactAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        super.onBindViewHolder(holder,position);
         LogUtil.i(this, "onBindViewHolder");
         NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
 
-        Contact contact = mContactList.get(position);
+        ContactInfo contact = (ContactInfo) mList.get(position);
         normalViewHolder.contactName.setText(contact.contact_name);
         normalViewHolder.contactNum.setText(contact.contact_phoneNum);
         String pinYin = String.valueOf(contact.pinYin.charAt(0));
+
         if (CommonUtil.isInLatter(pinYin)) {
             normalViewHolder.pingYin.setText(pinYin);
         } else {
@@ -85,29 +65,23 @@ public class SelectContactAdapter extends RecyclerView.Adapter {
         }
 
         if (position > 0) {
-            boolean isNotLatter = CommonUtil.isInLatter("" + contact.pinYin.charAt(0)) &&
-                    CommonUtil.isInLatter("" + mContactList.get(position - 1).pinYin.charAt(0));
+            ContactInfo contactNext = (ContactInfo) mList.get(position - 1);
+            boolean isLatter = CommonUtil.isInLatter("" + contact.pinYin.charAt(0)) &&
+                    CommonUtil.isInLatter("" + contactNext.pinYin.charAt(0));
+
             if ((contact.pinYin.charAt(0) ==
-                    mContactList.get(position - 1).pinYin.charAt(0) || isNotLatter)) {
+                   contactNext.pinYin.charAt(0)) || !isLatter) {
+                LogUtil.d(this, "position:" + position);
                 normalViewHolder.pingYin.setVisibility(View.GONE);
             } else {
                 normalViewHolder.pingYin.setVisibility(View.VISIBLE);
             }
+
+        }
+        if (position == 0){
+            normalViewHolder.pingYin.setVisibility(View.VISIBLE);
         }
 
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LogUtil.d(this, "onClick");
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
-                }
-            });
-        }
     }
 
-    @Override
-    public int getItemCount() {
-        return mContactList == null ? 0 : mContactList.size();
-    }
 }
