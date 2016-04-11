@@ -12,6 +12,11 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
 
+    <string name="reset_pwd_title">重置密码</string>
+    <string name="input_old_pwd">输入原始密码：</string>
+    <string name="input_reset_pwd">输入新的密码：</string>
+    <string name="input_reset_pwd_again">再次输入密码：</string>
+
     <string name="security_welcome">欢迎使用手机防盗</string>
     <string name="set_security_num">设置安全号码</string>
     <string name="next">下一步</string>
@@ -19,6 +24,8 @@
     <string name="security_description">请输入或选择联系人作为安全号码，\n SIM卡变更后，报警短信会发送给安全号码</string>
     <string name="location_str">定位手机的位置</string>
     <string name="sample_device_admin_description">我是设备超级管理员的描述</string>
+
     <string name="sample_device_admin">我是设备超级管理员</string>
+
 
 </resources>

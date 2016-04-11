@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,9 +15,11 @@ import com.wjustudio.phoneManager.utils.ToastUtil;
  * 2.提供公共方法，精简代码
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+    protected Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(getLayoutID());
         onInitView();
         onInitListener();
