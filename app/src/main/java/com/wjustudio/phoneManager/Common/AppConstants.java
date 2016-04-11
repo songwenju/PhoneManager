@@ -18,4 +18,6 @@ public class AppConstants {
     public static final String CONTACT_NUM = "contactNum";
     public static final String WINDOW_HEIGHT = "height";
     public static final String WINDOW_WIDTH = "width";
+    public static final String IS_OPEN_PROOF = "isOpenProof";
+
 }
