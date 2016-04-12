@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.HomeMainAdapter;
 import com.wjustudio.phoneManager.adapter.LeftMenuAdapter;
@@ -193,8 +194,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdStr = MD5Utils.decode(pwd.getText().toString().trim());
-                String rePwdStr = MD5Utils.decode(rePwd.getText().toString().trim());
+                String pwdStr = pwd.getText().toString().trim();
+                String rePwdStr = rePwd.getText().toString().trim();
                 if (TextUtils.isEmpty(pwdStr)) {
                     toast("密码不能为空！");
                 } else if (TextUtils.isEmpty(rePwdStr)) {
@@ -202,7 +203,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 } else if (!pwdStr.equals(rePwdStr)) {
                     toast("两次密码不一致！");
                 } else {
-                    SpUtil.putString("enterPwd", pwdStr);
+                    SpUtil.putString(AppConstants.ENTER_PROOF_PWD, MD5Utils.decode(pwdStr));
                     enterSecurityActivity();
                     dialog.dismiss();
                 }
@@ -241,9 +242,10 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdStr = MD5Utils.decode(pwd.getText().toString().trim());
-                String spPwd = SpUtil.getString("enterPwd", "");
-                if (TextUtils.isEmpty(pwdStr)) {
+                String pwdRaw = pwd.getText().toString().trim();
+                String pwdStr = MD5Utils.decode(pwdRaw);
+                String spPwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, "");
+                if (TextUtils.isEmpty(pwdRaw)) {
                     toast("密码不能为空！");
                 } else if (!pwdStr.equals(spPwd)) {
                     toast("密码输入错误！");
@@ -269,7 +271,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
      * @return
      */
     private boolean isSetPwd() {
-        String password = SpUtil.getString("enterPwd", null);
+        String password = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, null);
         return !TextUtils.isEmpty(password);
     }
 

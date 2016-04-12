@@ -6,7 +6,7 @@
 
     <TextView
         style="@style/common_title"
-        android:text="@string/reset_pwd_title"/>
+        android:text="@string/reset_phone_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,48 +18,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/input_origin_pwd"/>
+            android:text="@string/input_new_phone"/>
 
         <EditText
-            android:id="@+id/et_origin_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dialog_text_color"
-            android:inputType="textPassword"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/input_reset_pwd"/>
-
-        <EditText
-            android:id="@+id/et_reset_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dialog_text_color"
-            android:inputType="textPassword"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/input_reset_pwd_again"/>
-
-        <EditText
-            android:id="@+id/et_resetPwd_again"
+            android:id="@+id/et_new_safeNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/dialog_text_color"

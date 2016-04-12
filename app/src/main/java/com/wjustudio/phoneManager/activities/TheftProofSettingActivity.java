@@ -13,6 +13,8 @@ import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.lib.switchButton.SwitchButton;
 import com.wjustudio.phoneManager.service.TheftProofService;
+import com.wjustudio.phoneManager.utils.CommonUtil;
+import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
 
@@ -68,6 +70,7 @@ public class TheftProofSettingActivity extends BaseActivity {
     protected void processClick(View v) {
         switch (v.getId()) {
             case R.id.ll_edit_phone:
+                showReSetPhoneDialog();
                 break;
             case R.id.ll_edit_pwd:
                 showReSetPwdDialog();
@@ -82,31 +85,76 @@ public class TheftProofSettingActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * 显示设置安全号码的Dialog
+     */
+    private void showReSetPhoneDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        final AlertDialog dialog = builder.create();
+        View dialogView = View.inflate(mContext, R.layout.dialog_reset_safe_num, null);
+        dialog.setView(dialogView, 0, 0, 0, 0);
+        final EditText newSafeNum = (EditText) dialogView.findViewById(R.id.et_new_safeNum);
+        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
+        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newSafeNumStr = newSafeNum.getText().toString().trim();
+                if (TextUtils.isEmpty(newSafeNumStr)) {
+                    toast("安全号码不能为空！");
+                } else if (CommonUtil.isPhone(newSafeNumStr)) {
+                    toast("安全号码输入有误！");
+                } else {
+                    SpUtil.putString(AppConstants.SAFE_NUM, newSafeNumStr);
+                    dialog.dismiss();
+                }
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
     /**
      * 显示设置密码的Dialog
      */
     private void showReSetPwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         final AlertDialog dialog = builder.create();
-        View dialogView = View.inflate(mContext, R.layout.dialog_set_password, null);
+        View dialogView = View.inflate(mContext, R.layout.dialog_reset_password, null);
         dialog.setView(dialogView, 0, 0, 0, 0);
-        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
-        final EditText rePwd = (EditText) dialogView.findViewById(R.id.et_rePwd);
+        final EditText originPwd = (EditText) dialogView.findViewById(R.id.et_origin_pwd);
+        final EditText resetPwd = (EditText) dialogView.findViewById(R.id.et_reset_pwd);
+        final EditText resetPwdAgain = (EditText) dialogView.findViewById(R.id.et_resetPwd_again);
         Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
         Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdStr = MD5Utils.decode(pwd.getText().toString().trim());
-                String rePwdStr = MD5Utils.decode(rePwd.getText().toString().trim());
-                if (TextUtils.isEmpty(pwdStr)) {
-                    toast("密码不能为空！");
+                String savePwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD,"");
+                String originPwdStr = originPwd.getText().toString().trim();
+                String originMD5PwdStr =  MD5Utils.decode(originPwdStr);
+                String rePwdStr = resetPwd.getText().toString().trim();
+                String resetPwdAgainStr =resetPwdAgain.getText().toString().trim();
+                String rePwdMD5Str = MD5Utils.decode(rePwdStr);
+                LogUtil.d(this,"originPwdStr:"+originPwdStr);
+                if (TextUtils.isEmpty(originPwdStr)) {
+                    toast("原始密码不能为空！");
+                } else if (!savePwd.equals(originMD5PwdStr)) {
+                    toast("原始密码输入有误！");
                 } else if (TextUtils.isEmpty(rePwdStr)) {
-                    toast("再次输入的密码不能为空！");
-                } else if (!pwdStr.equals(rePwdStr)) {
-                    toast("两次密码不一致！");
+                    toast("输入的新密码不能为空！");
+                } else if (TextUtils.isEmpty(resetPwdAgainStr)) {
+                    toast("再次输入的新密码不能为空！");
+                } else if (!rePwdStr.equals(resetPwdAgainStr)) {
+                    toast("两次新密码不一致！");
                 } else {
-                    SpUtil.putString("enterPwd", pwdStr);
+                    SpUtil.putString(AppConstants.ENTER_PROOF_PWD, rePwdMD5Str);
                     dialog.dismiss();
                 }
             }
