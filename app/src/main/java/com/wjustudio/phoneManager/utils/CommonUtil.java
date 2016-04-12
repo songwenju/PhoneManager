@@ -1,8 +1,10 @@
 package com.wjustudio.phoneManager.utils;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -10,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
 
 import java.security.MessageDigest;
@@ -24,6 +27,7 @@ import java.util.regex.Pattern;
  * 邮箱：songwenju01@163.com
  */
 public class CommonUtil {
+
     /**
      * 在主线程执行任务,该方法在fragment中也可以使用.
      *
@@ -289,8 +293,24 @@ public class CommonUtil {
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
             "Z"};
 
+    /**
+     * 判断字符串是否是一个字母
+     * @param s
+     * @return
+     */
     public static boolean isInLatter(String s) {
         List<String> letters = Arrays.asList(LETTERS);
         return letters.contains(s);
+    }
+
+    /**
+     * 注册广播接收者
+     * @param receiver
+     * @param action
+     */
+    public static void registerReceiver(BroadcastReceiver receiver, String action) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(action);
+        AppConstants.CONTEXT.registerReceiver(receiver,filter);
     }
 }

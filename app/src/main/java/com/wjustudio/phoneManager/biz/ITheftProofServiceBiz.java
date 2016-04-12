@@ -5,7 +5,7 @@ package com.wjustudio.phoneManager.biz;
  * 作者：songwenju on 2016/3/20 15:52
  * 邮箱：songwenju01@163.com
  */
-public interface ISecuritySettingBiz {
+public interface ITheftProofServiceBiz {
     /**
      * 绑定SIM卡
      */

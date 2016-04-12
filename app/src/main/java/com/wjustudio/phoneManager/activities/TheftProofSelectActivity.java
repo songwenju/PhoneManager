@@ -86,6 +86,8 @@ public class TheftProofSelectActivity extends BaseActivity {
                 } else {
                     SpUtil.putString(AppConstants.SAFE_NUM, MD5Utils.decode(mSafeNum));
                     SpUtil.putBoolean(AppConstants.IS_OPEN_PROTECT, true);
+                    intent = new Intent(this, TheftProofActivity.class);
+                    startActivity(intent);
                     finish();
                 }
                 break;

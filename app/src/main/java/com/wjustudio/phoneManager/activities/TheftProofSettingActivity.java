@@ -74,7 +74,6 @@ public class TheftProofSettingActivity extends BaseActivity {
                 break;
             case R.id.ll_edit_pwd:
                 showReSetPwdDialog();
-
                 break;
             case R.id.ll_open_proof:
                 mIsOpenProof = !mIsOpenProof;
@@ -173,9 +172,11 @@ public class TheftProofSettingActivity extends BaseActivity {
         Intent intent = new Intent(this, TheftProofService.class);
         if (mIsOpenProof) {
             //开启服务去监听各种状态
+            LogUtil.d(this,"开启服务去监听各种状态");
             startService(intent);
         } else {
             //关闭服务
+            LogUtil.d(this,"关闭服务");
             stopService(intent);
         }
     }

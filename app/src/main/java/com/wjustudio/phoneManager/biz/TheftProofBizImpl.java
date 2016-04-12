@@ -24,13 +24,13 @@ import com.wjustudio.phoneManager.utils.SpUtil;
  * 作者：songwenju on 2016/3/20 16:13
  * 邮箱：songwenju01@163.com
  */
-public class SecuritySettingBizImpl implements ISecuritySettingBiz {
+public class TheftProofBizImpl implements ITheftProofServiceBiz {
     private Context mContext;
     private LocationManager mLocationManager;
     private MyLocalListener mLocalListener;
     private final DevicePolicyManager mDpm;
 
-    public SecuritySettingBizImpl(Context context) {
+    public TheftProofBizImpl(Context context) {
         this.mContext = context;
         mDpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
@@ -59,9 +59,10 @@ public class SecuritySettingBizImpl implements ISecuritySettingBiz {
                     return;
                 }
                 //比较两个sim卡信息,如果不相同,重启时则给设置的安全号码发送短信
-                if (simSerialNum.equals(simSerialNumSp)) {
+                if (!simSerialNum.equals(simSerialNumSp)) {
                     SmsManager sm = SmsManager.getDefault();
-                    sm.sendTextMessage(safeNum, null, "SIM发生变化了！", null, null);
+                    sm.sendTextMessage(safeNum, null, "手机电话卡换了", null, null);
+                    lockScreen();
                 }
             }
         }
@@ -161,7 +162,7 @@ public class SecuritySettingBizImpl implements ISecuritySettingBiz {
 
     @Override
     public void resetPhonePwd(String newNum) {
-        mDpm.resetPassword("swj123",0);
+        mDpm.resetPassword(newNum,0);
     }
 
     @Override

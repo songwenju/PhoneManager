@@ -41,7 +41,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="开启手机防盗"
+            android:text="@string/open_proof_service"
             android:textColor="@color/textColor"
             android:textSize="18sp"/>
         <!--Switch
@@ -74,7 +74,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="更改安全号码"
+            android:text="@string/change_safe_num"
             android:textColor="@color/textColor"
             android:textSize="18sp"/>
         <ImageView
@@ -100,7 +100,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="更改密码"
+            android:text="@string/change_pwd"
             android:textColor="@color/textColor"
             android:textSize="18sp"/>
         <ImageView
