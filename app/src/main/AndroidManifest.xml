@@ -34,6 +34,10 @@
         <activity android:name=".activities.TheftProofSelectActivity"/>
         <activity android:name=".activities.SelectContactActivity"/>
         <activity android:name=".activities.TheftProofSettingActivity"/>
+        <activity android:name=".activities.CacheCleanActivity"/>
+        <activity android:name=".activities.CommGuardActivity"/>
+        <activity android:name=".activities.ProcessManagerActivity"/>
+        <activity android:name=".activities.SoftManagerActivity"/>
 
         <receiver
             android:name=".receive.MyDeviceAdminReceiver"

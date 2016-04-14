@@ -167,8 +167,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent;
         switch (position) {
-            case 0:
+            case AppConstants.THEFT_PROOF:
                 //进入手机防盗
                 if (isSetPwd()) {
                     showEnterPwdDialog();
@@ -176,6 +177,23 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                     showSetPwdDialog();
                 }
                 break;
+            case AppConstants.COMM_GUARD:
+                intent = new Intent(this, CommGuardActivity.class);
+                startActivity(intent);
+                break;
+            case AppConstants.PROCESS_MANAGER:
+                intent = new Intent(this, ProcessManagerActivity.class);
+                startActivity(intent);
+                break;
+            case AppConstants.SOFT_MANAGER:
+                intent = new Intent(this, SoftManagerActivity.class);
+                startActivity(intent);
+                break;
+            case AppConstants.CACHE_CLEAN:
+                intent = new Intent(this, CacheCleanActivity.class);
+                startActivity(intent);
+                break;
+
         }
     }
 
