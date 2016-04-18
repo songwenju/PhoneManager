@@ -1,7 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -66,7 +65,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private List<IconInfo> mMainPageIcons;
     private List<IconInfo> mLeftPageIcons;
-    private Context mContext;
     private int mWindowHeight;
 
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
@@ -75,6 +73,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private int[] mLeftIconArray = {R.mipmap.icon_safe, R.mipmap.icon_safe};
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar mActionBar;
+    private AlertDialog mPwdSetDialog, mPwdInputDialog;
 
 
     @Override
@@ -85,6 +84,87 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     protected void onInitView() {
         ButterKnife.bind(this);
+        initDialog();
+    }
+
+    private void initDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        initPwdSetDialog(builder);
+        initPwdInputDialog(builder);
+
+    }
+
+    /**
+     * 初始化输入密码的dialog
+     * @param builder
+     */
+    private void initPwdInputDialog(AlertDialog.Builder builder) {
+        mPwdInputDialog = builder.create();
+        View dialogView = View.inflate(mContext, R.layout.dialog_input_password, null);
+        mPwdInputDialog.setView(dialogView, 0, 0, 0, 0);
+        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
+        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
+        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwdRaw = pwd.getText().toString().trim();
+                String pwdStr = MD5Utils.decode(pwdRaw);
+                String spPwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, "");
+                if (TextUtils.isEmpty(pwdRaw)) {
+                    toast("密码不能为空！");
+                } else if (!pwdStr.equals(spPwd)) {
+                    toast("密码输入错误！");
+                } else {
+                    enterSecurityActivity();
+                    mPwdInputDialog.dismiss();
+                }
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPwdInputDialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 初始化设置密码的dialog
+     * @param builder
+     */
+    private void initPwdSetDialog(AlertDialog.Builder builder) {
+        mPwdSetDialog = builder.create();
+        View dialogView = View.inflate(mContext, R.layout.dialog_set_password, null);
+        mPwdSetDialog.setView(dialogView, 0, 0, 0, 0);
+        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
+        final EditText rePwd = (EditText) dialogView.findViewById(R.id.et_rePwd);
+        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
+        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwdStr = pwd.getText().toString().trim();
+                String rePwdStr = rePwd.getText().toString().trim();
+                if (TextUtils.isEmpty(pwdStr)) {
+                    toast("密码不能为空！");
+                } else if (TextUtils.isEmpty(rePwdStr)) {
+                    toast("再次输入的密码不能为空！");
+                } else if (!pwdStr.equals(rePwdStr)) {
+                    toast("两次密码不一致！");
+                } else {
+                    SpUtil.putString(AppConstants.ENTER_PROOF_PWD, MD5Utils.decode(pwdStr));
+                    enterSecurityActivity();
+                    mPwdSetDialog.dismiss();
+                }
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPwdSetDialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -94,7 +174,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void onInitData() {
-        mContext = this;
         //设置Toolbar
         mToolbar.setTitle("手机管理系统");
         setSupportActionBar(mToolbar);
@@ -172,9 +251,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             case AppConstants.THEFT_PROOF:
                 //进入手机防盗
                 if (isSetPwd()) {
-                    showEnterPwdDialog();
+                    mPwdInputDialog.show();
                 } else {
-                    showSetPwdDialog();
+                    mPwdSetDialog.show();
                 }
                 break;
             case AppConstants.COMM_GUARD:
@@ -197,45 +276,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         }
     }
 
-    /**
-     * 显示设置密码的Dialog
-     */
-    private void showSetPwdDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        final AlertDialog dialog = builder.create();
-        View dialogView = View.inflate(mContext, R.layout.dialog_set_password, null);
-        dialog.setView(dialogView, 0, 0, 0, 0);
-        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
-        final EditText rePwd = (EditText) dialogView.findViewById(R.id.et_rePwd);
-        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
-        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String pwdStr = pwd.getText().toString().trim();
-                String rePwdStr = rePwd.getText().toString().trim();
-                if (TextUtils.isEmpty(pwdStr)) {
-                    toast("密码不能为空！");
-                } else if (TextUtils.isEmpty(rePwdStr)) {
-                    toast("再次输入的密码不能为空！");
-                } else if (!pwdStr.equals(rePwdStr)) {
-                    toast("两次密码不一致！");
-                } else {
-                    SpUtil.putString(AppConstants.ENTER_PROOF_PWD, MD5Utils.decode(pwdStr));
-                    enterSecurityActivity();
-                    dialog.dismiss();
-                }
-            }
-        });
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
 
     /**
      * 进入手机防盗的activity界面
@@ -246,42 +286,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         startActivity(intent);
     }
 
-    /**
-     * 显示填写密码的Dialog
-     */
-    private void showEnterPwdDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        final AlertDialog dialog = builder.create();
-        View dialogView = View.inflate(mContext, R.layout.dialog_input_password, null);
-        dialog.setView(dialogView, 0, 0, 0, 0);
-        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
-        Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
-        Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String pwdRaw = pwd.getText().toString().trim();
-                String pwdStr = MD5Utils.decode(pwdRaw);
-                String spPwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, "");
-                if (TextUtils.isEmpty(pwdRaw)) {
-                    toast("密码不能为空！");
-                } else if (!pwdStr.equals(spPwd)) {
-                    toast("密码输入错误！");
-                } else {
-                    enterSecurityActivity();
-                    dialog.dismiss();
-                }
-            }
-        });
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
 
     /**
      * 在点击手机防盗页面时是否设置了密码
