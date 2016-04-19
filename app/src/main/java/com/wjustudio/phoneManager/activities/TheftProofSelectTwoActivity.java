@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
@@ -20,26 +19,19 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 手机防盗的相关设置界面
+ * 手机防盗的设置界面
  */
-public class TheftProofSelectActivity extends BaseActivity {
-    @Bind(R.id.btn_next)
-    Button mBtnNext;
+public class TheftProofSelectTwoActivity extends BaseActivity {
     @Bind(R.id.et_safe_number)
     EditText mEtSafeNumber;
     @Bind(R.id.btn_select_number)
     ImageButton mBtnSelectNumber;
     @Bind(R.id.btn_complete)
     Button mBtnComplete;
-    @Bind(R.id.setting_one)
-    LinearLayout mSettingOne;
-    @Bind(R.id.setting_two)
-    LinearLayout mSettingTwo;
-    private String mSafeNum;
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_proof_setup;
+        return R.layout.activity_proof_setup_two;
     }
 
     @Override
@@ -59,7 +51,6 @@ public class TheftProofSelectActivity extends BaseActivity {
 
     @Override
     protected void onInitListener() {
-        mBtnNext.setOnClickListener(this);
         mBtnComplete.setOnClickListener(this);
         mBtnSelectNumber.setOnClickListener(this);
     }
@@ -67,10 +58,6 @@ public class TheftProofSelectActivity extends BaseActivity {
     @Override
     protected void processClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_next:
-                mSettingOne.setVisibility(View.GONE);
-                mSettingTwo.setVisibility(View.VISIBLE);
-                break;
             case R.id.btn_select_number:
                 toast("选择联系人");
                 Intent intent = new Intent(this, SelectContactActivity.class);
@@ -78,13 +65,13 @@ public class TheftProofSelectActivity extends BaseActivity {
                 break;
 
             case R.id.btn_complete:
-                mSafeNum = mEtSafeNumber.getText().toString().trim();
-                if (TextUtils.isEmpty(mSafeNum)) {
+                String safeNum = mEtSafeNumber.getText().toString().trim();
+                if (TextUtils.isEmpty(safeNum)) {
                     ToastUtil.showToast("手机号码不能为空!");
-                } else if (!CommonUtil.isMobile(mSafeNum)) {
+                } else if (!CommonUtil.isMobile(safeNum)) {
                     ToastUtil.showToast("手机号码的格式不正确！");
                 } else {
-                    SpUtil.putString(AppConstants.SAFE_NUM, MD5Utils.decode(mSafeNum));
+                    SpUtil.putString(AppConstants.SAFE_NUM, MD5Utils.decode(safeNum));
                     SpUtil.putBoolean(AppConstants.IS_OPEN_PROTECT, true);
                     intent = new Intent(this, TheftProofActivity.class);
                     startActivity(intent);
@@ -93,6 +80,8 @@ public class TheftProofSelectActivity extends BaseActivity {
                 break;
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -31,7 +31,8 @@
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.TheftProofActivity"/>
-        <activity android:name=".activities.TheftProofSelectActivity"/>
+        <activity android:name=".activities.TheftProofSelectOneActivity"/>
+        <activity android:name=".activities.TheftProofSelectTwoActivity"/>
         <activity android:name=".activities.SelectContactActivity"/>
         <activity android:name=".activities.TheftProofSettingActivity"/>
         <activity android:name=".activities.CacheCleanActivity"/>

@@ -32,5 +32,10 @@
     <string name="change_safe_num">更改安全号码</string>
     <string name="change_pwd">更改密码</string>
 
+    <string name="add_black_num">添加黑名单</string>
+    <string name="black_num_hint">请输入黑名单号码</string>
+    <string name="phone_intercept">电话拦截</string>
+    <string name="sms_intercept">短信拦截</string>
+
 
 </resources>

@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
-import com.wjustudio.phoneManager.utils.MD5Utils;
-import com.wjustudio.phoneManager.utils.SpUtil;
+import com.wjustudio.phoneManager.utils.CommonUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,33 +53,39 @@ public class CommGuardActivity extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         mSetBlackNumDialog = builder.create();
-        View dialogView = View.inflate(mContext, R.layout.dialog_input_password, null);
+        View dialogView = View.inflate(mContext, R.layout.dialog_add_black_num, null);
         mSetBlackNumDialog.setView(dialogView, 0, 0, 0, 0);
-        final EditText pwd = (EditText) dialogView.findViewById(R.id.et_pwd);
+        final EditText phoneNum = (EditText) dialogView.findViewById(R.id.et_phone_num);
         Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
         Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwdRaw = pwd.getText().toString().trim();
-                String pwdStr = MD5Utils.decode(pwdRaw);
-                String spPwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, "");
-                if (TextUtils.isEmpty(pwdRaw)) {
-                    toast("密码不能为空！");
-                } else if (!pwdStr.equals(spPwd)) {
-                    toast("密码输入错误！");
+                String phoneNumPtr = phoneNum.getText().toString().trim();
+
+                if (TextUtils.isEmpty(phoneNumPtr)) {
+                    toast("手机号不能为空！");
+                } else if (!CommonUtil.isPhone(phoneNumPtr)) {
+                    toast("手机号格式错误！");
                 } else {
-                   //TODO
-                    mSetBlackNumDialog.dismiss();
+                    //TODO
+                    dialogDismiss();
                 }
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSetBlackNumDialog.dismiss();
+                dialogDismiss();
             }
         });
+    }
+
+    private void dialogDismiss() {
+        mSetBlackNumDialog.dismiss();
+        if (mIdFab != null) {
+            mIdFab.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -102,7 +106,8 @@ public class CommGuardActivity extends BaseActivity {
 
     @Override
     protected void processClick(View v) {
-        if (v.getId() == R.id.id_fab){
+        if (v.getId() == R.id.id_fab) {
+            mIdFab.setVisibility(View.GONE);
             mSetBlackNumDialog.show();
         }
     }

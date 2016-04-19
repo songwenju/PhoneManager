@@ -56,7 +56,7 @@ public class TheftProofActivity extends BaseActivity {
         mList = new ArrayList<>();
         if (securitySetting) {
             //进入设置界面
-            Intent intent = new Intent(this, TheftProofSelectActivity.class);
+            Intent intent = new Intent(this, TheftProofSelectOneActivity.class);
             startActivity(intent);
             finish();
         }
