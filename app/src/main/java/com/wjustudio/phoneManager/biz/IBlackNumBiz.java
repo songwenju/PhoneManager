@@ -2,7 +2,7 @@ package com.wjustudio.phoneManager.biz;
 
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * songwenju on 16-4-20 : 12 : 27.
@@ -13,7 +13,7 @@ public interface IBlackNumBiz {
      * 获得所有的黑名单
      * @return
      */
-    ArrayList<BlackNumInfo> getAllBlackNum();
+    List<BlackNumInfo> getAllBlackNum();
 
     /**
      * 添加一个黑名单

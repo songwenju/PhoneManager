@@ -79,16 +79,16 @@ public class CommGuardActivity extends BaseActivity {
                 } else if (blackNumBiz.isExist(phoneNumPtr)) {
                     toast("该手机号已经在黑名单.");
                 } else {
-                    blackNumInfo.blackNum = phoneNumPtr;
+                    blackNumInfo.setBlackNum(phoneNumPtr);
 
                     if (cbPhone.isChecked() && cbSMS.isChecked()) {
-                        blackNumInfo.mode = BlackNumBizImpl.BLACK_NUM_ALL;
+                        blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_ALL);
                     } else {
                         if (cbPhone.isChecked()) {
-                            blackNumInfo.mode = BlackNumBizImpl.BLACK_NUM_PHONE;
+                            blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_PHONE);
                         } else {
                             if (cbSMS.isChecked()) {
-                                blackNumInfo.mode = BlackNumBizImpl.BLACK_NUM_SMS;
+                                blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_SMS);
                             } else {
                                 toast("请选择拦截类型！");
                                 return;
