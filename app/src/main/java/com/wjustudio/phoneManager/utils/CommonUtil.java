@@ -34,7 +34,7 @@ public class CommonUtil {
      * @param r
      */
     public static void runOnUiThread(Runnable r) {
-        BaseApplication.mAppHandler.post(r);
+        BaseApplication.getAppHandler().post(r);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CommonUtil {
      * @param delayMillis
      */
     public static void runOnUiThread(Runnable r, long delayMillis) {
-        BaseApplication.mAppHandler.postDelayed(r, delayMillis);
+        BaseApplication.getAppHandler().postDelayed(r, delayMillis);
     }
 
     /**
@@ -53,7 +53,7 @@ public class CommonUtil {
      * @return
      */
     public static Resources getResources() {
-        return BaseApplication.mAppContext.getResources();
+        return BaseApplication.getContext().getResources();
     }
 
     /**

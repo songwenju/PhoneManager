@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
     <application
-        android:name=".Common.BaseApplication"
+        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,11 +32,12 @@
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.TheftProofActivity"/>
-        <activity android:name=".activities.TheftProofSelectActivity"/>
+        <activity android:name=".activities.TheftProofSelectOneActivity"/>
+        <activity android:name=".activities.TheftProofSelectTwoActivity"/>
         <activity android:name=".activities.SelectContactActivity"/>
         <activity android:name=".activities.TheftProofSettingActivity"/>
         <activity android:name=".activities.CacheCleanActivity"/>
-        <activity android:name=".activities.CommGuardActivity"/>
+        <activity android:name=".activities.BlackNumActivity"/>
         <activity android:name=".activities.ProcessManagerActivity"/>
         <activity android:name=".activities.SoftManagerActivity"/>
 

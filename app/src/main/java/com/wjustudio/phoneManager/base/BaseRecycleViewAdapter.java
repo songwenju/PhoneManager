@@ -29,7 +29,9 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize((Activity) mContext);
         mWindowHeight = windowSize.get(AppConstants.WINDOW_HEIGHT);
         mWindowWidth = windowSize.get(AppConstants.WINDOW_WIDTH);
+        this.notifyDataSetChanged();
     }
+
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -55,4 +57,6 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
     }
+
+
 }

@@ -15,7 +15,7 @@ public class AppConstants {
     public static final int CACHE_CLEAN = 4;
 
     public static final String FIRST_OPEN = "first_open";
-    public static final Context CONTEXT = BaseApplication.mAppContext;
+    public static final Context CONTEXT = BaseApplication.getContext();
     public static final String SAFE_NUM = "safeNum";
     public static final String IS_OPEN_PROTECT = "isOpenProtect";
     public static final String SIM_SERIAL_NUM = "simSerialNum";

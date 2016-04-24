@@ -18,7 +18,7 @@ public class ToastUtil {
      */
     public static void showToast(String text){
         if (toast == null){
-            toast = Toast.makeText(BaseApplication.mAppContext,"",Toast.LENGTH_SHORT);
+            toast = Toast.makeText(BaseApplication.getContext(),"",Toast.LENGTH_SHORT);
             //设置toast显示在中间位置
             toast.setGravity(Gravity.CENTER,0,0);
         }

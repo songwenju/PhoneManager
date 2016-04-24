@@ -257,7 +257,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 }
                 break;
             case AppConstants.COMM_GUARD:
-                intent = new Intent(this, CommGuardActivity.class);
+                intent = new Intent(this, BlackNumActivity.class);
                 startActivity(intent);
                 break;
             case AppConstants.PROCESS_MANAGER:

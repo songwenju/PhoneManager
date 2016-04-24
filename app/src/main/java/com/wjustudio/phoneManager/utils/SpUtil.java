@@ -12,7 +12,7 @@ import com.wjustudio.phoneManager.Common.BaseApplication;
  */
 public class SpUtil {
     private static SharedPreferences mSp;
-    private static final Context mContext = BaseApplication.mAppContext;
+    private static final Context mContext = BaseApplication.getContext();
 
     /**
      * 校验sharedPreferences

@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 public class TheftProofActivity extends BaseActivity {
     @Bind(R.id.rv_security)
     RecyclerView mRvSecurity;
-    @Bind(R.id.theft_proof_setting)
+    @Bind(R.id.img_setting)
     ImageView mTheftProofSetting;
 
     private ArrayList<TheftProofInfo> mList;
@@ -56,7 +56,7 @@ public class TheftProofActivity extends BaseActivity {
         mList = new ArrayList<>();
         if (securitySetting) {
             //进入设置界面
-            Intent intent = new Intent(this, TheftProofSelectActivity.class);
+            Intent intent = new Intent(this, TheftProofSelectOneActivity.class);
             startActivity(intent);
             finish();
         }
@@ -90,7 +90,7 @@ public class TheftProofActivity extends BaseActivity {
 
     @Override
     protected void processClick(View v) {
-        if (v.getId() == R.id.theft_proof_setting){
+        if (v.getId() == R.id.img_setting){
             Intent intent = new Intent(this,TheftProofSettingActivity.class);
             startActivity(intent);
         }

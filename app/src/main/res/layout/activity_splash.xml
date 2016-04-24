@@ -3,22 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/launcher_bg"
+    android:background="#4381E8"
     >
 
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/sp_tv_title"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机管理系统"
+        android:textSize="40sp"
+        android:textColor="@color/white"/>
     <TextView
         android:id="@+id/tv_splash_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textColor="@color/white"
         android:text="友情内测版"
-        android:textSize="16sp"
+        android:textSize="24sp"
         />
 
     <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_below="@id/tv_splash_activity"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/sp_tv_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:textSize="30sp"
+        android:text="您的手机您做主"/>
 </RelativeLayout>

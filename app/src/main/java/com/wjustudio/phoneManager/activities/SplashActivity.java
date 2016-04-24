@@ -3,6 +3,7 @@ package com.wjustudio.phoneManager.activities;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +20,10 @@ public class SplashActivity extends BaseActivity {
     @Bind(R.id.tv_splash_activity)
     TextView mTvSplashActivity;
     SplashPresenter mSplashPresenter;
+    @Bind(R.id.sp_tv_button)
+    TextView mSpTvButton;
+    @Bind(R.id.sp_tv_title)
+    TextView mSpTvTitle;
 
     @Override
     protected int getLayoutID() {
@@ -28,20 +33,26 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onInitView() {
         ButterKnife.bind(this);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/childFont.ttf");
+        mSpTvButton.setTypeface(custom_font);
+
+        custom_font = Typeface.createFromAsset(getAssets(),"fonts/yizhi.ttf");
+        mSpTvTitle.setTypeface(custom_font);
     }
 
     @Override
-    protected void onInitData() {}
+    protected void onInitData() {
+    }
 
     @Override
     protected void onSetViewData() {
         //判断应用是否是第一次开启应用
         boolean isFirstOpen = SpUtil.getBoolean(AppConstants.FIRST_OPEN, true);
         if (isFirstOpen) {
-            Intent intent = new Intent(this,WelcomeGuideActivity.class);
+            Intent intent = new Intent(this, WelcomeGuideActivity.class);
             startActivity(intent);
             finish();
-        }else {
+        } else {
             //获得包管理器
             PackageManager packageManager = getPackageManager();
             try {
