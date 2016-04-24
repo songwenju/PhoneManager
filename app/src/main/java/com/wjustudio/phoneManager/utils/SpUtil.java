@@ -3,7 +3,7 @@ package com.wjustudio.phoneManager.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
+import com.wjustudio.phoneManager.Common.BaseApplication;
 
 /**
  * sharedPreferences的管理类
@@ -12,7 +12,7 @@ import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
  */
 public class SpUtil {
     private static SharedPreferences mSp;
-    private static final Context mContext = PhoneManagerApplication.mAppContext;
+    private static final Context mContext = BaseApplication.mAppContext;
 
     /**
      * 校验sharedPreferences

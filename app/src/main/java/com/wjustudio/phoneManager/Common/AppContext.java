@@ -1,16 +1,9 @@
 package com.wjustudio.phoneManager.Common;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.wjustudio.phoneManager.utils.ToastUtil;
-
 /**
  * 全局应用程序类：用于保存和调用全局应用配置
  */
-public class AppContext extends PhoneManagerApplication {
+public class AppContext extends BaseApplication {
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
 

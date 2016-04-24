@@ -3,7 +3,7 @@ package com.wjustudio.phoneManager.utils;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
+import com.wjustudio.phoneManager.Common.BaseApplication;
 
 /**
  * 作者：songwenju on 2016/1/31 21:12
@@ -18,7 +18,7 @@ public class ToastUtil {
      */
     public static void showToast(String text){
         if (toast == null){
-            toast = Toast.makeText(PhoneManagerApplication.mAppContext,"",Toast.LENGTH_SHORT);
+            toast = Toast.makeText(BaseApplication.mAppContext,"",Toast.LENGTH_SHORT);
             //设置toast显示在中间位置
             toast.setGravity(Gravity.CENTER,0,0);
         }

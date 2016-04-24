@@ -13,7 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
-import com.wjustudio.phoneManager.Common.PhoneManagerApplication;
+import com.wjustudio.phoneManager.Common.BaseApplication;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class CommonUtil {
      * @param r
      */
     public static void runOnUiThread(Runnable r) {
-        PhoneManagerApplication.mAppHandler.post(r);
+        BaseApplication.mAppHandler.post(r);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CommonUtil {
      * @param delayMillis
      */
     public static void runOnUiThread(Runnable r, long delayMillis) {
-        PhoneManagerApplication.mAppHandler.postDelayed(r, delayMillis);
+        BaseApplication.mAppHandler.postDelayed(r, delayMillis);
     }
 
     /**
@@ -53,7 +53,7 @@ public class CommonUtil {
      * @return
      */
     public static Resources getResources() {
-        return PhoneManagerApplication.mAppContext.getResources();
+        return BaseApplication.mAppContext.getResources();
     }
 
     /**
@@ -286,6 +286,57 @@ public class CommonUtil {
             m = p2.matcher(str);
             b = m.matches();
         }
+        return b;
+    }
+    /**
+     * 邮箱验证
+     *
+     * @param str
+     * @return 验证通过返回true
+     */
+    public static boolean isCorrectEmail(String str) {
+        Pattern p;
+        Matcher m;
+        boolean b;
+        //验证邮箱
+        p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+
+
+    /**
+     * 姓名验证
+     *
+     * @param str
+     * @return 验证通过返回true
+     */
+    public static boolean isCorrectName(String str) {
+        Pattern p;
+        Matcher m;
+        boolean b;
+        //验证邮箱
+        p = Pattern.compile("^[a-zA-Z0-9_]{3,10}$");
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+
+
+    /**
+     * 密码格式验证
+     *
+     * @param str
+     * @return 验证通过返回true
+     */
+    public static boolean isCorrectPwd(String str) {
+        Pattern p;
+        Matcher m;
+        boolean b;
+        p = Pattern.compile("^[a-zA-Z0-9_]{4,15}$");
+        m = p.matcher(str);
+        b = m.matches();
         return b;
     }
 

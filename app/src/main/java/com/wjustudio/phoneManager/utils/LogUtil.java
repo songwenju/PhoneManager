@@ -9,10 +9,11 @@ import android.util.Log;
  */
 public class LogUtil {
 	private static boolean isDebug = true;
+	private static String baseTag = "swj_";
 	
 	public static void d(String tag, String msg){
 		if (isDebug) {
-			Log.d("swj_"+tag, msg);
+			Log.d(baseTag+tag, msg);
 		}
 	}
 	
@@ -23,29 +24,29 @@ public class LogUtil {
 	 */
 	public static void d(Object object, String msg){
 		if (isDebug) {
-			Log.d("swj_"+object.getClass().getSimpleName(), msg);
+			Log.d(baseTag+object.getClass().getSimpleName(), msg);
 		}
 	}
 	
 	public static void i(String tag, String msg){
 		if (isDebug) {
-			Log.i("swj_"+tag, msg);
+			Log.i(baseTag+tag, msg);
 		}
 	}
 	
 	public static void i(Object object, String msg){
 		if (isDebug) {
-			Log.i("swj_"+object.getClass().getSimpleName(), msg);
+			Log.i(baseTag+object.getClass().getSimpleName(), msg);
 		}
 	}
 	public static void e(String tag, String msg){
 		if (isDebug) {
-			Log.e("swj_"+tag, msg);
+			Log.e(baseTag+tag, msg);
 		}
 	}
 	public static void e(Object object, String msg){
 		if (isDebug) {
-			Log.e("swj_"+object.getClass().getSimpleName(), msg);
+			Log.e(baseTag+object.getClass().getSimpleName(), msg);
 		}
 	}
 }
