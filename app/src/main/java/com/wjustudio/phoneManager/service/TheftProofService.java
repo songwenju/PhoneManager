@@ -42,12 +42,18 @@ public class TheftProofService extends Service {
 
     private void registerSMSReceiver() {
         mSmsReceiver = new SMSReceiver();
-        CommonUtil.registerReceiver(mSmsReceiver, "RECEIVE_SMS");
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("RECEIVE_SMS");
+//        registerReceiver(mSmsReceiver, filter);
+        CommonUtil.registerReceiver(mContext,mSmsReceiver, "RECEIVE_SMS");
     }
 
     private void registerSimChangeReceiver() {
         mSimChangeReceiver = new SIMChangeReceiver();
-        CommonUtil.registerReceiver(mSimChangeReceiver, "RECEIVE_BOOT_COMPLETED");
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("RECEIVE_BOOT_COMPLETED");
+//        registerReceiver(mSimChangeReceiver, filter);
+        CommonUtil.registerReceiver(mContext,mSimChangeReceiver, "RECEIVE_BOOT_COMPLETED");
     }
 
 

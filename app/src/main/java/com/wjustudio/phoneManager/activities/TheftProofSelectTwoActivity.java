@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
+import com.wjustudio.phoneManager.service.TheftProofService;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
@@ -73,6 +74,9 @@ public class TheftProofSelectTwoActivity extends BaseActivity {
                 } else {
                     SpUtil.putString(AppConstants.SAFE_NUM, MD5Utils.decode(safeNum));
                     SpUtil.putBoolean(AppConstants.IS_OPEN_PROTECT, true);
+                    //打开手机防盗的服务
+                    Intent serviceIntent = new Intent(this, TheftProofService.class);
+                    startService(serviceIntent);
                     intent = new Intent(this, TheftProofActivity.class);
                     startActivity(intent);
                     finish();

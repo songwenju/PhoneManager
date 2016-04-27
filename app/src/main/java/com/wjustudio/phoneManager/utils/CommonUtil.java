@@ -1,7 +1,9 @@
 package com.wjustudio.phoneManager.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
@@ -9,10 +11,10 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.Common.BaseApplication;
 
 import java.security.MessageDigest;
@@ -359,9 +361,40 @@ public class CommonUtil {
      * @param receiver
      * @param action
      */
-    public static void registerReceiver(BroadcastReceiver receiver, String action) {
+    public static void registerReceiver(Context context,BroadcastReceiver receiver, String action) {
         IntentFilter filter = new IntentFilter();
         filter.addAction(action);
-        AppConstants.CONTEXT.registerReceiver(receiver,filter);
+        context.registerReceiver(receiver,filter);
+    }
+
+
+    /**
+     * 获取服务是否开启
+     * @param context
+     * @param className 服务的全类名
+     * @return 服务开启的状态
+     */
+    public static boolean isRunningService(Context context,String  className) {
+        boolean isRunning = false;
+        //这里是进程的管理者,活动的管理者
+        ActivityManager am =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        //获取正在运行的服务,maxNum:上限值，如果小于上限值有多少返回多少，大于只返回上限值个数的服务
+        List<ActivityManager.RunningServiceInfo> serviceInfos = am.getRunningServices(1000);
+        //遍历集合
+        for (ActivityManager.RunningServiceInfo serviceInfo : serviceInfos) {
+            //先得到service component 再通过getClassName得打组件的全类名,这里不是getPackageName,因为一个应用有多个服务
+            ComponentName component_Name = serviceInfo.service;
+            //获取服务全类名
+            String componentName = component_Name.getClassName();
+
+            //判断获取类名和传递进来的类名是否一致，一致返回true表示正在运行，不一致返回false表示没有运行
+            if (!TextUtils.isEmpty(className)&&className.equals(componentName)) {
+                //如果包含该服务,说明服务已经开启了
+                isRunning = true;
+                LogUtil.i("commonUtil","service is running:"+isRunning);
+            }
+        }
+        return isRunning;
     }
 }

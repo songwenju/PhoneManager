@@ -24,14 +24,18 @@ import java.util.List;
 public class BlackNumAdapter extends BaseRecycleViewAdapter{
     private BlackNumActivity mBlackNumActivity;
     private BlackNumBizImpl mBlackNumBiz;
+    private TextView tvEmpty;
     public BlackNumAdapter(Context context, List list, BlackNumActivity activity,
-                           BlackNumBizImpl blackNumBiz) {
+                           BlackNumBizImpl blackNumBiz, TextView mTvCallSmsSafeIsEmpty) {
 
         super(context, list);
         LogUtil.i(this,"BlackNumAdapter");
         mBlackNumActivity = activity;
         mBlackNumBiz = blackNumBiz;
+        tvEmpty = mTvCallSmsSafeIsEmpty;
     }
+
+
 
     public class NormalViewHolder extends RecyclerView.ViewHolder{
         ImageView delete, modify;
@@ -58,8 +62,6 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter{
         super.onBindViewHolder(holder, position);
         NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
         final BlackNumInfo blackNumInfo = (BlackNumInfo) mList.get(position);
-        LogUtil.i(this,"blackNum:"+blackNumInfo.getBlackNum());
-        LogUtil.i(this,"mode:"+blackNumInfo.getMode());
         normalViewHolder.blackNum.setText(blackNumInfo.getBlackNum());
         String modeStr = "";
         switch (blackNumInfo.getMode()){
@@ -79,19 +81,22 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter{
         normalViewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.i(this,"delete");
+                LogUtil.i(this, "delete");
                 mList.remove(blackNumInfo);
                 mBlackNumBiz.deleteBlackNum(blackNumInfo);
                 notifyDataSetChanged();
+                if (mList.size() == 0) {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         normalViewHolder.modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.i(this,"modify blackNum");
+                LogUtil.i(this, "modify blackNum");
                 mBlackNumActivity.showSetBlackNumDialog(blackNumInfo.getBlackNum(),
-                        "修改黑名单",blackNumInfo.getMode());
+                        "修改黑名单", blackNumInfo.getMode());
             }
         });
     }

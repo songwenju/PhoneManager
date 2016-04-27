@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,9 +33,9 @@ import butterknife.ButterKnife;
  */
 public class BlackNumActivity extends BaseActivity {
     @Bind(R.id.img_setting)
-    ImageView imgSetting;
-    @Bind(R.id.tv_callSmsSafe_isEmpty)
-    TextView mTvCallSmsSafeIsEmpty;
+    ImageView mImgSetting;
+    @Bind(R.id.tv_black_num_remind)
+    TextView mTvBlackNumRemind;
     @Bind(R.id.lv_black_num)
     RecyclerView mRecyclerView;
     @Bind(R.id.ll_blackNum_progress)
@@ -46,6 +47,11 @@ public class BlackNumActivity extends BaseActivity {
     private List<BlackNumInfo> mBlackNumInfos;
     private BlackNumAdapter mBlackNumAdapter;
     private BlackNumBizImpl mBlackNumBiz;
+    private int mBlackNumMode;
+    private EditText mPhoneNum;
+    private CheckBox mCbPhone;
+    private CheckBox mCbSMS;
+    private BlackNumInfo mBlackNumInfo;
 
     @Override
     protected int getLayoutID() {
@@ -55,7 +61,8 @@ public class BlackNumActivity extends BaseActivity {
     @Override
     protected void onInitView() {
         ButterKnife.bind(this);
-
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yizhi.ttf");
+        mTvBlackNumRemind.setTypeface(typeface);
     }
 
     /**
@@ -68,23 +75,23 @@ public class BlackNumActivity extends BaseActivity {
         View dialogView = View.inflate(mContext, R.layout.dialog_add_black_num, null);
         mSetBlackNumDialog.setView(dialogView, 0, 0, 0, 0);
         TextView dialogTitle = (TextView) dialogView.findViewById(R.id.tv_title);
-        final EditText phoneNum = (EditText) dialogView.findViewById(R.id.et_phone_num);
-        final CheckBox cbPhone = (CheckBox) dialogView.findViewById(R.id.cb_phone);
-        final CheckBox cbSMS = (CheckBox) dialogView.findViewById(R.id.cb_sms);
+        mPhoneNum = (EditText) dialogView.findViewById(R.id.et_phone_num);
+        mCbPhone = (CheckBox) dialogView.findViewById(R.id.cb_phone);
+        mCbSMS = (CheckBox) dialogView.findViewById(R.id.cb_sms);
         Button cancelBtn = (Button) dialogView.findViewById(R.id.btn_cancel);
         Button confirmBtn = (Button) dialogView.findViewById(R.id.btn_confirm);
+
         //设置对话框的属性
         dialogTitle.setText(title);
         if (!TextUtils.isEmpty(blackNum)) {
-            phoneNum.setText(blackNum);
+            mPhoneNum.setText(blackNum);
         }
-        updateMode(mode, cbPhone, cbSMS);
-
-        final BlackNumInfo blackNumInfo = new BlackNumInfo();
+        updateMode(mode, mCbPhone, mCbSMS);
+        mBlackNumInfo = new BlackNumInfo();
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumPtr = phoneNum.getText().toString().trim();
+                String phoneNumPtr = mPhoneNum.getText().toString().trim();
 
                 if (TextUtils.isEmpty(phoneNumPtr)) {
                     toast("手机号不能为空！");
@@ -93,38 +100,41 @@ public class BlackNumActivity extends BaseActivity {
                 } else if (mode == 0 && mBlackNumBiz.isExist(phoneNumPtr)) {
                     toast("该手机号已经在黑名单.");
                 } else {
-                    blackNumInfo.setBlackNum(phoneNumPtr);
 
-                    if (cbPhone.isChecked() && cbSMS.isChecked()) {
-                        blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_ALL);
+                    mBlackNumInfo.setBlackNum(phoneNumPtr);
+                    if (mCbPhone.isChecked() && mCbSMS.isChecked()) {
+                        mBlackNumMode = BlackNumBizImpl.BLACK_NUM_ALL;
                     } else {
-                        if (cbPhone.isChecked()) {
-                            blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_PHONE);
+                        if (mCbPhone.isChecked()) {
+                            mBlackNumMode = BlackNumBizImpl.BLACK_NUM_PHONE;
                         } else {
-                            if (cbSMS.isChecked()) {
-                                blackNumInfo.setMode(BlackNumBizImpl.BLACK_NUM_SMS);
+                            if (mCbSMS.isChecked()) {
+                                mBlackNumMode = BlackNumBizImpl.BLACK_NUM_SMS;
                             } else {
                                 toast("请选择拦截类型！");
                                 return;
                             }
                         }
                     }
-                    LogUtil.i(this, "mBlackNumAdapter = " + mBlackNumAdapter);
+                    mBlackNumInfo.setMode(mBlackNumMode);
                     if (mode == 0) {
-                        mBlackNumBiz.insertBlackNum(blackNumInfo);
-                        mBlackNumInfos.add(blackNumInfo);
+                        LogUtil.i(this, "insert");
+                        mBlackNumBiz.insertBlackNum(mBlackNumInfo);
+                        mBlackNumInfos.add(mBlackNumInfo);
                         //mBlackNumInfos = mBlackNumBiz.getAllBlackNum();这样不行，因为list的地址值变了。
                         //LogUtil.i(this, "blackNum size:"+mBlackNumInfos.size());
-
+                        if (mTvBlackNumRemind.getVisibility() == View.VISIBLE) {
+                            mTvBlackNumRemind.setVisibility(View.GONE);
+                        }
                     } else {
-                        mBlackNumBiz.updateBlackNum(blackNumInfo);
-                        for (int i = 0;i < mBlackNumInfos.size();i++) {
+                        LogUtil.i(this, "update");
+                        mBlackNumBiz.updateBlackNum(mBlackNumInfo);
+                        for (int i = 0; i < mBlackNumInfos.size(); i++) {
                             if (mBlackNumInfos.get(i).getBlackNum().equals(blackNum)) {
                                 LogUtil.i(this, "blackNumInfo blackNum:" + blackNum);
-                                mBlackNumInfos.remove(i);
-                                BlackNumInfo blackNumInfo = new BlackNumInfo(blackNum,mode);
-                                mBlackNumInfos.add(i,blackNumInfo);
-                                updateMode(mode, cbPhone, cbSMS);
+
+                                mBlackNumInfos.get(i).setMode(mBlackNumMode);
+                                updateMode(mBlackNumMode, mCbPhone, mCbSMS);
                                 break;
                             }
                         }
@@ -172,39 +182,49 @@ public class BlackNumActivity extends BaseActivity {
         mBlackNumBiz = new BlackNumBizImpl();
         mBlackNumInfos = mBlackNumBiz.getAllBlackNum();
         LogUtil.i(this, "blackNumInfos size:" + mBlackNumInfos.size());
-        mBlackNumAdapter = new BlackNumAdapter(mContext, mBlackNumInfos, this, mBlackNumBiz);
+        mBlackNumAdapter = new BlackNumAdapter(mContext, mBlackNumInfos, this, mBlackNumBiz, mTvBlackNumRemind);
     }
 
     @Override
     protected void onSetViewData() {
         if (mBlackNumInfos.size() == 0) {
-            mTvCallSmsSafeIsEmpty.setVisibility(View.VISIBLE);
+            mTvBlackNumRemind.setVisibility(View.VISIBLE);
         } else {
-            mTvCallSmsSafeIsEmpty.setVisibility(View.GONE);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-            //设置垂直滚动，也可以设置横向滚动
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            //RecyclerView设置布局管理器
-            mRecyclerView.setLayoutManager(layoutManager);
-            //添加分割线
-            mRecyclerView.addItemDecoration(new DividerItemDecoration(
-                    this, DividerItemDecoration.VERTICAL_LIST
-            ));
-            mRecyclerView.setAdapter(mBlackNumAdapter);
+            mTvBlackNumRemind.setVisibility(View.GONE);
         }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //设置垂直滚动，也可以设置横向滚动
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //RecyclerView设置布局管理器
+        mRecyclerView.setLayoutManager(layoutManager);
+        //添加分割线
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                this, DividerItemDecoration.VERTICAL_LIST
+        ));
+        mRecyclerView.setAdapter(mBlackNumAdapter);
+
 
     }
 
     @Override
     protected void onInitListener() {
         mIdFab.setOnClickListener(this);
+        mImgSetting.setOnClickListener(this);
     }
 
     @Override
     protected void processClick(View v) {
-        if (v.getId() == R.id.id_fab) {
-            showSetBlackNumDialog("", "添加黑名单", 0);
+        switch (v.getId()) {
+            case R.id.id_fab:
+                showSetBlackNumDialog("", "添加黑名单", 0);
+                break;
+            case R.id.img_setting:
+                toast("设置");
+
+                break;
         }
+
     }
 
 }

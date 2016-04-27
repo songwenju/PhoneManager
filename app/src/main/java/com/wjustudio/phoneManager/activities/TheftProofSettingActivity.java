@@ -49,9 +49,8 @@ public class TheftProofSettingActivity extends BaseActivity {
 
     @Override
     protected void onInitData() {
-        mIsOpenProof = SpUtil.getBoolean(AppConstants.IS_OPEN_PROOF, true);
+        mIsOpenProof = CommonUtil.isRunningService(mContext, "com.wjustudio.phoneManager.service.TheftProofService");
         mSbMd.setChecked(mIsOpenProof);
-        manageService();
     }
 
     @Override
@@ -64,6 +63,7 @@ public class TheftProofSettingActivity extends BaseActivity {
         mLlOpenProof.setOnClickListener(this);
         mLlEditPwd.setOnClickListener(this);
         mLlEditPhone.setOnClickListener(this);
+        mSbMd.setOnClickListener(this);
     }
 
     @Override
@@ -76,9 +76,10 @@ public class TheftProofSettingActivity extends BaseActivity {
                 showReSetPwdDialog();
                 break;
             case R.id.ll_open_proof:
+            case R.id.id_fab:
                 mIsOpenProof = !mIsOpenProof;
                 mSbMd.setChecked(mIsOpenProof);
-                SpUtil.putBoolean(AppConstants.IS_OPEN_PROOF, mIsOpenProof);
+//                SpUtil.putBoolean(AppConstants.IS_OPEN_PROOF, mIsOpenProof);
                 manageService();
                 break;
         }
@@ -119,6 +120,7 @@ public class TheftProofSettingActivity extends BaseActivity {
 
         dialog.show();
     }
+
     /**
      * 显示设置密码的Dialog
      */
@@ -135,13 +137,13 @@ public class TheftProofSettingActivity extends BaseActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String savePwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD,"");
+                String savePwd = SpUtil.getString(AppConstants.ENTER_PROOF_PWD, "");
                 String originPwdStr = originPwd.getText().toString().trim();
-                String originMD5PwdStr =  MD5Utils.decode(originPwdStr);
+                String originMD5PwdStr = MD5Utils.decode(originPwdStr);
                 String rePwdStr = resetPwd.getText().toString().trim();
-                String resetPwdAgainStr =resetPwdAgain.getText().toString().trim();
+                String resetPwdAgainStr = resetPwdAgain.getText().toString().trim();
                 String rePwdMD5Str = MD5Utils.decode(rePwdStr);
-                LogUtil.d(this,"originPwdStr:"+originPwdStr);
+                LogUtil.d(this, "originPwdStr:" + originPwdStr);
                 if (TextUtils.isEmpty(originPwdStr)) {
                     toast("原始密码不能为空！");
                 } else if (!savePwd.equals(originMD5PwdStr)) {
@@ -172,11 +174,11 @@ public class TheftProofSettingActivity extends BaseActivity {
         Intent intent = new Intent(this, TheftProofService.class);
         if (mIsOpenProof) {
             //开启服务去监听各种状态
-            LogUtil.d(this,"开启服务去监听各种状态");
+            LogUtil.d(this, "开启服务去监听各种状态");
             startService(intent);
         } else {
             //关闭服务
-            LogUtil.d(this,"关闭服务");
+            LogUtil.d(this, "关闭服务");
             stopService(intent);
         }
     }
