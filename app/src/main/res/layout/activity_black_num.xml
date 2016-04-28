@@ -55,27 +55,6 @@
             android:layout_marginBottom="75dp">
         </android.support.v7.widget.RecyclerView>
 
-        <LinearLayout
-            android:id="@+id/ll_blackNum_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text="玩命加载中..."
-                android:textSize="20sp" />
-        </LinearLayout>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/id_fab"
             android:layout_width="wrap_content"

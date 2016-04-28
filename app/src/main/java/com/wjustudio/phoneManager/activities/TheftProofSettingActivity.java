@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -63,7 +64,14 @@ public class TheftProofSettingActivity extends BaseActivity {
         mLlOpenProof.setOnClickListener(this);
         mLlEditPwd.setOnClickListener(this);
         mLlEditPhone.setOnClickListener(this);
-        mSbMd.setOnClickListener(this);
+        mSbMd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mSbMd.setChecked(isChecked);
+                mIsOpenProof = isChecked;
+                manageService();
+            }
+        });
     }
 
     @Override
@@ -76,15 +84,12 @@ public class TheftProofSettingActivity extends BaseActivity {
                 showReSetPwdDialog();
                 break;
             case R.id.ll_open_proof:
-            case R.id.id_fab:
                 mIsOpenProof = !mIsOpenProof;
                 mSbMd.setChecked(mIsOpenProof);
-//                SpUtil.putBoolean(AppConstants.IS_OPEN_PROOF, mIsOpenProof);
                 manageService();
                 break;
         }
     }
-
 
     /**
      * 显示设置安全号码的Dialog

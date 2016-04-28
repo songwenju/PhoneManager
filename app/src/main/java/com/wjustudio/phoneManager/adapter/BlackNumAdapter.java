@@ -58,7 +58,6 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        LogUtil.i(this,"onBindViewHolder");
         super.onBindViewHolder(holder, position);
         NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
         final BlackNumInfo blackNumInfo = (BlackNumInfo) mList.get(position);

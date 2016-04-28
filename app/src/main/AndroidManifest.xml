@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -40,6 +42,7 @@
         <activity android:name=".activities.BlackNumActivity"/>
         <activity android:name=".activities.ProcessManagerActivity"/>
         <activity android:name=".activities.SoftManagerActivity"/>
+        <activity android:name=".activities.BlackNumSettingActivity"/>
 
         <receiver
             android:name=".receive.MyDeviceAdminReceiver"
@@ -53,11 +56,8 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".service.TheftProofService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
+        <service android:name=".service.TheftProofService"/>
+        <service android:name=".service.BlackNumService"/>
     </application>
 
 </manifest>

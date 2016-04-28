@@ -25,6 +25,8 @@ import com.wjustudio.phoneManager.adapter.LeftMenuAdapter;
 import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 import com.wjustudio.phoneManager.lib.dicview.DiscView;
+import com.wjustudio.phoneManager.service.BlackNumService;
+import com.wjustudio.phoneManager.service.TheftProofService;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
@@ -257,6 +259,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 }
                 break;
             case AppConstants.COMM_GUARD:
+                Intent serviceIntent = new Intent(this, BlackNumService.class);
+                startService(serviceIntent);
+
                 intent = new Intent(this, BlackNumActivity.class);
                 startActivity(intent);
                 break;
@@ -281,7 +286,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
      * 进入手机防盗的activity界面
      */
     private void enterSecurityActivity() {
-        LogUtil.e(this, "进入手机防盗的设置界面");
+        LogUtil.i(this, "进入手机防盗的设置界面");
+        Intent serviceIntent = new Intent(this, TheftProofService.class);
+        startService(serviceIntent);
         Intent intent = new Intent(this, TheftProofActivity.class);
         startActivity(intent);
     }

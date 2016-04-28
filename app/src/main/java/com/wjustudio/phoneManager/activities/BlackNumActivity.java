@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
@@ -38,8 +38,6 @@ public class BlackNumActivity extends BaseActivity {
     TextView mTvBlackNumRemind;
     @Bind(R.id.lv_black_num)
     RecyclerView mRecyclerView;
-    @Bind(R.id.ll_blackNum_progress)
-    LinearLayout mLlCallSmsSafeProgress;
     @Bind(R.id.id_fab)
     FloatingActionButton mIdFab;
 
@@ -220,8 +218,8 @@ public class BlackNumActivity extends BaseActivity {
                 showSetBlackNumDialog("", "添加黑名单", 0);
                 break;
             case R.id.img_setting:
-                toast("设置");
-
+                Intent intent = new Intent(this,BlackNumSettingActivity.class);
+                startActivity(intent);
                 break;
         }
 

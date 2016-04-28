@@ -18,7 +18,7 @@
     <string name="input_reset_pwd_again">再次输入密码：</string>
 
     <string name="reset_phone_title">重置安全号码</string>
-    <string name="input_new_phone">输入新的安全号码：</string>
+    <string name="input_new_phone">输入新号码：</string>
 
     <string name="security_welcome">欢迎使用手机防盗</string>
     <string name="set_security_num">设置安全号码</string>

@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.telephony.SmsMessage;
@@ -42,18 +43,15 @@ public class TheftProofService extends Service {
 
     private void registerSMSReceiver() {
         mSmsReceiver = new SMSReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("RECEIVE_SMS");
-//        registerReceiver(mSmsReceiver, filter);
-        CommonUtil.registerReceiver(mContext,mSmsReceiver, "RECEIVE_SMS");
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        filter.setPriority(1001);
+        registerReceiver(mSmsReceiver,filter);
     }
 
     private void registerSimChangeReceiver() {
         mSimChangeReceiver = new SIMChangeReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("RECEIVE_BOOT_COMPLETED");
-//        registerReceiver(mSimChangeReceiver, filter);
-        CommonUtil.registerReceiver(mContext,mSimChangeReceiver, "RECEIVE_BOOT_COMPLETED");
+        CommonUtil.registerReceiver(mContext,mSimChangeReceiver, "android.intent.action.BOOT_COMPLETED");
     }
 
 

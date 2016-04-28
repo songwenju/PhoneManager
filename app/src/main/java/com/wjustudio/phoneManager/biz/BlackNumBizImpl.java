@@ -29,6 +29,13 @@ public class BlackNumBizImpl implements IBlackNumBiz {
     }
 
     @Override
+    public BlackNumInfo getBlackNumInfo(String blackNum) {
+        List<BlackNumInfo> blackNumInfos = DataSupport.where("blackNum = ?", blackNum).find(BlackNumInfo.class);
+
+        return blackNumInfos.get(0);
+    }
+
+    @Override
     public void deleteBlackNum(BlackNumInfo blackNumInfo) {
         if (!blackNumInfo.isSaved()) {
             blackNumInfo.save();

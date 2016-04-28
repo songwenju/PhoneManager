@@ -22,6 +22,12 @@ public interface IBlackNumBiz {
     void insertBlackNum(BlackNumInfo blackNumInfo);
 
     /**
+     * 通过电话号码获得一个blackNumInfo
+     * @param blackNum
+     */
+    BlackNumInfo getBlackNumInfo(String blackNum);
+
+    /**
      * 删除黑名单信息
      * @param blackNumInfo
      */
