@@ -28,7 +28,7 @@
                 android:layout_toRightOf="@id/img_security_item"
                 android:layout_marginLeft="20dp"
                 android:text="换卡通知"
-                android:textColor="@color/dialog_text_color"
+                android:textColor="@color/gray"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/tv_security_item"

@@ -18,6 +18,7 @@ import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
+import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,9 @@ public class TheftProofSettingActivity extends BaseActivity {
     LinearLayout mLlEditPhone;
     @Bind(R.id.ll_edit_pwd)
     LinearLayout mLlEditPwd;
+    @Bind(R.id.ctl_common_title)
+    CommonTitleLayout mCommonTitleLayout;
+
     private boolean mIsOpenProof;
 
 
@@ -56,7 +60,8 @@ public class TheftProofSettingActivity extends BaseActivity {
 
     @Override
     protected void onSetViewData() {
-
+        mCommonTitleLayout.setTitle("手机防盗设置");
+        mCommonTitleLayout.setImgSettingVisible(false);
     }
 
     @Override

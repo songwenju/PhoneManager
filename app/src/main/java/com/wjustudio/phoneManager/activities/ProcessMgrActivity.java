@@ -2,16 +2,17 @@ package com.wjustudio.phoneManager.activities;
 
 import android.view.View;
 
+import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
 
 /**
  * songwenju on 16-4-14 : 12 : 16.
  * 邮箱：songwenju@outlook.com
  */
-public class ProcessManagerActivity extends BaseActivity{
+public class ProcessMgrActivity extends BaseActivity{
     @Override
     protected int getLayoutID() {
-        return 0;
+        return R.layout.activity_process_mgr;
     }
 
     @Override

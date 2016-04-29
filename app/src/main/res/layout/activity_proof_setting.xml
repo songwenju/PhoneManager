@@ -4,28 +4,10 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <RelativeLayout
+    <com.wjustudio.phoneManager.widgt.CommonTitleLayout
+        android:id="@+id/ctl_common_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_dark">
-
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:background="@mipmap/back"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="15dp"
-            android:text="手机防盗设置"
-            android:textColor="@color/white"
-            android:textSize="20sp"/>
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/ll_open_proof"

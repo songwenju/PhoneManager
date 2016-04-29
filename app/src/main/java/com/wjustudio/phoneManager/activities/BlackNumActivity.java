@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
@@ -21,6 +20,7 @@ import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
+import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
 import java.util.List;
@@ -32,8 +32,8 @@ import butterknife.ButterKnife;
  * 通讯卫士
  */
 public class BlackNumActivity extends BaseActivity {
-    @Bind(R.id.img_setting)
-    ImageView mImgSetting;
+    @Bind(R.id.ctl_common_title)
+    CommonTitleLayout mCommonTitleLayout;
     @Bind(R.id.tv_black_num_remind)
     TextView mTvBlackNumRemind;
     @Bind(R.id.lv_black_num)
@@ -185,6 +185,7 @@ public class BlackNumActivity extends BaseActivity {
 
     @Override
     protected void onSetViewData() {
+        mCommonTitleLayout.setTitle("通讯卫士");
         if (mBlackNumInfos.size() == 0) {
             mTvBlackNumRemind.setVisibility(View.VISIBLE);
         } else {
@@ -208,7 +209,13 @@ public class BlackNumActivity extends BaseActivity {
     @Override
     protected void onInitListener() {
         mIdFab.setOnClickListener(this);
-        mImgSetting.setOnClickListener(this);
+        mCommonTitleLayout.setOnSettingImgClickListener(new CommonTitleLayout.OnSettingImgClickListener() {
+            @Override
+            public void onSettingImgClick() {
+                Intent intent = new Intent(mContext, BlackNumSettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -216,10 +223,6 @@ public class BlackNumActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.id_fab:
                 showSetBlackNumDialog("", "添加黑名单", 0);
-                break;
-            case R.id.img_setting:
-                Intent intent = new Intent(this,BlackNumSettingActivity.class);
-                startActivity(intent);
                 break;
         }
 

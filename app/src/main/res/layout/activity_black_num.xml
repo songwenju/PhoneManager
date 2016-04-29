@@ -5,35 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.wjustudio.phoneManager.widgt.CommonTitleLayout
+        android:id="@+id/ctl_common_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_dark">
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/back"/>
-        <TextView
-            android:layout_margin="15dp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="通讯卫士"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-        <ImageView
-            android:id="@+id/img_setting"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/setting"/>
+        android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >

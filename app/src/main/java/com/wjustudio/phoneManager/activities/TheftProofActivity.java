@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.SecurityActivityAdapter;
@@ -13,6 +12,7 @@ import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.TheftProofInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
+import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import butterknife.ButterKnife;
 public class TheftProofActivity extends BaseActivity {
     @Bind(R.id.rv_security)
     RecyclerView mRvSecurity;
-    @Bind(R.id.img_setting)
-    ImageView mTheftProofSetting;
+    @Bind(R.id.ctl_common_title)
+    CommonTitleLayout mCommonTitleLayout;
 
     private ArrayList<TheftProofInfo> mList;
     private int[] mIconArray = {
@@ -70,6 +70,7 @@ public class TheftProofActivity extends BaseActivity {
 
     @Override
     protected void onSetViewData() {
+        mCommonTitleLayout.setTitle("手机防盗");
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         //设置垂直滚动，也可以设置横向滚动
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -85,16 +86,17 @@ public class TheftProofActivity extends BaseActivity {
 
     @Override
     protected void onInitListener() {
-        mTheftProofSetting.setOnClickListener(this);
+        mCommonTitleLayout.setOnSettingImgClickListener(new CommonTitleLayout.OnSettingImgClickListener() {
+            @Override
+            public void onSettingImgClick() {
+                Intent intent = new Intent(mContext,TheftProofSettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
-    protected void processClick(View v) {
-        if (v.getId() == R.id.img_setting){
-            Intent intent = new Intent(this,TheftProofSettingActivity.class);
-            startActivity(intent);
-        }
-    }
+    protected void processClick(View v) {}
 
 
 }

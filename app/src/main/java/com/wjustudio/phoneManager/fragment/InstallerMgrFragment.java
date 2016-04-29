@@ -1,22 +1,21 @@
-package com.wjustudio.phoneManager.activities;
+package com.wjustudio.phoneManager.fragment;
 
 import android.view.View;
 
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.base.BaseActivity;
+import com.wjustudio.phoneManager.base.BaseFragment;
 
 /**
- * songwenju on 16-4-14 : 12 : 17.
- * 邮箱：songwenju@outlook.com
+ * 安装包管理的fragment
  */
-public class CacheCleanActivity extends BaseActivity{
+public class InstallerMgrFragment extends BaseFragment{
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_cache_mgr;
+        return R.layout.fragment_installer_mgr;
     }
 
     @Override
-    protected void onInitView() {
+    protected void onInitView(View view) {
 
     }
 
@@ -31,7 +30,7 @@ public class CacheCleanActivity extends BaseActivity{
     }
 
     @Override
-    protected void onInitListener() {
+    protected void onIntListener() {
 
     }
 

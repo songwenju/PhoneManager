@@ -266,11 +266,11 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 startActivity(intent);
                 break;
             case AppConstants.PROCESS_MANAGER:
-                intent = new Intent(this, ProcessManagerActivity.class);
+                intent = new Intent(this, ProcessMgrActivity.class);
                 startActivity(intent);
                 break;
             case AppConstants.SOFT_MANAGER:
-                intent = new Intent(this, SoftManagerActivity.class);
+                intent = new Intent(this, SoftMgrActivity.class);
                 startActivity(intent);
                 break;
             case AppConstants.CACHE_CLEAN:

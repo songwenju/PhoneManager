@@ -6,12 +6,12 @@ import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseFragment;
 
 /**
- * 设置页面的第一个fragment
+ * 应用管理的fragment
  */
-public class SetUpOneFragment extends BaseFragment{
+public class AppMgrFragment extends BaseFragment{
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_proof_setup_one;
+        return R.layout.fragment_app_mgr;
     }
 
     @Override

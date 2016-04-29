@@ -11,6 +11,7 @@ import com.wjustudio.phoneManager.lib.switchButton.SwitchButton;
 import com.wjustudio.phoneManager.service.TheftProofService;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
+import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +25,8 @@ public class BlackNumSettingActivity extends BaseActivity {
     SwitchButton mSbMd;
     @Bind(R.id.ll_open_proof)
     LinearLayout mLlOpenProof;
+    @Bind(R.id.ctl_common_title)
+    CommonTitleLayout mCommonTitleLayout;
     private boolean mIsOpenProof;
 
     @Override
@@ -44,7 +47,8 @@ public class BlackNumSettingActivity extends BaseActivity {
 
     @Override
     protected void onSetViewData() {
-
+        mCommonTitleLayout.setTitle("通讯卫士设置");
+        mCommonTitleLayout.setImgSettingVisible(false);
     }
 
     @Override
