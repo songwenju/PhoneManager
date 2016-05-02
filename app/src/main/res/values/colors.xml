@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#4381ff</color>
-    <color name="primary_dark">#154Bff</color>
+    <color name="primary">#007EFD</color>
+    <color name="primary_dark">#0072E4</color>
     <color name="mainColor">#4381E7</color>
     <color name="textColor">#848484</color>
     <color name="status_bar_color">@color/primary_dark</color>
@@ -13,8 +13,9 @@
     <color name="btn_press_color">#bebebe</color>
     <drawable name="reveal_color">#1b000000</drawable>
     <drawable name="left_bg_color">#E7E5E4</drawable>
-    <color name="gray">#333333</color>
+    <color name="text_gray">#333333</color>
     <color name="tabTextColor">#88ffffff</color>
+    <color name="appListColor">#66000000</color>
 
     <!-- switchButton-->
     <color name="ksw_md_ripple_normal">#1E000000</color>

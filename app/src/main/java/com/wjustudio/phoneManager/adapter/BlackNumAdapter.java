@@ -21,11 +21,11 @@ import java.util.List;
  * 作者： songwenju on 2016/4/24 14:03.
  * 邮箱： songwenju@outlook.com
  */
-public class BlackNumAdapter extends BaseRecycleViewAdapter{
+public class BlackNumAdapter extends BaseRecycleViewAdapter<BlackNumInfo>{
     private BlackNumActivity mBlackNumActivity;
     private BlackNumBizImpl mBlackNumBiz;
     private TextView tvEmpty;
-    public BlackNumAdapter(Context context, List list, BlackNumActivity activity,
+    public BlackNumAdapter(Context context, List<BlackNumInfo> list, BlackNumActivity activity,
                            BlackNumBizImpl blackNumBiz, TextView mTvCallSmsSafeIsEmpty) {
 
         super(context, list);
@@ -60,7 +60,7 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
-        final BlackNumInfo blackNumInfo = (BlackNumInfo) mList.get(position);
+        final BlackNumInfo blackNumInfo = mList.get(position);
         normalViewHolder.blackNum.setText(blackNumInfo.getBlackNum());
         String modeStr = "";
         switch (blackNumInfo.getMode()){

@@ -30,7 +30,7 @@ public class SelectContactAdapter extends BaseRecycleViewAdapter {
 
         public NormalViewHolder(View itemView) {
             super(itemView);
-            LogUtil.i(this, "NormalViewHolder");
+            LogUtil.i(this, "AppInfoHolder");
             pingYin = (TextView) itemView.findViewById(R.id.tv_pinyin);
             contactName = (TextView) itemView.findViewById(R.id.contact_name);
             contactNum = (TextView) itemView.findViewById(R.id.contact_num);

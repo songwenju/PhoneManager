@@ -14,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/security_description"
-        android:textColor="@color/gray"
+        android:textColor="@color/text_gray"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:hint="请输入11位安全号码"
             android:inputType="phone"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/text_gray"/>
 
         <ImageButton
             android:id="@+id/btn_select_number"
@@ -48,6 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/start_security"
-        android:textColor="@color/gray"
+        android:textColor="@color/text_gray"
         android:textSize="18sp"/>
 </LinearLayout>

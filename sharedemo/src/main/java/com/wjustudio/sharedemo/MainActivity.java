@@ -1,36 +1,41 @@
 package com.wjustudio.sharedemo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 public class MainActivity extends AppCompatActivity {
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        new UMShareListener() {
-//            @Override
-//            public void onResult(SHARE_MEDIA platform) {
-//                Toast.makeText(ShareActivity.this,platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onError(SHARE_MEDIA platform, Throwable t) {
-//                Toast.makeText(ShareActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancel(SHARE_MEDIA platform) {
-//                Toast.makeText(ShareActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-//            }
-//        };
+        mContext = this;
+        new UMShareListener() {
+            @Override
+            public void onResult(SHARE_MEDIA platform) {
+                Toast.makeText(mContext,platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA platform, Throwable t) {
+                Toast.makeText(mContext,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA platform) {
+                Toast.makeText(mContext,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     public void share(View view){

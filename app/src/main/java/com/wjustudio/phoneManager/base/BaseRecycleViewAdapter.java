@@ -8,6 +8,7 @@ import android.view.View;
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,14 +22,34 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     protected int mWindowHeight;
     protected int mWindowWidth;
     protected OnItemClickListener mOnItemClickListener;
-    protected List<T> mList;
+    protected List<T> mList = new ArrayList<>();
 
-    public BaseRecycleViewAdapter(Context context, List<T> list){
+
+    public BaseRecycleViewAdapter(Context context) {
         mContext = context;
-        mList = list;
+        getWindowSize();
+    }
+
+    /**
+     * RxJava使用时调用
+     */
+    public void setList(List<T> list) {
+        mList.clear();
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    private void getWindowSize() {
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize((Activity) mContext);
         mWindowHeight = windowSize.get(AppConstants.WINDOW_HEIGHT);
         mWindowWidth = windowSize.get(AppConstants.WINDOW_WIDTH);
+    }
+
+    public BaseRecycleViewAdapter(Context context, List<T> list) {
+        mContext = context;
+        mList.clear();
+        mList.addAll(list);
+        getWindowSize();
         this.notifyDataSetChanged();
     }
 
@@ -53,6 +74,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
             });
         }
     }
+
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
