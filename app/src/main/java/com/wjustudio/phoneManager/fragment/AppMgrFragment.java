@@ -14,6 +14,7 @@ import com.wjustudio.phoneManager.biz.IAppMgrBiz;
 import com.wjustudio.phoneManager.javaBean.AppInfo;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -37,9 +38,14 @@ public class AppMgrFragment extends BaseFragment {
     RecyclerView mAppRecyclerView;
     @Bind(R.id.ll_loading)
     LinearLayout mLinearLayout;
+    @Bind(R.id.tv_app_list_title)
+    TextView mAppListTitle;
+
     private IAppMgrBiz mAppMgrBiz;
     private AppMgrAdapter mAppMgrAdapter;
     private Subscription mSubscription;
+    List<AppInfo> userAppList = new ArrayList<>();
+    List<AppInfo> systemAppList = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {
@@ -66,7 +72,33 @@ public class AppMgrFragment extends BaseFragment {
         ));
         mAppMgrAdapter = new AppMgrAdapter(mContext);
         mAppRecyclerView.setAdapter(mAppMgrAdapter);
+        setOnScrollListener();
         createObservable();
+    }
+
+    private void setOnScrollListener() {
+        mAppRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstVisibleItem = ((LinearLayoutManager)recyclerView.getLayoutManager())
+                        .findFirstVisibleItemPosition();
+                //这里要注意.获取数据在子线程.要判断是否为空
+                if (userAppList != null && systemAppList != null) {
+                    if (firstVisibleItem <= userAppList.size()) {
+                        mAppListTitle .setText("用户程序("+userAppList.size()+")");
+                    }else {
+                        mAppListTitle.setText("系统程序("+systemAppList.size()+")");
+                    }
+                }
+
+            }
+        });
     }
 
     private void createObservable() {
@@ -99,6 +131,14 @@ public class AppMgrFragment extends BaseFragment {
 
     private void displayTvShows(List<AppInfo> appInfoList) {
         mAppMgrAdapter.setList(appInfoList);
+        for (AppInfo appInfo : appInfoList) {
+            if (appInfo.isUser) {
+
+                userAppList.add(appInfo);
+            } else {
+                systemAppList.add(appInfo);
+            }
+        }
         mLinearLayout.setVisibility(View.GONE);
         mAppRecyclerView.setVisibility(View.VISIBLE);
     }

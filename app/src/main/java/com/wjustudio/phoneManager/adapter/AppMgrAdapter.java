@@ -70,6 +70,7 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
         }
     }
 
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0 || position == userAppList.size() + 1) {
