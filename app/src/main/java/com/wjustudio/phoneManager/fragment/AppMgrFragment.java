@@ -76,6 +76,10 @@ public class AppMgrFragment extends BaseFragment {
         createObservable();
     }
 
+
+    /**
+     * RecyclerView的滚动监听
+     */
     private void setOnScrollListener() {
         mAppRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -124,21 +128,22 @@ public class AppMgrFragment extends BaseFragment {
 
                             @Override
                             public void onNext(List<AppInfo> appInfoList) {
-                                displayTvShows(appInfoList);
+                                displayAppShows(appInfoList);
                             }
                         });
     }
 
-    private void displayTvShows(List<AppInfo> appInfoList) {
+    //加载完毕后要显示的内容
+    private void displayAppShows(List<AppInfo> appInfoList) {
         mAppMgrAdapter.setList(appInfoList);
         for (AppInfo appInfo : appInfoList) {
             if (appInfo.isUser) {
-
                 userAppList.add(appInfo);
             } else {
                 systemAppList.add(appInfo);
             }
         }
+        mAppListTitle.setVisibility(View.VISIBLE);
         mLinearLayout.setVisibility(View.GONE);
         mAppRecyclerView.setVisibility(View.VISIBLE);
     }

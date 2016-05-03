@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
 import com.wjustudio.phoneManager.javaBean.AppInfo;
+import com.wjustudio.phoneManager.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,30 +21,69 @@ import java.util.List;
  * 作者： songwenju on 2016/5/1 09:43.
  * 邮箱： songwenju@outlook.com
  */
-public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
+public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> implements View.OnClickListener {
     private List<AppInfo> userAppList = new ArrayList<>();
     private List<AppInfo> systemAppList = new ArrayList<>();
     public static final int ITEM_TYPE_APP_INFO = 0;
-
     public static final int ITEM_TYPE_TEXT = 1;
+    //将条目设置为成员变量,方便在点击事件中使用.
+    private AppInfo mItemAppInfo;
 
     public AppMgrAdapter(Context context) {
         super(context);
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()){
+            case R.id.tv_appPopup_uninstall:
+                break;
+        }
+    }
 
-    public static class AppInfoHolder extends RecyclerView.ViewHolder {
+
+    public class AppInfoHolder extends RecyclerView.ViewHolder {
         ImageView appIcon, appLock;
         TextView appName, appWhere, appSize;
 
-        public AppInfoHolder(View itemView) {
+        public AppInfoHolder(final View itemView) {
             super(itemView);
             appIcon = (ImageView) itemView.findViewById(R.id.app_icon);
             appName = (TextView) itemView.findViewById(R.id.app_name);
             appWhere = (TextView) itemView.findViewById(R.id.app_where);
             appSize = (TextView) itemView.findViewById(R.id.app_size);
             appLock = (ImageView) itemView.findViewById(R.id.app_lock);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismissPopWindow();
+                    LogUtil.i(this,"layoutPosition：" + getLayoutPosition());
+                    LogUtil.i(this,"adapterPosition：" + getAdapterPosition());
+                    int position = getLayoutPosition();
+
+                    if (position < userAppList.size()+1){
+                        mItemAppInfo = userAppList.get(position - 1);
+                    }else if (position > userAppList.size() +1){
+                        mItemAppInfo = systemAppList.get(position - userAppList.size() -2);
+                    }
+                    int [] location = new int[2];
+                    itemView.getLocationInWindow(location);
+                    int x = location[0];
+                    int y = location[1];
+                    View popView = View.inflate(mContext,R.layout.app_popup,null);
+                    popView.findViewById(R.id.tv_appPopup_uninstall).setOnClickListener(AppMgrAdapter.this);
+                    popView.findViewById(R.id.tv_appPopup_start).setOnClickListener(AppMgrAdapter.this);
+                    popView.findViewById(R.id.tv_appPopup_share).setOnClickListener(AppMgrAdapter.this);
+                    popView.findViewById(R.id.tv_appPopup_detail).setOnClickListener(AppMgrAdapter.this);
+
+                }
+            });
         }
+
+    }
+
+    public void dismissPopWindow() {
     }
 
     public class TextViewHolder extends RecyclerView.ViewHolder {
