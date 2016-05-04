@@ -56,6 +56,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
+        void onItemLongClick(View view,int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -63,13 +64,22 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                    mOnItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mOnItemClickListener.onItemLongClick(holder.itemView,holder.getLayoutPosition());
+                    //返回false会同时触发点击和长按事件
+                    return true;
                 }
             });
         }

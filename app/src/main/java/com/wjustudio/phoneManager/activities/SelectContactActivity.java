@@ -83,6 +83,11 @@ public class SelectContactActivity extends BaseActivity {
                 }
                 finish();
             }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
         });
 
 

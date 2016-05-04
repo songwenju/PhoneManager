@@ -45,7 +45,7 @@ public class SoftMgrActivity extends BaseActivity {
         InstallerMgrFragment installerMgrFragment = new InstallerMgrFragment();
         mFragmentList = new ArrayList<>();
         mFragmentList.add(appMgrFragment);
-        mFragmentList.add(installerMgrFragment);
+        //mFragmentList.add(installerMgrFragment);
     }
 
     @Override
