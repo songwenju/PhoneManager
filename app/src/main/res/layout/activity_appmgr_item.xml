@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/app_icon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:src="@mipmap/ic_launcher"/>
@@ -16,15 +16,15 @@
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/app_icon"
         android:layout_toRightOf="@id/app_icon"
         android:ellipsize="end"
         android:ems="8"
         android:lines="1"
         android:text="百度理财"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -32,13 +32,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/app_name"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/app_icon"
         android:layout_toRightOf="@id/app_icon"
         android:text="手机内存"
-        android:textSize="14sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/app_size"
@@ -47,11 +47,11 @@
         android:layout_below="@id/app_name"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/app_where"
         android:layout_toRightOf="@id/app_where"
         android:text="6.4MB"
-        android:textSize="14sp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:id="@+id/app_lock"

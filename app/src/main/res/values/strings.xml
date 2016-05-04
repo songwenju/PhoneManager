@@ -37,6 +37,7 @@
     <string name="phone_intercept">电话拦截</string>
     <string name="sms_intercept">短信拦截</string>
     <string name="soft_manager_title">软件管家</string>
+    <string name="open_soft_lock">开启程序锁</string>
 
 
 </resources>

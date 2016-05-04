@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
+import com.wjustudio.phoneManager.biz.AppLockBizImpl;
+import com.wjustudio.phoneManager.biz.IAppLockBiz;
 import com.wjustudio.phoneManager.javaBean.AppInfo;
 
 import java.util.ArrayList;
@@ -115,7 +117,9 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
             appInfoHolder.appName.setText(appInfo.name);
             appInfoHolder.appWhere.setText(appInfo.isUser ? "外部存储" : "手机内存");
             appInfoHolder.appSize.setText(appInfo.apkSize);
-            appInfoHolder.appLock.setImageResource(R.mipmap.unlock);
+            IAppLockBiz biz = new AppLockBizImpl();
+            appInfoHolder.appLock.setImageResource(
+                    biz.isLock(appInfo.packageName) ? R.mipmap.lock : R.mipmap.unlock);
             appInfoHolder.itemView.setTag(appInfoHolder);
             appInfoHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

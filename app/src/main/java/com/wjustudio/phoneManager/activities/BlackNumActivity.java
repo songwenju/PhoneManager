@@ -59,6 +59,7 @@ public class BlackNumActivity extends BaseActivity {
     @Override
     protected void onInitView() {
         ButterKnife.bind(this);
+        mCommonTitleLayout.setTitle("通讯卫士");
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yizhi.ttf");
         mTvBlackNumRemind.setTypeface(typeface);
     }
@@ -185,7 +186,7 @@ public class BlackNumActivity extends BaseActivity {
 
     @Override
     protected void onSetViewData() {
-        mCommonTitleLayout.setTitle("通讯卫士");
+
         if (mBlackNumInfos.size() == 0) {
             mTvBlackNumRemind.setVisibility(View.VISIBLE);
         } else {

@@ -115,8 +115,8 @@ public class AppMgrFragment extends BaseFragment {
                 mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 //添加动画,要先有背景
                 mPopupWindow.setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-                mPopupWindow.showAtLocation(view, Gravity.TOP | Gravity.LEFT, x + CommonUtil.dip2px(mContext, 55)
-                        , y - CommonUtil.dip2px(mContext, 6));
+                mPopupWindow.showAtLocation(view, Gravity.TOP | Gravity.LEFT, x + CommonUtil.dip2px(mContext, 60)
+                        , y - CommonUtil.dip2px(mContext, 0));
                 AlphaAnimation alphaAnimation = new AlphaAnimation(0.4f, 1.0f);
                 alphaAnimation.setDuration(200);
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1.0f, 0, 1.0f,

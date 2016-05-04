@@ -43,6 +43,7 @@
         <activity android:name=".activities.ProcessMgrActivity"/>
         <activity android:name=".activities.SoftMgrActivity"/>
         <activity android:name=".activities.BlackNumSettingActivity"/>
+        <activity android:name=".activities.SoftMgrSettingActivity"/>
 
         <receiver
             android:name=".receive.MyDeviceAdminReceiver"
@@ -58,6 +59,7 @@
 
         <service android:name=".service.TheftProofService"/>
         <service android:name=".service.BlackNumService"/>
+        <service android:name=".service.LockAppService"/>
     </application>
 
 </manifest>

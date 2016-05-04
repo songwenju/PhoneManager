@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -77,6 +78,8 @@ public class SoftMgrActivity extends BaseActivity {
         mCommonTitleLayout.setOnSettingImgClickListener(new CommonTitleLayout.OnSettingImgClickListener() {
             @Override
             public void onSettingImgClick() {
+                Intent intent = new Intent(mContext,SoftMgrSettingActivity.class);
+                startActivity(intent);
                 toast("设置");
             }
         });
