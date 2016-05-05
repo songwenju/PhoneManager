@@ -26,6 +26,7 @@ public class AppConstants {
     public static final String WINDOW_WIDTH = "width";
     public static final String IS_OPEN_PROOF = "isOpenProof";
     public static final String ENTER_PROOF_PWD = "enterProofPwd";
+    public static final String LOCK_PASSWORD = "lockPassword";
 
 
 

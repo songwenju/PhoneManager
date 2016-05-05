@@ -10,6 +10,16 @@ import com.wjustudio.phoneManager.service.TheftProofService;
 public class BlackNumSettingActivity extends BaseSimpleSettingActivity {
 
     @Override
+    protected CharSequence getSettingOneText() {
+        return null;
+    }
+
+    @Override
+    protected boolean setLSettingOneVisibility() {
+        return false;
+    }
+
+    @Override
     protected String getOpenServiceTitle() {
         return "开启黑名单服务";
     }
@@ -27,5 +37,10 @@ public class BlackNumSettingActivity extends BaseSimpleSettingActivity {
     @Override
     protected Class<?> getServiceClass() {
         return TheftProofService.class;
+    }
+
+    @Override
+    protected void onSettingOneClick() {
+
     }
 }

@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.wjustudio.phoneManager.Common.BaseApplication;
 
@@ -397,4 +398,18 @@ public class CommonUtil {
         }
         return isRunning;
     }
+
+    /**
+     * 打开输入法面板
+     * @param activity
+     */
+    public static void showInputMethod(final Activity activity){
+        if(activity == null)return;
+        InputMethodManager inputMethodManager = ((InputMethodManager)activity.getSystemService(
+                Activity.INPUT_METHOD_SERVICE));
+        if(activity.getCurrentFocus() != null){
+            inputMethodManager.showSoftInput(activity.getCurrentFocus(), 0);
+        }
+    }
+
 }

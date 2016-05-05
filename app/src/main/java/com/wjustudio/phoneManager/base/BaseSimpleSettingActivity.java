@@ -28,6 +28,10 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
     CommonTitleLayout mCommonTitleLayout;
     @Bind(R.id.tv_service_title)
     TextView mTvServiceTitle;
+    @Bind(R.id.ll_setting_one)
+    protected LinearLayout mLSettingOne;
+    @Bind(R.id.tv_setting_one_text)
+    TextView mTvSettingOne;
     private boolean mIsOpenService;
 
     @Override
@@ -39,9 +43,14 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
     protected void onInitView() {
         ButterKnife.bind(this);
         mTvServiceTitle.setText(getOpenServiceTitle());
+        if (setLSettingOneVisibility()) {
+            mTvSettingOne.setText(getSettingOneText());
+        }
     }
 
+    protected abstract CharSequence getSettingOneText();
 
+    protected abstract boolean setLSettingOneVisibility();
 
     @Override
     protected void onInitData() {
@@ -57,18 +66,21 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
 
     /**
      * 开启xx服务
+     *
      * @return
      */
     protected abstract String getOpenServiceTitle();
 
     /**
      * 全类名
+     *
      * @return
      */
     protected abstract String getServiceFullName();
 
     /**
      * 设置名称
+     *
      * @return
      */
     protected abstract String getSettingTitle();
@@ -76,6 +88,7 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
 
     /**
      * 服务所在class
+     *
      * @return
      */
     protected abstract Class<?> getServiceClass();
@@ -91,6 +104,7 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
                 manageService();
             }
         });
+        mLSettingOne.setOnClickListener(this);
     }
 
     @Override
@@ -101,8 +115,14 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
                 mSbMd.setChecked(mIsOpenService);
                 manageService();
                 break;
+            case R.id.ll_setting_one:
+                onSettingOneClick();
+                break;
+
         }
     }
+
+    protected abstract void onSettingOneClick();
 
 
     private void manageService() {

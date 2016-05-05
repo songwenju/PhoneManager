@@ -126,6 +126,10 @@ public class LockAppService extends Service {
     @Override
     public void onDestroy() {
         LogUtil.d(this, "停止服务");
+        if (unlockReceiver!=null) {
+            unregisterReceiver(unlockReceiver);
+            unlockReceiver = null;
+        }
         super.onDestroy();
     }
 }

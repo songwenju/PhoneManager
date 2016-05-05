@@ -12,6 +12,9 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
 
+    <string name="reset_lock_pwd_title">重置解锁密码</string>
+    <string name="input_new_pwd">新密码：</string>
+
     <string name="reset_pwd_title">重置密码</string>
     <string name="input_origin_pwd">输入原始密码：</string>
     <string name="input_reset_pwd">输入新的密码：</string>
