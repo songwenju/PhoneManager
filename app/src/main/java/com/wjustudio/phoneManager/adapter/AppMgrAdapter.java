@@ -117,7 +117,7 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
             appInfoHolder.appName.setText(appInfo.name);
             appInfoHolder.appWhere.setText(appInfo.isUser ? "外部存储" : "手机内存");
             appInfoHolder.appSize.setText(appInfo.apkSize);
-            IAppLockBiz biz = new AppLockBizImpl();
+            IAppLockBiz biz = new AppLockBizImpl(mContext);
             appInfoHolder.appLock.setImageResource(
                     biz.isLock(appInfo.packageName) ? R.mipmap.lock : R.mipmap.unlock);
             appInfoHolder.itemView.setTag(appInfoHolder);

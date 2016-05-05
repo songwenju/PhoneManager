@@ -1,1 +1,1 @@
-include ':app', ':evenbusdemo', ':contactdemo', ':sharedemo', ':rxjavademo'
+include ':app', ':evenbusdemo', ':contactdemo', ':sharedemo', ':rxjavademo', ':runningactivitydemo'

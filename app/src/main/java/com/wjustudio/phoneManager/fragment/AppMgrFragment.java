@@ -132,7 +132,7 @@ public class AppMgrFragment extends BaseFragment {
             public void onItemLongClick(View view, int position) {
                 dismissPopWindow();
                 if (getCurrentApp(position)) return;
-                AppLockBizImpl biz = new AppLockBizImpl();
+                AppLockBizImpl biz = new AppLockBizImpl(mContext);
                 AppMgrAdapter.AppInfoHolder appInfoHolder = (AppMgrAdapter.AppInfoHolder)
                         view.getTag();
                 AppLockInfo appLockInfo = new AppLockInfo(mItemAppInfo.packageName);

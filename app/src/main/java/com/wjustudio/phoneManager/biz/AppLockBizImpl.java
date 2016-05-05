@@ -1,5 +1,9 @@
 package com.wjustudio.phoneManager.biz;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+
 import com.wjustudio.phoneManager.javaBean.AppLockInfo;
 
 import org.litepal.crud.DataSupport;
@@ -11,6 +15,12 @@ import java.util.List;
  * 邮箱：songwenju@outlook.com
  */
 public class AppLockBizImpl implements IAppLockBiz {
+    private Context mContext;
+
+    public AppLockBizImpl(Context context) {
+        mContext = context;
+    }
+
     @Override
     public boolean isLock(String packageName) {
         List<AppLockInfo> appLockInfoList = DataSupport
@@ -21,6 +31,9 @@ public class AppLockBizImpl implements IAppLockBiz {
     @Override
     public void lockApp(AppLockInfo appLockInfo) {
         appLockInfo.saveThrows();
+        ContentResolver resolver = mContext.getContentResolver();
+        Uri uri = Uri.parse("content://appLock/change");
+        resolver.notifyChange(uri, null);
     }
 
     @Override
@@ -29,5 +42,13 @@ public class AppLockBizImpl implements IAppLockBiz {
             appLockInfo.save();
         }
         appLockInfo.delete();
+        ContentResolver resolver = mContext.getContentResolver();
+        Uri uri = Uri.parse("content://appLock/change");
+        resolver.notifyChange(uri, null);
+    }
+
+    @Override
+    public List<AppLockInfo> getAllLockApp() {
+        return DataSupport.findAll(AppLockInfo.class);
     }
 }
