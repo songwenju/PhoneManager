@@ -17,6 +17,7 @@
     <color name="tabTextColor">#88ffffff</color>
     <color name="appListColor">#66000000</color>
 
+    <color name="gray">#66000000</color>
     <!-- switchButton-->
     <color name="ksw_md_ripple_normal">#1E000000</color>
     <color name="ksw_md_ripple_checked">#327FC2</color>

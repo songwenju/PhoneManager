@@ -6,12 +6,18 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Debug;
+import android.text.format.Formatter;
 
 import com.jaredrummler.android.processes.ProcessManager;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.javaBean.ProgressInfo;
+import com.wjustudio.phoneManager.utils.LogUtil;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +25,7 @@ import java.util.List;
  * songwenju on 16-5-6 : 13 : 21.
  * 邮箱：songwenju@outlook.com
  */
-public class ProgressBizImpl implements IProgressBiz{
+public class ProgressBizImpl implements IProgressBiz {
 
     private Context mContext;
 
@@ -30,12 +36,14 @@ public class ProgressBizImpl implements IProgressBiz{
     @Override
     public List<ProgressInfo> getProgressInfoList() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return getTaskInfosForHighLevel();
-        }else {
+        } else {
             return getTaskInfosForLowLevel();
         }
     }
+
+
     public List<ProgressInfo> getTaskInfosForLowLevel() {
         List<ProgressInfo> progressInfoList = new ArrayList<>();
         ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
@@ -75,9 +83,10 @@ public class ProgressBizImpl implements IProgressBiz{
 
     /**
      * 高版本获取系统运行的进程信息
+     *
      * @return
      */
-    public  List<ProgressInfo> getTaskInfosForHighLevel() {
+    public List<ProgressInfo> getTaskInfosForHighLevel() {
         // 应用程序管理器
         ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
@@ -117,4 +126,51 @@ public class ProgressBizImpl implements IProgressBiz{
         }
         return progressInfoList;
     }
+
+
+    /**
+     * 获取可用的内存大小
+     *
+     * @return 可用内存
+     */
+    public String getAvailMem() {
+        ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo outInfo = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(outInfo);
+        return Formatter.formatFileSize(mContext,outInfo.availMem);
+    }
+
+
+    /**
+     * 获取总的内存大小,API16以上的版本可用
+     *
+     * @return 总内存
+     */
+    public String getTotalMem() throws IOException {
+        if (Build.VERSION.SDK_INT > 16) {
+            ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager.MemoryInfo outInfo = new ActivityManager.MemoryInfo();
+            am.getMemoryInfo(outInfo);
+            return  Formatter.formatFileSize(mContext,outInfo.totalMem);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            File file = new File("/proc/meminfo");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            String line = br.readLine();
+            LogUtil.i("ProgressUtils", "获取的数据" + line);
+        /*获取的数据MemTotal:      999688 kB*/
+
+            char[] charArray = line.toCharArray();
+            for (char c : charArray) {
+                if (c >= '0' && c <= '9') {
+                    sb.append(c);
+                }
+            }
+            br.close();
+            //获取数据的单位是kb
+            return  Formatter.formatFileSize(mContext,Long.parseLong(sb.toString()) * 1024);
+        }
+    }
+
 }
