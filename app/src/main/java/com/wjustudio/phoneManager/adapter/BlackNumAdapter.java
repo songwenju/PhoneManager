@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.activities.BlackNumActivity;
 import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
 import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
@@ -22,17 +21,20 @@ import java.util.List;
  * 邮箱： songwenju@outlook.com
  */
 public class BlackNumAdapter extends BaseRecycleViewAdapter<BlackNumInfo>{
-    private BlackNumActivity mBlackNumActivity;
-    private BlackNumBizImpl mBlackNumBiz;
-    private TextView tvEmpty;
-    public BlackNumAdapter(Context context, List<BlackNumInfo> list, BlackNumActivity activity,
-                           BlackNumBizImpl blackNumBiz, TextView mTvCallSmsSafeIsEmpty) {
+    private ProcessClickListener mProcessClickListener;
+    public interface  ProcessClickListener{
+        void onDeleteClick(BlackNumInfo blackNumInfo);
+        void onModifyClick(BlackNumInfo blackNumInfo);
+    }
+
+    public void setOnProcessClickListener(ProcessClickListener listener){
+        mProcessClickListener = listener;
+    }
+    public BlackNumAdapter(Context context, List<BlackNumInfo> list) {
 
         super(context, list);
         LogUtil.i(this,"BlackNumAdapter");
-        mBlackNumActivity = activity;
-        mBlackNumBiz = blackNumBiz;
-        tvEmpty = mTvCallSmsSafeIsEmpty;
+
     }
 
 
@@ -81,12 +83,13 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter<BlackNumInfo>{
             @Override
             public void onClick(View v) {
                 LogUtil.i(this, "delete");
-                mList.remove(blackNumInfo);
-                mBlackNumBiz.deleteBlackNum(blackNumInfo);
-                notifyDataSetChanged();
-                if (mList.size() == 0) {
-                    tvEmpty.setVisibility(View.VISIBLE);
-                }
+//                mList.remove(blackNumInfo);
+//                mBlackNumBiz.deleteBlackNum(blackNumInfo);
+//                notifyDataSetChanged();
+//                if (mList.size() == 0) {
+//                    tvEmpty.setVisibility(View.VISIBLE);
+//                }
+                mProcessClickListener.onDeleteClick(blackNumInfo);
             }
         });
 
@@ -94,9 +97,12 @@ public class BlackNumAdapter extends BaseRecycleViewAdapter<BlackNumInfo>{
             @Override
             public void onClick(View v) {
                 LogUtil.i(this, "modify blackNum");
-                mBlackNumActivity.showSetBlackNumDialog(blackNumInfo.getBlackNum(),
-                        "修改黑名单", blackNumInfo.getMode());
+//                mBlackNumActivity.showSetBlackNumDialog(blackNumInfo.getBlackNum(),
+//                        "修改黑名单", blackNumInfo.getMode());
+                mProcessClickListener.onModifyClick(blackNumInfo);
             }
         });
     }
+
+
 }

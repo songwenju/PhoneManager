@@ -21,18 +21,18 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseSimpleSettingActivity extends BaseActivity {
     @Bind(R.id.sb_md)
-    SwitchButton mSbMd;
+    protected SwitchButton mSbMd;
     @Bind(R.id.ll_open_service)
-    LinearLayout mLlOpenService;
+    protected LinearLayout mLlOpenService;
     @Bind(R.id.ctl_common_title)
-    CommonTitleLayout mCommonTitleLayout;
+    protected CommonTitleLayout mCommonTitleLayout;
     @Bind(R.id.tv_service_title)
-    TextView mTvServiceTitle;
+    protected TextView mTvServiceTitle;
     @Bind(R.id.ll_setting_one)
     protected LinearLayout mLSettingOne;
     @Bind(R.id.tv_setting_one_text)
     TextView mTvSettingOne;
-    private boolean mIsOpenService;
+    protected boolean mIsOpenService;
 
     @Override
     protected int getLayoutID() {
@@ -125,7 +125,7 @@ public abstract class BaseSimpleSettingActivity extends BaseActivity {
     protected abstract void onSettingOneClick();
 
 
-    private void manageService() {
+    protected void manageService() {
         Intent intent = new Intent(this, getServiceClass());
         if (mIsOpenService) {
             //开启服务去监听各种状态

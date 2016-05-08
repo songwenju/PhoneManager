@@ -56,7 +56,7 @@ public class ProgressBizImpl implements IProgressBiz {
             //获取应用运行时的占用内存的大小.
             Debug.MemoryInfo[] memoryInfo = am.getProcessMemoryInfo(new int[]{processInfo.pid});
             int totalPss = memoryInfo[0].getTotalPss();
-            progressInfo.ramSize = (long) (totalPss * 1024);
+            progressInfo.ramSize = Formatter.formatFileSize(mContext,(long) (totalPss * 1024));
             //获取
             PackageManager pm = mContext.getPackageManager();
             try {
@@ -108,7 +108,7 @@ public class ProgressBizImpl implements IProgressBiz {
             //获取应用运行时的占用内存的大小.
             Debug.MemoryInfo[] memoryInfo = am.getProcessMemoryInfo(new int[]{processInfo.pid});
             int totalPss = memoryInfo[0].getTotalPss();
-            progressInfo.ramSize = (long) (totalPss * 1024);
+            progressInfo.ramSize = Formatter.formatFileSize(mContext,(long) (totalPss * 1024));
             try {
                 ApplicationInfo applicationInfo = pm.getApplicationInfo(packageName, 0);
                 progressInfo.icon = applicationInfo.loadIcon(pm);

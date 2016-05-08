@@ -24,7 +24,6 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     protected OnItemClickListener mOnItemClickListener;
     protected List<T> mList = new ArrayList<>();
 
-
     public BaseRecycleViewAdapter(Context context) {
         mContext = context;
         getWindowSize();
@@ -47,8 +46,9 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
 
     public BaseRecycleViewAdapter(Context context, List<T> list) {
         mContext = context;
-        mList.clear();
-        mList.addAll(list);
+//        mList.clear();
+//        mList.addAll(list);
+        mList = list;
         getWindowSize();
         this.notifyDataSetChanged();
     }

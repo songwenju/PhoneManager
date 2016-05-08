@@ -22,8 +22,8 @@ import java.util.List;
  * 邮箱： songwenju@outlook.com
  */
 public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
-    private List<AppInfo> userAppList = new ArrayList<>();
-    private List<AppInfo> systemAppList = new ArrayList<>();
+    private List<AppInfo> mUserAppList = new ArrayList<>();
+    private List<AppInfo> mSystemAppList = new ArrayList<>();
     public static final int ITEM_TYPE_APP_INFO = 0;
     public static final int ITEM_TYPE_TEXT = 1;
     //将条目设置为成员变量,方便在点击事件中使用.
@@ -61,24 +61,30 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
         }
     }
 
+    public void setList(List<AppInfo> userAppList,List<AppInfo> systemAppList) {
+        mUserAppList.clear();
+        mSystemAppList.clear();
+        mUserAppList.addAll(userAppList);
+        mSystemAppList.addAll(systemAppList);
+    }
+
     @Override
     public void setList(List<AppInfo> list) {
         super.setList(list);
-        userAppList.clear();
-        systemAppList.clear();
+        mUserAppList.clear();
+        mSystemAppList.clear();
         for (AppInfo appInfo : list) {
             if (appInfo.isUser) {
-                userAppList.add(appInfo);
+                mUserAppList.add(appInfo);
             } else {
-                systemAppList.add(appInfo);
+                mSystemAppList.add(appInfo);
             }
         }
     }
 
-
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 || position == userAppList.size() + 1) {
+        if (position == 0 || position == mUserAppList.size() + 1) {
             return ITEM_TYPE_TEXT;
         } else {
             return ITEM_TYPE_APP_INFO;
@@ -101,17 +107,17 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
         if (holder instanceof TextViewHolder) {
             TextViewHolder textViewHolder = ((TextViewHolder) holder);
             if (position == 0) {
-                textViewHolder.mTvAppListTitle.setText("用户程序(" + userAppList.size() + ")");
+                textViewHolder.mTvAppListTitle.setText("用户程序(" + mUserAppList.size() + ")");
             } else {
-                textViewHolder.mTvAppListTitle.setText("系统程序(" + systemAppList.size() + ")");
+                textViewHolder.mTvAppListTitle.setText("系统程序(" + mSystemAppList.size() + ")");
             }
         } else if (holder instanceof AppInfoHolder) {
             final AppInfoHolder appInfoHolder = (AppInfoHolder) holder;
             AppInfo appInfo;
-            if (position <= userAppList.size()) {
-                appInfo = userAppList.get(position - 1);
+            if (position <= mUserAppList.size()) {
+                appInfo = mUserAppList.get(position - 1);
             } else {
-                appInfo = systemAppList.get(position - userAppList.size() - 2);
+                appInfo = mSystemAppList.get(position - mUserAppList.size() - 2);
             }
             appInfoHolder.appIcon.setImageDrawable(appInfo.icon);
             appInfoHolder.appName.setText(appInfo.name);
@@ -121,13 +127,6 @@ public class AppMgrAdapter extends BaseRecycleViewAdapter<AppInfo> {
             appInfoHolder.appLock.setImageResource(
                     biz.isLock(appInfo.packageName) ? R.mipmap.lock : R.mipmap.unlock);
             appInfoHolder.itemView.setTag(appInfoHolder);
-            appInfoHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mOnItemClickListener.onItemLongClick(appInfoHolder.itemView, appInfoHolder.getLayoutPosition());
-                    return true;
-                }
-            });
         }
 
     }

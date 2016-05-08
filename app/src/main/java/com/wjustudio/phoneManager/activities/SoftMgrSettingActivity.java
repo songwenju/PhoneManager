@@ -1,8 +1,13 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
@@ -10,7 +15,9 @@ import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseSimpleSettingActivity;
 import com.wjustudio.phoneManager.service.LockAppService;
 import com.wjustudio.phoneManager.utils.MD5Utils;
+import com.wjustudio.phoneManager.utils.RunningActivityUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
+import com.wjustudio.phoneManager.utils.ToastUtil;
 
 /**
  * 作者： songwenju on 2016/5/4 22:12.
@@ -81,5 +88,110 @@ public class SoftMgrSettingActivity extends BaseSimpleSettingActivity{
             }
         });
        alertDialog.show();
+    }
+
+    @Override
+    protected void onInitListener() {
+        mLlOpenService.setOnClickListener(this);
+        mSbMd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (RunningActivityUtil.isNoOption(mContext)) {
+                        if (!RunningActivityUtil.isNoSwitch(mContext)) {
+                            showAlertDialog();
+                        }else {
+                            mSbMd.setChecked(isChecked);
+                            mIsOpenService = isChecked;
+                            manageService();
+                        }
+                    }else {
+                        ToastUtil.showToast("您的手机不支持程序锁");
+                    }
+
+                } else {
+                    mSbMd.setChecked(isChecked);
+                    mIsOpenService = isChecked;
+                    manageService();
+                }
+
+            }
+        });
+        mLSettingOne.setOnClickListener(this);
+    }
+
+    @Override
+    protected void processClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_open_service:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (RunningActivityUtil.isNoOption(mContext)) {
+                        if (!RunningActivityUtil.isNoSwitch(mContext)) {
+                            showAlertDialog();
+                        }else {
+                            setCheckAndService();
+                        }
+                    }else {
+                        ToastUtil.showToast("您的手机不支持程序锁");
+                    }
+
+                } else {
+                    setCheckAndService();
+                }
+
+                break;
+            case R.id.ll_setting_one:
+                onSettingOneClick();
+                break;
+
+        }
+    }
+
+    private void setCheckAndService() {
+        mIsOpenService = !mIsOpenService;
+        mSbMd.setChecked(mIsOpenService);
+        manageService();
+    }
+
+    private void showAlertDialog() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle("提示：");
+        builder.setMessage("检测到您的系统没有程序锁权限，点击确认将跳转到开启界面，选择程序并打开权限");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(
+                        Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                startActivityForResult(intent,0);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mSbMd.setChecked(false);
+                dialog.dismiss();
+            }
+        });
+        android.support.v7.app.AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (RunningActivityUtil.isNoOption(mContext) && !RunningActivityUtil.isNoSwitch(mContext)) {
+                    if (!RunningActivityUtil.isNoSwitch(mContext)) {
+                        mSbMd.setChecked(false);
+                    } else {
+                        manageService();
+                    }
+                }
+            }
+        }
+
     }
 }

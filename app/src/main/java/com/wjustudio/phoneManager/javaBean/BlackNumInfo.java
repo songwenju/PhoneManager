@@ -28,12 +28,4 @@ public class BlackNumInfo extends DataSupport{
 
     public BlackNumInfo() {
     }
-
-    @Override
-    public String toString() {
-        return "BlackNumInfo{" +
-                "blackNum='" + blackNum + '\'' +
-                ", mode=" + mode +
-                '}';
-    }
 }

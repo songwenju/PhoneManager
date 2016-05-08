@@ -24,8 +24,8 @@ public class AppLockBizImpl implements IAppLockBiz {
     @Override
     public boolean isLock(String packageName) {
         List<AppLockInfo> appLockInfoList = DataSupport
-                .where("packageName = ?",packageName).find(AppLockInfo.class);
-        return appLockInfoList != null && appLockInfoList.size() > 0;
+                .where("packageName = ?", packageName).find(AppLockInfo.class);
+        return appLockInfoList.size() > 0;
     }
 
     @Override
@@ -38,10 +38,12 @@ public class AppLockBizImpl implements IAppLockBiz {
 
     @Override
     public void unlockApp(AppLockInfo appLockInfo) {
-        if (!appLockInfo.isSaved()){
+        if (!appLockInfo.isSaved()) {
             appLockInfo.save();
         }
-        appLockInfo.delete();
+
+        DataSupport.deleteAll(AppLockInfo.class,"packageName=?",appLockInfo.getPackageName());
+//        appLockInfo.delete();因为不是一个对象，所以删除不了，上面的方法可以删除
         ContentResolver resolver = mContext.getContentResolver();
         Uri uri = Uri.parse("content://appLock/change");
         resolver.notifyChange(uri, null);

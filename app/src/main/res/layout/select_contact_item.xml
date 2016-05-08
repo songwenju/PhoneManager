@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_pinyin"
@@ -13,35 +13,39 @@
         android:paddingLeft="30dp"
         android:text="A"
         android:textColor="#ffffff"
-        android:textSize="25sp" />
+        android:textSize="25sp"/>
 
-    <LinearLayout
+    <com.wjustudio.phoneManager.widgt.RevealLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/left_item_selector"
         android:orientation="horizontal">
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@drawable/btn_selector"
+             android:orientation="horizontal">-->
 
-    <TextView
-        android:id="@+id/contact_name"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:text="阿里云"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="阿里云"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/contact_num"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="110"
             android:textColor="#000000"
-            android:textSize="20sp" />
-    </LinearLayout>
-
+            android:textSize="20sp"/>
+    </com.wjustudio.phoneManager.widgt.RevealLayout>
 </LinearLayout>

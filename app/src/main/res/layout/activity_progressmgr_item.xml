@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/left_item_selector"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@drawable/left_item_selector">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:padding="5dp">
 
         <ImageView
-            android:id="@+id/app_icon"
+            android:id="@+id/progress_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
@@ -21,57 +21,50 @@
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
-            android:id="@+id/app_name"
+            android:id="@+id/progress_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
+            android:layout_toEndOf="@+id/progress_icon"
+            android:layout_toRightOf="@id/progress_icon"
             android:ellipsize="end"
             android:ems="9"
-            android:lines="1"
-            android:text="百度理财"
+            android:singleLine="true"
+            android:text="手机卫士"
             android:textColor="#000000"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/app_where"
+            android:id="@+id/progress_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/app_name"
+            android:layout_below="@id/progress_name"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
-            android:text="手机内存"
+            android:layout_toEndOf="@+id/progress_icon"
+            android:layout_toRightOf="@id/progress_icon"
+            android:text="占用内存:33.85M"
             android:textColor="#88000000"
             android:textSize="16sp"/>
 
-        <TextView
-            android:id="@+id/app_size"
+        <!--
+            android:clickable="false"
+            android:focusable="false" 设置不可选中两个都要加
+        -->
+
+        <CheckBox
+            android:id="@+id/progress_isChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/app_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/app_where"
-            android:layout_toRightOf="@id/app_where"
-            android:text="6.4MB"
-            android:textColor="#88000000"
-            android:textSize="16sp"/>
-
-        <ImageView
-            android:id="@+id/app_lock"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:src="@mipmap/unlock"/>
+            android:clickable="false"
+            android:focusable="false"/>
+
     </RelativeLayout>
 </com.wjustudio.phoneManager.widgt.RevealLayout>

@@ -7,10 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 
 import com.wjustudio.phoneManager.activities.AppLockActivity;
@@ -19,7 +17,6 @@ import com.wjustudio.phoneManager.biz.IAppLockBiz;
 import com.wjustudio.phoneManager.javaBean.AppLockInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.RunningActivityUtil;
-import com.wjustudio.phoneManager.utils.ToastUtil;
 
 import java.util.List;
 
@@ -28,6 +25,7 @@ public class LockAppService extends Service {
     private IAppLockBiz mBiz;
     private UnlockReceiver unlockReceiver;
     private String unlockPackageName;
+    private boolean isStartService = false;
 
 
     /**
@@ -54,31 +52,17 @@ public class LockAppService extends Service {
     public void onCreate() {
         LogUtil.d(this, "开启服务");
         super.onCreate();
+        isStartService = true;
         mContext = this;
         mBiz = new AppLockBizImpl(mContext);
-
         unlockReceiver = new UnlockReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.songwenju.unlock");
         registerReceiver(unlockReceiver, filter);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (RunningActivityUtil.isNoOption(mContext)) {
-                if (!RunningActivityUtil.isNoSwitch(mContext)) {
-                    Intent intent = new Intent(
-                            Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }else {
-                    lockApk();
-                }
-            }else {
-                ToastUtil.showToast("您的手机不支持程序锁");
-            }
-
-        } else {
-            lockApk();
-        }
+        lockApk();
     }
+
+
 
     /**
      * 锁住Apk
@@ -102,7 +86,7 @@ public class LockAppService extends Service {
                             }
                         });
 
-                while (true) {
+                while (isStartService) {
                     SystemClock.sleep(1000);
                     String packageName = RunningActivityUtil.getTaskPackNameForMi(mContext);
                     LogUtil.i(this, "当前任务栈顶是" + packageName);
@@ -130,6 +114,7 @@ public class LockAppService extends Service {
             unregisterReceiver(unlockReceiver);
             unlockReceiver = null;
         }
+        isStartService = false;
         super.onDestroy();
     }
 }

@@ -28,6 +28,7 @@ import com.wjustudio.phoneManager.biz.IAppMgrBiz;
 import com.wjustudio.phoneManager.javaBean.AppInfo;
 import com.wjustudio.phoneManager.javaBean.AppLockInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
+import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.ToastUtil;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
@@ -63,8 +64,9 @@ public class AppMgrFragment extends BaseFragment {
     private IAppMgrBiz mAppMgrBiz;
     private AppMgrAdapter mAppMgrAdapter;
     private Subscription mSubscription;
-    List<AppInfo> userAppList = new ArrayList<>();
-    List<AppInfo> systemAppList = new ArrayList<>();
+    List<AppInfo> mUserAppList = new ArrayList<>();
+    List<AppInfo> mSystemAppList = new ArrayList<>();
+    List<AppInfo> mAppInfoList = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {
@@ -115,8 +117,8 @@ public class AppMgrFragment extends BaseFragment {
                 mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 //添加动画,要先有背景
                 mPopupWindow.setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-                mPopupWindow.showAtLocation(view, Gravity.TOP | Gravity.LEFT, x + CommonUtil.dip2px(mContext, 60)
-                        , y - CommonUtil.dip2px(mContext, 0));
+                mPopupWindow.showAtLocation(view, Gravity.TOP | Gravity.LEFT, x + CommonUtil.dip2px(mContext, 65)
+                        , y + CommonUtil.dip2px(mContext, 5));
                 AlphaAnimation alphaAnimation = new AlphaAnimation(0.4f, 1.0f);
                 alphaAnimation.setDuration(200);
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1.0f, 0, 1.0f,
@@ -130,13 +132,15 @@ public class AppMgrFragment extends BaseFragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
+                LogUtil.i(this,"onItemLongClick");
                 dismissPopWindow();
-                if (getCurrentApp(position)) return;
                 AppLockBizImpl biz = new AppLockBizImpl(mContext);
                 AppMgrAdapter.AppInfoHolder appInfoHolder = (AppMgrAdapter.AppInfoHolder)
                         view.getTag();
+                if (getCurrentApp(position)) return;
                 AppLockInfo appLockInfo = new AppLockInfo(mItemAppInfo.packageName);
-                if (biz.isLock(mItemAppInfo.packageName)) {
+                boolean isLock = biz.isLock(mItemAppInfo.packageName);
+                if (isLock) {
                     appInfoHolder.appLock.setImageResource(R.mipmap.unlock);
                     biz.unlockApp(appLockInfo);
                 } else {
@@ -154,12 +158,12 @@ public class AppMgrFragment extends BaseFragment {
     private boolean getCurrentApp(int position) {
         if (position == 0) {
             return true;
-        } else if (position < userAppList.size() + 1) {
-            mItemAppInfo = userAppList.get(position - 1);
-        } else if (position == userAppList.size() + 1) {
+        } else if (position < mUserAppList.size() + 1) {
+            mItemAppInfo = mUserAppList.get(position - 1);
+        } else if (position == mUserAppList.size() + 1) {
             return true;
-        } else if (position > userAppList.size() + 1) {
-            mItemAppInfo = systemAppList.get(position - userAppList.size() - 2);
+        } else if (position > mUserAppList.size() + 1) {
+            mItemAppInfo = mSystemAppList.get(position - mUserAppList.size() - 2);
         }
         return false;
     }
@@ -188,11 +192,11 @@ public class AppMgrFragment extends BaseFragment {
                 int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager())
                         .findFirstVisibleItemPosition();
                 //这里要注意.获取数据在子线程.要判断是否为空
-                if (userAppList != null && systemAppList != null) {
-                    if (firstVisibleItem <= userAppList.size()) {
-                        mAppListTitle.setText("用户程序(" + userAppList.size() + ")");
+                if (mUserAppList != null && mSystemAppList != null) {
+                    if (firstVisibleItem <= mUserAppList.size()) {
+                        mAppListTitle.setText("用户程序(" + mUserAppList.size() + ")");
                     } else {
-                        mAppListTitle.setText("系统程序(" + systemAppList.size() + ")");
+                        mAppListTitle.setText("系统程序(" + mSystemAppList.size() + ")");
                     }
                 }
 
@@ -230,14 +234,17 @@ public class AppMgrFragment extends BaseFragment {
 
     //加载完毕后要显示的内容
     private void displayAppShows(List<AppInfo> appInfoList) {
-        mAppMgrAdapter.setList(appInfoList);
+        mAppInfoList.clear();
+        mAppInfoList.addAll(appInfoList);
         for (AppInfo appInfo : appInfoList) {
             if (appInfo.isUser) {
-                userAppList.add(appInfo);
+                mUserAppList.add(appInfo);
             } else {
-                systemAppList.add(appInfo);
+                mSystemAppList.add(appInfo);
             }
         }
+        mAppMgrAdapter.setList(appInfoList);
+//        mAppMgrAdapter.setList(mUserAppList,mSystemAppList);
         mAppListTitle.setVisibility(View.VISIBLE);
         mLinearLayout.setVisibility(View.GONE);
         mAppRecyclerView.setVisibility(View.VISIBLE);

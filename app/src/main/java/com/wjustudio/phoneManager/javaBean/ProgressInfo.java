@@ -22,7 +22,7 @@ public class ProgressInfo {
     /**
      * 应用运行时占用内存的大小
      */
-    public long ramSize;
+    public String ramSize;
     /**
      * 是否是用户程序
      */

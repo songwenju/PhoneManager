@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+<com.wjustudio.phoneManager.widgt.RevealLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/left_item_selector"
+    android:clickable="true">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:orientation="vertical">
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tv_black_num"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="110"
-            android:textSize="18sp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_mode"
+            <TextView
+                android:id="@+id/tv_black_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="110"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:text="电话拦截"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:text="电话拦截"
-            android:textSize="14sp"/>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/modify"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/modify"/>
 
-    <LinearLayout
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/delete"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/modify"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/modify"/>
-
-        <ImageView
-            android:layout_marginLeft="30dp"
-            android:id="@+id/delete"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/delete"/>
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</com.wjustudio.phoneManager.widgt.RevealLayout>

@@ -23,6 +23,7 @@ import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -42,7 +43,6 @@ public class BlackNumActivity extends BaseActivity {
     FloatingActionButton mIdFab;
 
     private AlertDialog mSetBlackNumDialog;
-    private List<BlackNumInfo> mBlackNumInfos;
     private BlackNumAdapter mBlackNumAdapter;
     private BlackNumBizImpl mBlackNumBiz;
     private int mBlackNumMode;
@@ -50,6 +50,7 @@ public class BlackNumActivity extends BaseActivity {
     private CheckBox mCbPhone;
     private CheckBox mCbSMS;
     private BlackNumInfo mBlackNumInfo;
+    private List<BlackNumInfo> mBlackNumInfoList = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {
@@ -69,7 +70,6 @@ public class BlackNumActivity extends BaseActivity {
      */
     public void showSetBlackNumDialog(final String blackNum, String title, final int mode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
         mSetBlackNumDialog = builder.create();
         View dialogView = View.inflate(mContext, R.layout.dialog_add_black_num, null);
         mSetBlackNumDialog.setView(dialogView, 0, 0, 0, 0);
@@ -85,13 +85,12 @@ public class BlackNumActivity extends BaseActivity {
         if (!TextUtils.isEmpty(blackNum)) {
             mPhoneNum.setText(blackNum);
         }
-        updateMode(mode, mCbPhone, mCbSMS);
+        setShowMode(mode, mCbPhone, mCbSMS);
         mBlackNumInfo = new BlackNumInfo();
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNumPtr = mPhoneNum.getText().toString().trim();
-
                 if (TextUtils.isEmpty(phoneNumPtr)) {
                     toast("手机号不能为空！");
                 } else if (!CommonUtil.isMobile(phoneNumPtr)) {
@@ -99,7 +98,6 @@ public class BlackNumActivity extends BaseActivity {
                 } else if (mode == 0 && mBlackNumBiz.isExist(phoneNumPtr)) {
                     toast("该手机号已经在黑名单.");
                 } else {
-
                     mBlackNumInfo.setBlackNum(phoneNumPtr);
                     if (mCbPhone.isChecked() && mCbSMS.isChecked()) {
                         mBlackNumMode = BlackNumBizImpl.BLACK_NUM_ALL;
@@ -116,31 +114,32 @@ public class BlackNumActivity extends BaseActivity {
                         }
                     }
                     mBlackNumInfo.setMode(mBlackNumMode);
+                    LogUtil.i(this, mBlackNumInfo.toString());
                     if (mode == 0) {
                         LogUtil.i(this, "insert");
                         mBlackNumBiz.insertBlackNum(mBlackNumInfo);
-                        mBlackNumInfos.add(mBlackNumInfo);
-                        //mBlackNumInfos = mBlackNumBiz.getAllBlackNum();这样不行，因为list的地址值变了。
-                        //LogUtil.i(this, "blackNum size:"+mBlackNumInfos.size());
+                        mBlackNumInfoList.add(mBlackNumInfo);
+                        //mBlackNumInfoList = mBlackNumBiz.getAllBlackNum();这样不行，因为list的地址值变了。
+                        LogUtil.i(this, "blackNum size:" + mBlackNumInfoList.size());
                         if (mTvBlackNumRemind.getVisibility() == View.VISIBLE) {
                             mTvBlackNumRemind.setVisibility(View.GONE);
                         }
+
+                        mBlackNumAdapter.notifyDataSetChanged();
                     } else {
                         LogUtil.i(this, "update");
                         mBlackNumBiz.updateBlackNum(mBlackNumInfo);
-                        for (int i = 0; i < mBlackNumInfos.size(); i++) {
-                            if (mBlackNumInfos.get(i).getBlackNum().equals(blackNum)) {
+                        for (int i = 0; i < mBlackNumInfoList.size(); i++) {
+                            if (mBlackNumInfoList.get(i).getBlackNum().equals(blackNum)) {
                                 LogUtil.i(this, "blackNumInfo blackNum:" + blackNum);
-
-                                mBlackNumInfos.get(i).setMode(mBlackNumMode);
-                                updateMode(mBlackNumMode, mCbPhone, mCbSMS);
+                                mBlackNumInfoList.get(i).setMode(mBlackNumMode);
+                                setShowMode(mBlackNumMode, mCbPhone, mCbSMS);
                                 break;
                             }
                         }
-                    }
-                    if (mBlackNumAdapter != null) {
                         mBlackNumAdapter.notifyDataSetChanged();
                     }
+
                     dialogDismiss();
                 }
             }
@@ -154,7 +153,7 @@ public class BlackNumActivity extends BaseActivity {
         mSetBlackNumDialog.show();
     }
 
-    private void updateMode(int mode, CheckBox cbPhone, CheckBox cbSMS) {
+    private void setShowMode(int mode, CheckBox cbPhone, CheckBox cbSMS) {
         switch (mode) {
             case BlackNumBizImpl.BLACK_NUM_PHONE:
                 cbPhone.setChecked(true);
@@ -179,15 +178,31 @@ public class BlackNumActivity extends BaseActivity {
     @Override
     protected void onInitData() {
         mBlackNumBiz = new BlackNumBizImpl();
-        mBlackNumInfos = mBlackNumBiz.getAllBlackNum();
-        LogUtil.i(this, "blackNumInfos size:" + mBlackNumInfos.size());
-        mBlackNumAdapter = new BlackNumAdapter(mContext, mBlackNumInfos, this, mBlackNumBiz, mTvBlackNumRemind);
+        mBlackNumInfoList.addAll(mBlackNumBiz.getAllBlackNum());
+        LogUtil.i(this, "mBlackNumInfoList size:" + mBlackNumInfoList.size());
+        mBlackNumAdapter = new BlackNumAdapter(mContext, mBlackNumInfoList);
+        mBlackNumAdapter.setOnProcessClickListener(new BlackNumAdapter.ProcessClickListener() {
+            @Override
+            public void onDeleteClick(BlackNumInfo blackNumInfo) {
+                mBlackNumInfoList.remove(blackNumInfo);
+                mBlackNumBiz.deleteBlackNum(blackNumInfo);
+                mBlackNumAdapter.notifyDataSetChanged();
+                if (mBlackNumInfoList.size() == 0) {
+                    mTvBlackNumRemind.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onModifyClick(BlackNumInfo blackNumInfo) {
+                showSetBlackNumDialog(blackNumInfo.getBlackNum(),
+                        "修改黑名单", blackNumInfo.getMode());
+            }
+        });
     }
 
     @Override
     protected void onSetViewData() {
-
-        if (mBlackNumInfos.size() == 0) {
+        if (mBlackNumInfoList.size() == 0) {
             mTvBlackNumRemind.setVisibility(View.VISIBLE);
         } else {
             mTvBlackNumRemind.setVisibility(View.GONE);
@@ -203,8 +218,6 @@ public class BlackNumActivity extends BaseActivity {
                 this, DividerItemDecoration.VERTICAL_LIST
         ));
         mRecyclerView.setAdapter(mBlackNumAdapter);
-
-
     }
 
     @Override
@@ -226,7 +239,6 @@ public class BlackNumActivity extends BaseActivity {
                 showSetBlackNumDialog("", "添加黑名单", 0);
                 break;
         }
-
     }
 
 }

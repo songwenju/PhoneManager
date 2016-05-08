@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <com.wjustudio.phoneManager.widgt.CommonTitleLayout
         android:id="@+id/ctl_common_title"
@@ -12,23 +12,24 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@color/left_bg_color">
 
         <TextView
             android:id="@+id/tv_black_num_remind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
             android:text="暂无拦截的号码,请点击按钮添加"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="invisible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lv_black_num"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fastScrollEnabled="true"
-            android:layout_marginBottom="75dp">
+            android:layout_marginBottom="75dp"
+            android:fastScrollEnabled="true">
         </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
@@ -42,7 +43,7 @@
             app:backgroundTint="@color/primary"
             app:elevation="6dp"
             app:pressedTranslationZ="12dp"
-            app:rippleColor="@color/primary_dark" />
+            app:rippleColor="@color/primary_dark"/>
 
     </FrameLayout>
 
