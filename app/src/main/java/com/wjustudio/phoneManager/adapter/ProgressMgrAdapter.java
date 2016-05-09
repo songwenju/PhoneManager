@@ -25,8 +25,8 @@ import java.util.Map;
  */
 public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> implements View.OnClickListener {
 
-    private List<ProgressInfo> userProgressList = new ArrayList<>();
-    private List<ProgressInfo> systemProgressList = new ArrayList<>();
+    private List<ProgressInfo> mUserProgressList = new ArrayList<>();
+    private List<ProgressInfo> mSystemProgressList = new ArrayList<>();
     //将条目设置为成员变量,方便在点击事件中使用.
     public static final int ITEM_TYPE_PROGRESS_INFO = 0;
     public static final int ITEM_TYPE_TEXT = 1;
@@ -46,22 +46,43 @@ public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> imp
 
         mHashMap = new HashMap<>();
 
-        for (int i = 0; i < mList.size(); i++) {
-            mHashMap.put(i, UNCHECKED);
-        }
-        userProgressList.clear();
-        systemProgressList.clear();
+        setAllUnchecked();
+        mUserProgressList.clear();
+        mSystemProgressList.clear();
         for (ProgressInfo progressInfo : list) {
             if (progressInfo.isUser) {
-                userProgressList.add(progressInfo);
+                mUserProgressList.add(progressInfo);
             } else {
-                systemProgressList.add(progressInfo);
+                mSystemProgressList.add(progressInfo);
             }
         }
     }
 
+    public void setAllUnchecked() {
+        for (int i = 0; i < mList.size(); i++) {
+            mHashMap.put(i, UNCHECKED);
+        }
+    }
+
+    public void setAllChecked() {
+        for (int i = 0; i < mList.size(); i++) {
+            mHashMap.put(i, UNCHECKED);
+        }
+    }
 
 
+    public void setConvertChecked(){
+        //设置两个集合的属性都为相反
+        for (ProgressInfo progressInfo : mUserProgressList) {
+            if (!progressInfo.packageName.equals(mContext.getPackageName())) {
+                progressInfo.isChecked = !progressInfo.isChecked;
+            }
+        }
+        for (ProgressInfo progressInfo : mSystemProgressList) {
+            progressInfo.isChecked = !progressInfo.isChecked;
+        }
+        notifyDataSetChanged();
+    }
     public class ProgressInfoHolder extends RecyclerView.ViewHolder {
         public ImageView progressIcon;
         public TextView progressName, progressSize;
@@ -90,7 +111,7 @@ public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> imp
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 || position == userProgressList.size() + 1) {
+        if (position == 0 || position == mUserProgressList.size() + 1) {
             return ITEM_TYPE_TEXT;
         } else {
             return ITEM_TYPE_PROGRESS_INFO;
@@ -110,30 +131,37 @@ public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> imp
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-//        ProgressInfo ProgressInfo = mList.get(position);
         if (holder instanceof TextViewHolder) {
             TextViewHolder textViewHolder = ((TextViewHolder) holder);
             if (position == 0) {
-                textViewHolder.mTvProgressListTitle.setText("用户进程(" + userProgressList.size() + ")");
+                textViewHolder.mTvProgressListTitle.setText("用户进程(" + mUserProgressList.size() + ")");
             } else {
-                textViewHolder.mTvProgressListTitle.setText("系统进程(" + systemProgressList.size() + ")");
+                textViewHolder.mTvProgressListTitle.setText("系统进程(" + mSystemProgressList.size() + ")");
             }
         } else if (holder instanceof ProgressInfoHolder) {
 
             final ProgressInfoHolder progressInfoHolder = (ProgressInfoHolder) holder;
-            ProgressInfo ProgressInfo;
-            if (position <= userProgressList.size()) {
-                ProgressInfo = userProgressList.get(position - 1);
+            ProgressInfo progressInfo;
+            if (position <= mUserProgressList.size()) {
+                progressInfo = mUserProgressList.get(position - 1);
             } else {
-                ProgressInfo = systemProgressList.get(position - userProgressList.size() - 2);
+                progressInfo = mSystemProgressList.get(position - mUserProgressList.size() - 2);
             }
-            progressInfoHolder.progressIcon.setImageDrawable(ProgressInfo.icon);
-            progressInfoHolder.progressName.setText(ProgressInfo.name);
-            progressInfoHolder.progressSize.setText(""+ProgressInfo.ramSize);
+            progressInfoHolder.progressIcon.setImageDrawable(progressInfo.icon);
+            progressInfoHolder.progressName.setText(progressInfo.name);
+            progressInfoHolder.progressSize.setText(""+progressInfo.ramSize);
             LogUtil.i(this,"isChecked"+mHashMap.get(position));
-            progressInfoHolder.progressIsChecked.setChecked(mHashMap.get(position) == CHECKED);
+            progressInfoHolder.progressIsChecked.setChecked(progressInfo.isChecked
+                    ||mHashMap.get(position) == CHECKED);
+
             progressInfoHolder.progressIsChecked.setOnClickListener(this);
             progressInfoHolder.progressIsChecked.setTag(R.id.progress_isChecked,position);
+            //设置自己应用没有checkBox,在listView中有if必有else否则会出现复用错误.
+            if (progressInfo.packageName.equals(mContext.getPackageName())) {
+                progressInfoHolder.progressIsChecked.setVisibility(View.INVISIBLE);
+            }else {
+                progressInfoHolder.progressIsChecked.setVisibility(View.VISIBLE);
+            }
             progressInfoHolder.itemView.setTag(progressInfoHolder);
         }
 

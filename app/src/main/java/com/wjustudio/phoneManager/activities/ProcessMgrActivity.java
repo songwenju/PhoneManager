@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.app.ActivityManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -57,6 +58,7 @@ public class ProcessMgrActivity extends BaseActivity {
     Button mBtnHideProgress;
     private IProgressBiz mBiz;
     private ProgressMgrAdapter mAdapter;
+    private List<ProgressInfo> mProgressList = new ArrayList<>();
     private List<ProgressInfo> userProgressList = new ArrayList<>();
     private List<ProgressInfo> systemProgressList = new ArrayList<>();
     private ProgressInfo mProgressInfo;
@@ -82,7 +84,7 @@ public class ProcessMgrActivity extends BaseActivity {
     protected void onSetViewData() {
         mProgressRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mProgressRecyclerView.addItemDecoration(new DividerItemDecoration(
-                mContext,DividerItemDecoration.VERTICAL_LIST
+                mContext, DividerItemDecoration.VERTICAL_LIST
         ));
         mAdapter = new ProgressMgrAdapter(mContext);
         mProgressRecyclerView.setAdapter(mAdapter);
@@ -125,9 +127,12 @@ public class ProcessMgrActivity extends BaseActivity {
                 getCurrentProgress(position);
                 ProgressMgrAdapter.ProgressInfoHolder progressInfoHolder =
                         (ProgressMgrAdapter.ProgressInfoHolder) view.getTag();
-                boolean checked = progressInfoHolder.progressIsChecked.isChecked();
-                progressInfoHolder.progressIsChecked.setChecked(!checked);
-               mAdapter.setChecked(position,checked ? ProgressMgrAdapter.UNCHECKED : ProgressMgrAdapter.CHECKED);
+                if (progressInfoHolder != null) {
+                    boolean checked = progressInfoHolder.progressIsChecked.isChecked();
+                    progressInfoHolder.progressIsChecked.setChecked(!checked);
+                    mAdapter.setChecked(position,
+                            checked ? ProgressMgrAdapter.UNCHECKED : ProgressMgrAdapter.CHECKED);
+                }
             }
 
             @Override
@@ -145,7 +150,7 @@ public class ProcessMgrActivity extends BaseActivity {
         } else if (position == userProgressList.size() + 1) {
             return true;
         } else if (position > userProgressList.size() + 1) {
-            mProgressInfo = userProgressList.get(position - userProgressList.size() - 2);
+            mProgressInfo = systemProgressList.get(position - userProgressList.size() - 2);
         }
         return false;
     }
@@ -192,9 +197,11 @@ public class ProcessMgrActivity extends BaseActivity {
     }
 
     private void displayProgress(List<ProgressInfo> progressInfoList) {
-        mTvProgressNum.setText("进程数:"+ progressInfoList.size());
+        mProgressList.clear();
+        mProgressList.addAll(progressInfoList);
+        mTvProgressNum.setText("进程数:" + mProgressList.size());
         try {
-            mTvProgressRate.setText("可用内存/总内存:"+ mBiz.getAvailMem()+"/"+mBiz.getTotalMem());
+            mTvProgressRate.setText("可用内存/总内存:" + mBiz.getAvailMem() + "/" + mBiz.getTotalMem());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -208,7 +215,7 @@ public class ProcessMgrActivity extends BaseActivity {
         }
         mTvProgressListTitle.setVisibility(View.VISIBLE);
         mLlLoading.setVisibility(View.GONE);
-        mAdapter.setList(progressInfoList);
+        mAdapter.setList(mProgressList);
         mProgressRecyclerView.setVisibility(View.VISIBLE);
     }
 
@@ -235,37 +242,82 @@ public class ProcessMgrActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_select_all:
                 toast("全选");
-//        //遍历设置为选中
-//        for (TaskInfo taskInfo : taskInfos) {
-//            if (!taskInfo.packageName.equals(getPackageName())) {
-//                taskInfo.isChecked = true;
-//            }
-//        }
-//        adapter.notifyDataSetChanged();
+                //遍历设置为选中
+                for (int i = 0; i < mProgressList.size(); i++) {
+                    if (!mProgressList.get(i).packageName.equals(getPackageName())) {
+                        mProgressList.get(i).isChecked = true;
+                    }
+                }
+                mAdapter.setAllChecked();
+//                for (ProgressInfo progressInfo : mProgressList) {
+//                    if (!progressInfo.packageName.equals(getPackageName())) {
+//                        progressInfo.isChecked = true;
+//                    }
+//                }
+                mAdapter.notifyDataSetChanged();
                 break;
             case R.id.btn_select_reverse:
                 toast("反选");
-//        //遍历设置为原来状态相反
-//        for (TaskInfo taskInfo : taskInfos) {
-//            if (!taskInfo.packageName.equals(getPackageName())) {
-//                taskInfo.isChecked = !taskInfo.isChecked;
-//            }
-//        }
-//        adapter.notifyDataSetChanged();
+                //遍历设置为原来状态相反
+                mAdapter.setConvertChecked();
+                mAdapter.notifyDataSetChanged();
+
                 break;
             case R.id.btn_clear:
                 toast("清理");
+                //清理选中的条目
+                ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                List<ProgressInfo> deleteList = new ArrayList<>();
+                //判断是否是选中
+                for (ProgressInfo userProgressInfo : userProgressList) {
+                    if (userProgressInfo.isChecked) {
+                        am.killBackgroundProcesses(userProgressInfo.packageName);
+                        deleteList.add(userProgressInfo);
+                    }
+                }
+
+                for (ProgressInfo systemProgressInfo : systemProgressList) {
+                    if (systemProgressInfo.isChecked) {
+                        am.killBackgroundProcesses(systemProgressInfo.packageName);
+                        deleteList.add(systemProgressInfo);
+                    }
+                }
+
+                for (ProgressInfo ProgressInfo : deleteList) {
+                    if (ProgressInfo.isUser) {
+                        userProgressList.remove(ProgressInfo);
+                    }else {
+                        systemProgressList.remove(ProgressInfo);
+                    }
+                }
+			
+		   /*这样写会出现只能清除用户进程的非本身进程
+		    * ProgressInfos.removeAll(deleteList);
+			fillData();*/
+//                fillBarText();
+//                adapter.notifyDataSetChanged();
+//                deleteList.clear();
+//                deleteList = null;
+//                isCleared = true;
                 break;
             case R.id.btn_cancel_progress:
                 toast("取消");
-//        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-//        killProgress(am);
-//        break;
+                //遍历设置为选中
+                for (ProgressInfo progressInfo : mProgressList) {
+                    if (!progressInfo.packageName.equals(getPackageName())) {
+                        progressInfo.isChecked = false;
+                    }
+                }
+                mAdapter.setAllUnchecked();
+                mAdapter.notifyDataSetChanged();
 //        case R.id.bt_task_set://点击隐藏系统程序
 //        showSysTask = !showSysTask;
 //        adapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    private void killProgress(ActivityManager am) {
     }
 
 
