@@ -89,7 +89,7 @@
             android:textColor="#ffffff"
             android:textSize="18sp"/>
 
-        <Button
+       <!-- <Button
             android:id="@+id/btn_select_reverse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
             android:background="@drawable/selector_taskbtn_color"
             android:text="反选"
             android:textColor="#ffffff"
-            android:textSize="18sp"/>
+            android:textSize="18sp"/>-->
 
         <Button
             android:id="@+id/btn_cancel_progress"
