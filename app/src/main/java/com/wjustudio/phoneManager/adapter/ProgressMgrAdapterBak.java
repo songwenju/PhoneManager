@@ -23,7 +23,7 @@ import java.util.Map;
  * 作者： songwenju on 2016/5/1 09:43.
  * 邮箱： songwenju@outlook.com
  */
-public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> implements View.OnClickListener {
+public class ProgressMgrAdapterBak extends BaseRecycleViewAdapter<ProgressInfo> implements View.OnClickListener {
 
     private List<ProgressInfo> mUserProgressList = new ArrayList<>();
     private List<ProgressInfo> mSystemProgressList = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ProgressMgrAdapter extends BaseRecycleViewAdapter<ProgressInfo> imp
     public static final int UNCHECKED = 0;
     public static final int CHECKED = 1;
 
-    public ProgressMgrAdapter(Context context) {
+    public ProgressMgrAdapterBak(Context context) {
         super(context);
     }
 
