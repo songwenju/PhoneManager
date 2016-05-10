@@ -224,7 +224,18 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         //RecyclerView设置布局管理器
         mRvLeftMenuContent.setLayoutManager(layoutManager);
         //设置侧拉菜单的recyclerView的布局
-        mRvLeftMenuContent.setAdapter(new LeftMenuAdapter(mContext, mLeftPageIcons, windowSize));
+
+        LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(mContext, mLeftPageIcons, windowSize);
+        mRvLeftMenuContent.setAdapter(leftMenuAdapter);
+        leftMenuAdapter.setOnItemClickListener(new LeftMenuAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == 0){
+                    Intent intent = new Intent(mContext,QrCodeScanActivity.class);
+                    mContext.startActivity(intent);
+                }
+            }
+        });
         //添加分割线
         mRvLeftMenuContent.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST

@@ -42,5 +42,6 @@
     <string name="soft_manager_title">软件管家</string>
     <string name="open_soft_lock">开启程序锁</string>
 
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 
 </resources>

@@ -8,8 +8,8 @@ import android.os.Build;
 import android.os.Debug;
 import android.text.format.Formatter;
 
-import com.jaredrummler.android.processes.ProcessManager;
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
+import com.wjustudio.phoneManager.lib.processes.ProcessManager;
+import com.wjustudio.phoneManager.lib.processes.models.AndroidAppProcess;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.javaBean.ProgressInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
@@ -93,8 +93,8 @@ public class ProgressBizImpl implements IProgressBiz {
         // 应用程序包管理器
         PackageManager pm = mContext.getPackageManager();
         // 获取正在运行的程序信息, 就是以下粗体的这句代码,获取系统运行的进程     要使用这个方法，需要加载
-        //　import com.jaredrummler.android.processes.ProcessManager;
-        //　import com.jaredrummler.android.processes.models.AndroidAppProcess;  这两个包, 这两个包附件可以下载
+        //　import ProcessManager;
+        //　import AndroidAppProcess;  这两个包, 这两个包附件可以下载
 
         List<AndroidAppProcess> androidAppProcessList = ProcessManager.getRunningAppProcesses();
         List<ProgressInfo> progressInfoList = new ArrayList<>();

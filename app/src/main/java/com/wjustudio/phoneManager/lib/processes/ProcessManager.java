@@ -15,15 +15,15 @@
  *
  */
 
-package com.jaredrummler.android.processes;
+package com.wjustudio.phoneManager.lib.processes;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
-import com.jaredrummler.android.processes.models.AndroidProcess;
+import com.wjustudio.phoneManager.lib.processes.models.AndroidAppProcess;
+import com.wjustudio.phoneManager.lib.processes.models.AndroidProcess;
 
 import java.io.File;
 import java.io.IOException;

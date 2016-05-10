@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.processes.models;
+package com.wjustudio.phoneManager.lib.processes.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

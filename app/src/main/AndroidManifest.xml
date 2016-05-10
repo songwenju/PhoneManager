@@ -58,6 +58,8 @@
         <activity android:name=".activities.SoftMgrActivity"/>
         <activity android:name=".activities.BlackNumSettingActivity"/>
         <activity android:name=".activities.SoftMgrSettingActivity"/>
+        <activity android:name=".activities.MipcaActivityCapture"/>
+        <activity android:name=".activities.QrCodeScanActivity"/>
         <activity
             android:name=".activities.AppLockActivity"
             android:excludeFromRecents="true"

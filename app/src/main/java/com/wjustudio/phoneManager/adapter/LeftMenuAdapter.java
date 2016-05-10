@@ -34,7 +34,7 @@ public class LeftMenuAdapter extends RecyclerView.Adapter {
 
     private OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClicklistener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener){
         mOnItemClickListener = listener;
     }
 
