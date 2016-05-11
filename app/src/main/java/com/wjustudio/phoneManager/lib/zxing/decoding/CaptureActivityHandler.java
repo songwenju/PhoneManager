@@ -85,9 +85,9 @@ public final class CaptureActivityHandler extends Handler {
         
         /***********************************************************************/
         Bitmap barcode = bundle == null ? null :
-            (Bitmap) bundle.getParcelable(DecodeThread.BARCODE_BITMAP);//���ñ����߳�
+            (Bitmap) bundle.getParcelable(DecodeThread.BARCODE_BITMAP);
         
-        activity.handleDecode((Result) message.obj, barcode);//���ؽ��?        /***********************************************************************/
+        activity.handleDecode((Result) message.obj, barcode);
         break;
       case R.id.decode_failed:
         // We're decoding as fast as possible, so when one decode fails, start another.

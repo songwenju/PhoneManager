@@ -2,6 +2,7 @@ package com.wjustudio.phoneManager.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
  * 邮箱：songwenju01@163.com
  */
 public class CommonUtil {
+    public static final String TAG = "commonUtil";
 
     /**
      * 在主线程执行任务,该方法在fragment中也可以使用.
@@ -150,6 +151,7 @@ public class CommonUtil {
         localBuilder.show();
 
     }
+
 
     /**
      * md5加密
@@ -291,6 +293,7 @@ public class CommonUtil {
         }
         return b;
     }
+
     /**
      * 邮箱验证
      *
@@ -349,6 +352,7 @@ public class CommonUtil {
 
     /**
      * 判断字符串是否是一个字母
+     *
      * @param s
      * @return
      */
@@ -359,23 +363,25 @@ public class CommonUtil {
 
     /**
      * 注册广播接收者
+     *
      * @param receiver
      * @param action
      */
-    public static void registerReceiver(Context context,BroadcastReceiver receiver, String action) {
+    public static void registerReceiver(Context context, BroadcastReceiver receiver, String action) {
         IntentFilter filter = new IntentFilter();
         filter.addAction(action);
-        context.registerReceiver(receiver,filter);
+        context.registerReceiver(receiver, filter);
     }
 
 
     /**
      * 获取服务是否开启
+     *
      * @param context
      * @param className 服务的全类名
      * @return 服务开启的状态
      */
-    public static boolean isRunningService(Context context,String  className) {
+    public static boolean isRunningService(Context context, String className) {
         boolean isRunning = false;
         //这里是进程的管理者,活动的管理者
         ActivityManager am =
@@ -390,10 +396,10 @@ public class CommonUtil {
             String componentName = component_Name.getClassName();
 
             //判断获取类名和传递进来的类名是否一致，一致返回true表示正在运行，不一致返回false表示没有运行
-            if (!TextUtils.isEmpty(className)&&className.equals(componentName)) {
+            if (!TextUtils.isEmpty(className) && className.equals(componentName)) {
                 //如果包含该服务,说明服务已经开启了
                 isRunning = true;
-                LogUtil.i("commonUtil","service is running:"+isRunning);
+                LogUtil.i(TAG, "service is running:" + isRunning);
             }
         }
         return isRunning;
@@ -401,15 +407,35 @@ public class CommonUtil {
 
     /**
      * 打开输入法面板
+     *
      * @param activity
      */
-    public static void showInputMethod(final Activity activity){
-        if(activity == null)return;
-        InputMethodManager inputMethodManager = ((InputMethodManager)activity.getSystemService(
+    public static void showInputMethod(final Activity activity) {
+        if (activity == null) return;
+        InputMethodManager inputMethodManager = ((InputMethodManager) activity.getSystemService(
                 Activity.INPUT_METHOD_SERVICE));
-        if(activity.getCurrentFocus() != null){
+        if (activity.getCurrentFocus() != null) {
             inputMethodManager.showSoftInput(activity.getCurrentFocus(), 0);
         }
     }
+
+
+
+    /**
+     * 判断是否是url链接
+     * @param str
+     * @return
+     */
+    public static boolean isCorrectUrl(String str){
+        Pattern p;
+        Matcher m;
+        boolean b;
+        //验证邮箱
+        p = Pattern.compile("[a-zA-z]+://[^\\s]*");
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+
 
 }

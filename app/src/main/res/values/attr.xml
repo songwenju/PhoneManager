@@ -88,7 +88,8 @@
     </string-array>
 
     <string-array name="left_menu_text">
-        <item>信息备份</item>
         <item>二维码扫描</item>
+        <item>信息备份</item>
+        <item>归属地查询</item>
     </string-array>
 </resources>

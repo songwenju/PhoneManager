@@ -72,7 +72,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
             R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
 
-    private int[] mLeftIconArray = {R.mipmap.icon_safe, R.mipmap.icon_safe};
+    private int[] mLeftIconArray = {R.mipmap.icon_safe,R.mipmap.icon_safe,R.mipmap.icon_safe};
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar mActionBar;
     private AlertDialog mPwdSetDialog, mPwdInputDialog;
@@ -231,8 +231,12 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             @Override
             public void onItemClick(View view, int position) {
                 if (position == 0){
-                    Intent intent = new Intent(mContext,QrCodeScanActivity.class);
+                    Intent intent = new Intent(mContext,MipcaActivityCapture.class);
                     mContext.startActivity(intent);
+                }else if (position == 1){
+                    toast("信息备份");
+                }else if (position == 2){
+                    toast("查询归属地");
                 }
             }
         });
