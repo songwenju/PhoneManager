@@ -31,7 +31,7 @@ import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
-import com.wjustudio.phoneManager.widgt.AvatarView;
+import com.wjustudio.phoneManager.widgt.CircleImageView;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Bind(R.id.dl_left)
     DrawerLayout mDrawerLayout;
     @Bind(R.id.iv_avatar)
-    AvatarView mIvAvatar;
+    CircleImageView mIvAvatar;
     @Bind(R.id.tv_left_switch_model)
     TextView mTvLeftSwitchModel;
     @Bind(R.id.tv_left_setting)
@@ -169,10 +169,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         });
     }
 
-    @Override
-    protected void onInitListener() {
-
-    }
 
     @Override
     protected void onInitData() {
@@ -236,7 +232,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 }else if (position == 1){
                     toast("信息备份");
                 }else if (position == 2){
-                    toast("查询归属地");
                     Intent intent = new Intent(mContext,PhoneLocationActivity.class);
                     mContext.startActivity(intent);
                 }
@@ -322,8 +317,24 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     @Override
+    protected void onInitListener() {
+        mIvAvatar.setOnClickListener(this);
+    }
+    @Override
     protected void processClick(View v) {
-
+        switch (v.getId()){
+            case R.id.iv_avatar:
+                if (!TextUtils.isEmpty(SpUtil.getString(AppConstants.LOGIN_USER,""))) {
+                    //显示用户信息
+                    toast("显示用户信息");
+                }else {
+                    //注册登录界面
+                    toast("登录");
+                    Intent intent = new Intent(this,LoginRegActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
 

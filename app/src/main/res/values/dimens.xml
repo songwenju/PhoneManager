@@ -13,4 +13,6 @@
     <dimen name="ksw_md_thumb_solid_size">20dp</dimen>
     <dimen name="ksw_md_thumb_shadow_size">21dp</dimen>
     <dimen name="ksw_md_thumb_shadow_offset">2dp</dimen>
+
+    <dimen name="edit_margin_left">5dp</dimen>
 </resources>

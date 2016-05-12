@@ -51,7 +51,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.LoginRegActivity"/>
         <activity android:name=".activities.TheftProofActivity"/>
         <activity android:name=".activities.TheftProofSelectOneActivity"/>
         <activity android:name=".activities.TheftProofSelectTwoActivity"/>

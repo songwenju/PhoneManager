@@ -12,17 +12,18 @@
         android:layout_height="200dp"
         android:background="@color/primary"
         android:orientation="vertical">
-        <com.wjustudio.phoneManager.widgt.AvatarView
+        <com.wjustudio.phoneManager.widgt.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:contentDescription="@null"
-            android:src="@mipmap/login_dface"
+            android:src="@mipmap/login_default_face"
             app:border_color="@color/white"
             app:border_width="2dip" />
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -30,7 +31,6 @@
             android:text="@string/login_out"
             android:textColor="@color/white"
             android:layout_below="@id/iv_avatar"/>
-
     </RelativeLayout>
 
     <ScrollView
