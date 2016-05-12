@@ -27,7 +27,7 @@
             android:id="@+id/ll_cache_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textColor="@color/primary"
                 android:text="一键清理"/>
 
             <ListView

@@ -15,6 +15,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 
+import com.android.internal.telephony.ITelephony;
 import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
@@ -102,9 +103,9 @@ public class BlackNumService extends Service {
             //这里需要两个远程服务类.
             IBinder invoke = (IBinder) method.invoke(null, Context.TELEPHONY_SERVICE);
             //aidl  .aidl
-            //ITelephony iTelephony = ITelephony.Stub.asInterface(invoke);
+            ITelephony iTelephony = ITelephony.Stub.asInterface(invoke);
             //挂断电话
-            //iTelephony.endCall();
+            iTelephony.endCall();
         } catch (Exception e) {
             e.printStackTrace();
         }
