@@ -2,8 +2,15 @@ package com.wjustudio.phoneManager.presenter;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.res.AssetManager;
 
+import com.lidroid.xutils.util.IOUtils;
 import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 作者：songwenju on 2015/12/20 11:08
@@ -12,9 +19,11 @@ import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
  */
 public class SplashPresenter {
     private CheckVersionBizImpl mCheckVersionBiz;
+    private Context mContext;
 
     public SplashPresenter (Context context) {
-        mCheckVersionBiz = new CheckVersionBizImpl(context);
+        mContext = context;
+        mCheckVersionBiz = new CheckVersionBizImpl(mContext);
     }
 
     /**
@@ -38,5 +47,32 @@ public class SplashPresenter {
      */
     public void enterHomeActivity() {
         mCheckVersionBiz.enterHomeActivity();
+    }
+
+    /**
+     * 拷贝数据库到手机中
+     * @param dbName
+     */
+    public void copyDbFromAssets(String dbName) {
+        AssetManager assets = mContext.getAssets();
+        InputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        try {
+            inputStream = assets.open(dbName);
+            outputStream = new FileOutputStream(
+                    new File(mContext.getFilesDir(),dbName));
+            int len;
+            byte[] b = new byte[1024];
+            while ((len = inputStream.read(b))!= -1) {
+                outputStream.write(b, 0, len);
+                outputStream.flush();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            IOUtils.closeQuietly(inputStream);
+            IOUtils.closeQuietly(outputStream);
+        }
     }
 }

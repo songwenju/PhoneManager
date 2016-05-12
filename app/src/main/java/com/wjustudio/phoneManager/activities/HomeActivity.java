@@ -237,6 +237,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                     toast("信息备份");
                 }else if (position == 2){
                     toast("查询归属地");
+                    Intent intent = new Intent(mContext,PhoneLocationActivity.class);
+                    mContext.startActivity(intent);
                 }
             }
         });

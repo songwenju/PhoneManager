@@ -35,7 +35,6 @@ public class SplashActivity extends BaseActivity {
         ButterKnife.bind(this);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/childFont.ttf");
         mSpTvButton.setTypeface(custom_font);
-
         custom_font = Typeface.createFromAsset(getAssets(),"fonts/yizhi.ttf");
         mSpTvTitle.setTypeface(custom_font);
     }
@@ -60,6 +59,7 @@ public class SplashActivity extends BaseActivity {
                 String versionName = packageInfo.versionName;
                 mTvSplashActivity.setText(versionName);
                 mSplashPresenter = new SplashPresenter(this);
+                mSplashPresenter.copyDbFromAssets("address.db");
                 mSplashPresenter.getUpdate(packageInfo);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
