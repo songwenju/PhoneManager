@@ -1,7 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.text.TextUtils;
@@ -464,7 +463,7 @@ public class LoginRegActivity extends BaseActivity {
                                 toast("用户名已经存在");
                             } else if ("3".equals(result)) {
                                 mLoginDialog.dismiss();
-                                toast("注册成功，欢迎使用随手涂鸦");
+                                toast("注册成功，欢迎使用手机管家");
                                 SpUtil.putString(AppConstants.LOGIN_USER,emailStr);
                                 enterMainActivity();
                                 mRegisterDialog.dismiss();
@@ -488,8 +487,6 @@ public class LoginRegActivity extends BaseActivity {
 
     private void enterMainActivity() {
         if (!TextUtils.isEmpty(SpUtil.getString(AppConstants.LOGIN_USER,""))){
-            Intent intent = new Intent(mContext, HomeActivity.class);
-            mContext.startActivity(intent);
             LoginRegActivity.this.finish();
         }
     }

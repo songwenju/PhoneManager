@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * Initial the camera
  */
-public class MipcaActivityCapture extends BaseActivity implements Callback {
+public class CaptureActivity extends BaseActivity implements Callback {
 
     private static final float BEEP_VOLUME = 0.10f;
     private static final long VIBRATE_DURATION = 200L;
@@ -149,7 +149,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
         playBeepSoundAndVibrate();
         String resultString = result.getText();
         if (resultString.equals("")) {
-            Toast.makeText(MipcaActivityCapture.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
             if (CommonUtil.isCorrectUrl(resultString)) {
                 //打开系统默认的浏览器
@@ -170,7 +170,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             }
 //            this.setResult(RESULT_OK, resultIntent);
         }
-        MipcaActivityCapture.this.finish();
+        CaptureActivity.this.finish();
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

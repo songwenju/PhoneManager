@@ -56,8 +56,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     DrawerLayout mDrawerLayout;
     @Bind(R.id.iv_avatar)
     CircleImageView mIvAvatar;
-    @Bind(R.id.tv_left_switch_model)
-    TextView mTvLeftSwitchModel;
+    @Bind(R.id.user_name)
+    TextView mUserName;
     @Bind(R.id.tv_left_setting)
     TextView mTvLeftSetting;
     @Bind(R.id.rv_left_menu_content)
@@ -67,13 +67,11 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private List<IconInfo> mMainPageIcons;
     private List<IconInfo> mLeftPageIcons;
-    private int mWindowHeight;
 
     private int[] mIconArray = {R.mipmap.icon_safe, R.mipmap.icon_contacts,
             R.mipmap.icon_progress, R.mipmap.icon_app, R.mipmap.icon_cache};
 
-    private int[] mLeftIconArray = {R.mipmap.icon_safe,R.mipmap.icon_safe,R.mipmap.icon_safe};
-    private ActionBarDrawerToggle mDrawerToggle;
+    private int[] mLeftIconArray = {R.mipmap.icon_safe, R.mipmap.icon_safe, R.mipmap.icon_safe};
     private ActionBar mActionBar;
     private AlertDialog mPwdSetDialog, mPwdInputDialog;
 
@@ -98,6 +96,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     /**
      * 初始化输入密码的dialog
+     *
      * @param builder
      */
     private void initPwdInputDialog(AlertDialog.Builder builder) {
@@ -133,6 +132,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     /**
      * 初始化设置密码的dialog
+     *
      * @param builder
      */
     private void initPwdSetDialog(AlertDialog.Builder builder) {
@@ -198,17 +198,17 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     protected void onSetViewData() {
         mDiscView.setValue(100);
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
-        mWindowHeight = windowSize.get("height");
+        int windowHeight = windowSize.get("height");
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mDiscView.getLayoutParams();
-        params.height = (int) (mWindowHeight / 3 + 0.5) - mActionBar.getHeight();
+        params.height = (int) (windowHeight / 3 + 0.5) - mActionBar.getHeight();
         mDiscView.setLayoutParams(params);
         //设置主页面的listView的布局
-        mLvAppList.setAdapter(new HomeMainAdapter(mContext, mMainPageIcons, mWindowHeight));
+        mLvAppList.setAdapter(new HomeMainAdapter(mContext, mMainPageIcons, windowHeight));
         mLvAppList.setOnItemClickListener(this);
 
         //设置左侧布局各部分的高度
         params = (LinearLayout.LayoutParams) mRlLeftHead.getLayoutParams();
-        params.height = (int) (mWindowHeight / 3 + 0.5);
+        params.height = (int) (windowHeight / 3 + 0.5);
         mRlLeftHead.setLayoutParams(params);
         mRvLeftMenuContent.setLayoutParams(params);
 
@@ -226,13 +226,13 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         leftMenuAdapter.setOnItemClickListener(new LeftMenuAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (position == 0){
-                    Intent intent = new Intent(mContext,MipcaActivityCapture.class);
+                if (position == 0) {
+                    Intent intent = new Intent(mContext, CaptureActivity.class);
                     mContext.startActivity(intent);
-                }else if (position == 1){
+                } else if (position == 1) {
                     toast("信息备份");
-                }else if (position == 2){
-                    Intent intent = new Intent(mContext,PhoneLocationActivity.class);
+                } else if (position == 2) {
+                    Intent intent = new Intent(mContext, PhoneLocationActivity.class);
                     mContext.startActivity(intent);
                 }
             }
@@ -253,9 +253,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             mActionBar.setHomeButtonEnabled(true); //设置返回键可用
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
+        drawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(drawerToggle);
     }
 
     @Override
@@ -294,6 +294,13 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String userName = SpUtil.getString(AppConstants.LOGIN_USER, "");
+        mUserName.setText(userName.equals("") ? "未登录" : userName);
+    }
+
     /**
      * 进入手机防盗的activity界面
      */
@@ -319,20 +326,26 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     protected void onInitListener() {
         mIvAvatar.setOnClickListener(this);
+        mTvLeftSetting.setOnClickListener(this);
     }
+
     @Override
     protected void processClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_avatar:
-                if (!TextUtils.isEmpty(SpUtil.getString(AppConstants.LOGIN_USER,""))) {
+                if (!TextUtils.isEmpty(SpUtil.getString(AppConstants.LOGIN_USER, ""))) {
                     //显示用户信息
-                    toast("显示用户信息");
-                }else {
+                    Intent intent = new Intent(this, UserInfoActivity.class);
+                    startActivity(intent);
+                } else {
                     //注册登录界面
-                    toast("登录");
-                    Intent intent = new Intent(this,LoginRegActivity.class);
+                    Intent intent = new Intent(this, LoginRegActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.tv_left_setting:
+                Intent intent = new Intent(this, AppSettingActivity.class);
+                startActivity(intent);
                 break;
         }
     }

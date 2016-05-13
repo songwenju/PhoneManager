@@ -14,15 +14,11 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by panyi on 2015/8/4.
- */
+
 public class CircleView extends View {
     public static final int PAD = 30;
     public static final int MIN_VALUE = 0;
     public static final int MAX_VALUE = 360;
-
-    private Context mContext;
 
     //圆环模式
     private static final int CIRCLE_MODE_NORMAL = 1;//普通模式
@@ -78,7 +74,7 @@ public class CircleView extends View {
     }
 
     private void initView(Context mContext, AttributeSet attrs) {
-        this.mContext = mContext;
+        Context context = mContext;
 
         paint.setColor(mRadiusColor);//圆圈颜色
         paint.setStyle(Paint.Style.STROKE);//设置空心
