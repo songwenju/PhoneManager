@@ -17,13 +17,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity {
-    @Bind(R.id.tv_splash_activity)
-    TextView mTvSplashActivity;
+    @Bind(R.id.sp_tv_title)
+    TextView mSpTvTitle;
     SplashPresenter mSplashPresenter;
     @Bind(R.id.sp_tv_button)
     TextView mSpTvButton;
-    @Bind(R.id.sp_tv_title)
-    TextView mSpTvTitle;
 
     @Override
     protected int getLayoutID() {
@@ -56,8 +54,6 @@ public class SplashActivity extends BaseActivity {
             PackageManager packageManager = getPackageManager();
             try {
                 PackageInfo packageInfo = packageManager.getPackageInfo("com.wjustudio.phoneManager", 0);
-                String versionName = packageInfo.versionName;
-                mTvSplashActivity.setText(versionName);
                 mSplashPresenter = new SplashPresenter(this);
                 mSplashPresenter.copyDbFromAssets("address.db");
                 mSplashPresenter.getUpdate(packageInfo);
