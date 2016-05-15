@@ -231,7 +231,14 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                     Intent intent = new Intent(mContext, CaptureActivity.class);
                     mContext.startActivity(intent);
                 } else if (position == 1) {
-                    toast("信息备份");
+                    String user = SpUtil.getString(AppConstants.LOGIN_USER, "");
+                    if (TextUtils.isEmpty(user)) {
+                        toast("请先登录，然后使用备份功能");
+                    } else {
+                        Intent intent = new Intent(mContext, BackUpActivity.class);
+                        mContext.startActivity(intent);
+
+                    }
                 } else if (position == 2) {
                     Intent intent = new Intent(mContext, PhoneLocationActivity.class);
                     mContext.startActivity(intent);
@@ -300,12 +307,9 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         super.onResume();
         LogUtil.i(this, "resume");
         String spUrl = SpUtil.getString(AppConstants.AVATAR_SERVER_PATH, "");
-        if (spUrl.equals("")) {
-            mIvAvatar.setImageResource(R.mipmap.login_default_face);
-        } else {
-            Uri uri = Uri.parse(spUrl);
-            mIvAvatar.setImageURI(uri);
-        }
+        LogUtil.i(this, "spUrl：" + spUrl);
+        Uri uri = Uri.parse(spUrl);
+        mIvAvatar.setImageURI(uri);
         String userName = SpUtil.getString(AppConstants.LOGIN_USER, "");
         mUserName.setText(userName.equals("") ? "未登录" : userName);
     }

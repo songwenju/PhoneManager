@@ -1,11 +1,11 @@
 package com.wjustudio.phoneManager.activities;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
@@ -24,8 +24,7 @@ public class AboutActivity extends BaseActivity {
     CommonTitleLayout mCommonTitleLayout;
     @Bind(R.id.wv_about_us)
     WebView mWvAboutUs;
-    @Bind(R.id.pb_progress)
-    ProgressBar mPbProgress;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected int getLayoutID() {
@@ -35,6 +34,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void onInitView() {
         ButterKnife.bind(this);
+        mProgressDialog = ProgressDialog.show(mContext, null, "正在加载，请稍候...");
     }
 
     @Override
@@ -65,28 +65,21 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void onInitListener() {
-
     }
 
     class MyAndroidWebViewClient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            // TODO
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             mWvAboutUs.setVisibility(View.VISIBLE);
-            mPbProgress.setVisibility(View.GONE);
+            mProgressDialog.dismiss();
         }
-
     }
-
-
 
     @Override
     protected void processClick(View v) {
-
     }
-
 }

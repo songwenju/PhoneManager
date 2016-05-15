@@ -19,8 +19,8 @@ public class OkHttpUtil {
     static {
         //设置超时时间
         mOkHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
-        mOkHttpClient.setWriteTimeout(10,TimeUnit.SECONDS);
-        mOkHttpClient.setReadTimeout(30,TimeUnit.SECONDS);
+        mOkHttpClient.setWriteTimeout(3,TimeUnit.SECONDS);
+        mOkHttpClient.setReadTimeout(3,TimeUnit.SECONDS);
     }
 
     /**

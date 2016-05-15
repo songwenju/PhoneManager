@@ -13,9 +13,9 @@ import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.activities.HomeActivity;
 import com.wjustudio.phoneManager.activities.SplashActivity;
-import com.wjustudio.phoneManager.commonInterface.Url;
 import com.wjustudio.phoneManager.javaBean.VersionInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
@@ -40,7 +40,7 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
     @Override
     public void checkVersion(String versionCode) {
         try {
-            String jsonString = OkHttpUtil.getStringFromServer(Url.checkVersion);
+            String jsonString = OkHttpUtil.getStringFromServer(AppConstants.VERSION_URL);
             if (TextUtils.isEmpty(jsonString)) {
                 enterHomeActivity();
             } else {
@@ -86,7 +86,7 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
                         public void run() {
                             enterHomeActivity();
                         }
-                    }, 2000);
+                    }, 1000);
                 }
             }
         } catch (IOException e) {

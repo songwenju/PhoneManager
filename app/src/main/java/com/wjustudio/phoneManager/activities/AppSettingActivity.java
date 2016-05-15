@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -64,12 +65,9 @@ public class AppSettingActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         String spUrl = SpUtil.getString(AppConstants.AVATAR_SERVER_PATH, "");
-        if (spUrl.equals("")) {
-            mIvAvatar.setImageResource(R.mipmap.login_default_face);
-        } else {
-            Uri uri = Uri.parse(spUrl);
-            mIvAvatar.setImageURI(uri);
-        }
+        Uri uri = Uri.parse(spUrl);
+        mIvAvatar.setImageURI(uri);
+
     }
 
     @Override
@@ -85,7 +83,7 @@ public class AppSettingActivity extends BaseActivity {
         if (packageInfo != null) {
             String versionName = packageInfo.versionName;
 
-            mTvVersion.setText("版本号：" +versionName);
+            mTvVersion.setText("版本号：" + versionName);
         }
     }
 
@@ -93,21 +91,41 @@ public class AppSettingActivity extends BaseActivity {
     protected void onInitListener() {
         mUserInfo.setOnClickListener(this);
         mTvAbout.setOnClickListener(this);
+        mTvShare.setOnClickListener(this);
     }
 
     @Override
     protected void processClick(View v) {
-        Intent intent ;
+        Intent intent;
         switch (v.getId()) {
             case R.id.user_info:
-                 intent = new Intent(mContext, UserInfoActivity.class);
+                intent = new Intent(mContext, UserInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_about:
-                 intent = new Intent(mContext,AboutActivity.class);
+                intent = new Intent(mContext, AboutActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_share:
+                intent = new Intent();
+                intent.setAction("android.intent.action.SEND");
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "发现一款不错的应用:" + getApplicationName() + ",搜搜看");
+                mContext.startActivity(intent);
                 break;
         }
     }
 
+    public String getApplicationName() {
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo;
+        try {
+            packageManager = getApplicationContext().getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        return (String) packageManager.getApplicationLabel(applicationInfo);
+    }
 }

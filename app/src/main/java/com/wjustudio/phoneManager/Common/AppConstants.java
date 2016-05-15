@@ -32,7 +32,10 @@ public class AppConstants {
     public static final String CHECK_CODE_PATH = BASE_URL+"checkCodeServlet";
     public static final String RESET_PWD_PATH =  BASE_URL+"resetPwdServlet";
     public static final String PIC_URL_PATH = BASE_URL + "uploadAvatarServlet";
+    public static final String JSON_URL_PATH = BASE_URL + "uploadContactServlet";
+    public static final String CONTACT_BACKUP_URL_PATH = BASE_URL + "getContactServlet";
     public static final String ABOUT_US = BASE_URL+"aboutUs.html";
+    public static final String VERSION_URL = BASE_URL+"versionInfo.json";
     public static final String LOGIN_USER = "loginUser";
 
 

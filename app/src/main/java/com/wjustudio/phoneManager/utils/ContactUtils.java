@@ -1,5 +1,7 @@
 package com.wjustudio.phoneManager.utils;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,6 +9,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 
 import com.wjustudio.phoneManager.javaBean.ContactInfo;
+import com.wjustudio.phoneManager.javaBean.ContactJson;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -27,12 +30,12 @@ public class ContactUtils {
             // 然后在根据"sort-key"排序
             cursor = context.getContentResolver().query(
                     uri,
-                    new String[] { "display_name", "contact_id", "data1" },
+                    new String[]{"display_name", "contact_id", "data1"},
                     null, null, "sort_key");
 
             if (cursor != null && cursor.moveToFirst()) {
                 LogUtil.e("contactUtil", "ContactCount:" + cursor.getCount());
-                while (cursor.moveToNext()){
+                do {
                     ContactInfo contact = new ContactInfo();
                     String contact_phoneNum = cursor.getString(cursor
                             .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -44,22 +47,47 @@ public class ContactUtils {
                     contact.contact_phoneNum = contact_phoneNum.replaceAll("[^0-9]", "");
                     contact.contact_id = contact_id;
                     contact.pinYin = getPingYin(name);
-                   // LogUtil.e("contactUtils", "contact:" + contact.toString());
+                    LogUtil.e("contactUtils", "contact:" + contact.toString());
                     if (name != null)
                         listMembers.add(contact);
-                }
+                } while (cursor.moveToNext());
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (cursor != null){
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return listMembers;
     }
 
+    public static void writeToPhone(Context context,ContactJson.ContactsBean contact) {
+        ContentValues values = new ContentValues();
+        Uri rawContactUri = context.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, values);
+        long rawContactId = ContentUris.parseId(rawContactUri);
+        values.clear();
+        values.put(ContactsContract.RawContacts.Data.RAW_CONTACT_ID, rawContactId);
+        values.put(ContactsContract.RawContacts.Data.MIMETYPE,
+                ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+        values.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, contact.getContact_name());
+        context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+
+        values.clear();
+        values.put(ContactsContract.RawContacts.Data.RAW_CONTACT_ID, rawContactId);
+        values.put(ContactsContract.RawContacts.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+        values.put(ContactsContract.CommonDataKinds.Phone.NUMBER, contact.getContact_phoneNum());
+        values.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME);
+        context.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
+    }
+    public static void writeContact(Context context, ContactJson.ContactsBean contact) {
+        Cursor cursor = null;
+        Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        // 这里是获取联系人表的电话里的信息  包括：名字，联系人id,电话号码；
+        //先清空，再插入：
+        context.getContentResolver().delete(uri, null, null);
+    }
 
     /**
      * 将字符串中的中文转化为拼音,其他字符不变

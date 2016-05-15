@@ -69,6 +69,8 @@
         <activity android:name=".activities.UserInfoActivity"/>
         <activity android:name=".activities.AppSettingActivity"/>
         <activity android:name=".activities.AboutActivity"/>
+        <activity android:name=".activities.BackUpActivity"/>
+        <activity android:name=".activities.ShowBackInfoActivity"/>
         <activity
             android:name=".activities.AppLockActivity"
             android:excludeFromRecents="true"

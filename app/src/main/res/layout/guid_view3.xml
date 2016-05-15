@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/primary">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pic_guidepage_3"/>
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:text="垃圾快堆满了！"
+        android:textColor="@color/white"
+        android:textSize="40sp"/>
 </LinearLayout>

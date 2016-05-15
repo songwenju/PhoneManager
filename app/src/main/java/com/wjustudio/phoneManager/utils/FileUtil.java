@@ -23,13 +23,13 @@ public class FileUtil {
      * @param bitmap   图片
      * @return 保存的文件
      */
-    public static String saveFile(String fileName, Bitmap bitmap) {
-        return saveFile("", fileName, bitmap);
+    public static String saveBitmapFile(String fileName, Bitmap bitmap) {
+        return saveBitmapFile("", fileName, bitmap);
     }
 
-    public static String saveFile(String filePath, String fileName, Bitmap bitmap) {
+    public static String saveBitmapFile(String filePath, String fileName, Bitmap bitmap) {
         byte[] bytes = bitmapToBytes(bitmap);
-        return saveFile(filePath, fileName, bytes);
+        return saveFile(filePath, fileName, bytes,".jpg");
     }
 
     public static byte[] bitmapToBytes(Bitmap bm) {
@@ -38,13 +38,26 @@ public class FileUtil {
         return bao.toByteArray();
     }
 
-    public static String saveFile(String filePath, String fileName, byte[] bytes) {
+    /**
+     * 保存备份的json文件
+     */
+    public static String saveJsonFile(String fileName,String json){
+        return saveFile("",fileName,json.getBytes(),".json");
+    }
+
+    /**
+     * 保存文件
+     * @param filePath
+     * @param fileName
+     * @param bytes
+     * @return
+     */
+    public static String saveFile(String filePath, String fileName, byte[] bytes, String suffix) {
         String fileFullName = "";
         FileOutputStream fos = null;
-        String dateStr = new SimpleDateFormat("MMddSS", Locale.CHINA)
+        String dateStr = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA)
                 .format(new Date());
         try {
-            String suffix = ".jpg";
             LogUtil.i(TAG, "filePath1:" + filePath);
             if (TextUtils.isEmpty(filePath)) {
                 filePath = Environment.getExternalStorageDirectory() + "/phoneMgr/";

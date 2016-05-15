@@ -13,8 +13,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserLoginRegUtil {
-    public static final String TAG = "UserLoginRegUtil";
+public class RequestServerUtil {
+    public static final String TAG = "RequestServerUtil";
     /**
      * 登录，并获得服务器登录信息
      *
@@ -54,7 +54,7 @@ public class UserLoginRegUtil {
                     .append("&");
         }
         urlPath.deleteCharAt(urlPath.length() - 1);
-        LogUtil.i("UserLoginRegUtil", urlPath.toString());
+        LogUtil.i(TAG, urlPath.toString());
         URL url = new URL(urlPath.toString());
         final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);
@@ -63,7 +63,7 @@ public class UserLoginRegUtil {
             InputStream inputStream = conn.getInputStream();
             String info = StreamUtils.convertStreamToString(inputStream);
 
-            LogUtil.i("UserLoginRegUtil", "info:" + info);
+            LogUtil.i(TAG, "info:" + info);
             if (info != null) {
                 return info;
             } else {
@@ -93,6 +93,21 @@ public class UserLoginRegUtil {
         return null;
     }
 
+    /**
+     * 请求对应用户在服务器备份的数据
+     * @param userName
+     * @return 对应的json信息
+     */
+    public static String getBackupInfo(String userName) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",userName);
+        try {
+            return sendGETRequest(AppConstants.CONTACT_BACKUP_URL_PATH, params, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * 获得写入服务器后返回的代码的状态
      * @param emailStr

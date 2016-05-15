@@ -50,6 +50,7 @@
 
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_switch_day_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,6 +83,7 @@
     </RelativeLayout>
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
@@ -97,7 +99,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
-        android:text="关于"
+        android:text="关于本软件"
         android:textColor="@color/text_gray"
         android:textSize="20sp"/>
 

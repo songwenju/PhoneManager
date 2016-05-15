@@ -19,7 +19,7 @@ import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
 import com.wjustudio.phoneManager.utils.StatusBarUtils;
-import com.wjustudio.phoneManager.utils.UserLoginRegUtil;
+import com.wjustudio.phoneManager.utils.RequestServerUtil;
 
 /**
  * 欢迎页面
@@ -105,7 +105,7 @@ public class LoginRegActivity extends BaseActivity {
                         @Override
                         protected String doInBackground(String... params) {
                             LogUtil.i("swj", "emailStr:" + params[0] + " pwdStr:" + params[1]);
-                            return UserLoginRegUtil.getResetPwdStatus(params[0],params[1]);
+                            return RequestServerUtil.getResetPwdStatus(params[0],params[1]);
                         }
 
                         @Override
@@ -179,7 +179,7 @@ public class LoginRegActivity extends BaseActivity {
                         @Override
                         protected String doInBackground(String... params) {
                             LogUtil.i("swj", "emailStr:" + params[0] + " code:" + params[1]);
-                            return UserLoginRegUtil.getSetCodeStatus(params[0], params[1]);
+                            return RequestServerUtil.getSetCodeStatus(params[0], params[1]);
                         }
 
                         @Override
@@ -258,7 +258,7 @@ public class LoginRegActivity extends BaseActivity {
                         @Override
                         protected String doInBackground(String... params) {
                             LogUtil.i("swj", "emailStr:" + params[0] + " code:" + params[1]);
-                            return UserLoginRegUtil.getIsCodeStatus(params[0], params[1]);
+                            return RequestServerUtil.getIsCodeStatus(params[0], params[1]);
                         }
 
                         @Override
@@ -351,7 +351,7 @@ public class LoginRegActivity extends BaseActivity {
                         @Override
                         protected String doInBackground(String... params) {
                             LogUtil.i("swj", "userStr:" + params[0] + " pwdStr:" + params[1]);
-                            return UserLoginRegUtil.getLoginStatus(params[0], params[1]);
+                            return RequestServerUtil.getLoginStatus(params[0], params[1]);
                         }
 
                         @Override
@@ -446,7 +446,7 @@ public class LoginRegActivity extends BaseActivity {
                         @Override
                         protected String doInBackground(UserInfo... params) {
 
-                            return UserLoginRegUtil.getRegisterStatus(params[0]);
+                            return RequestServerUtil.getRegisterStatus(params[0]);
                         }
 
                         @Override

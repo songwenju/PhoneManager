@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
+             android:background="@color/primary"
               android:layout_height="match_parent">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pic_guidepage_4"/>
+       android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:textSize="40sp"
+        android:textColor="@color/white"
+        android:text="我来帮你解决！"/>
     <Button
         android:id="@+id/btn_enter"
         android:layout_width="160dp"
         android:layout_height="42dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="150dp"
         android:textSize="18sp"
-        android:textColor="#ce102c"
+        android:textColor="@color/white"
         android:background="@drawable/button_shape"
         android:visibility="visible"
         android:text="点击进入"/>
