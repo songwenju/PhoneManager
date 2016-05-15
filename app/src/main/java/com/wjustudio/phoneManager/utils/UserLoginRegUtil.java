@@ -1,7 +1,9 @@
 package com.wjustudio.phoneManager.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wjustudio.phoneManager.Common.AppConstants;
-import com.wjustudio.phoneManager.javaBean.User;
+import com.wjustudio.phoneManager.javaBean.UserInfo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserLoginRegUtil {
+    public static final String TAG = "UserLoginRegUtil";
     /**
      * 登录，并获得服务器登录信息
      *
@@ -25,7 +28,16 @@ public class UserLoginRegUtil {
         params.put("loginPwd", pwd);
 
         try {
-            return sendGETRequest(AppConstants.LOGIN_PATH, params, "UTF-8");
+            String result =  sendGETRequest(AppConstants.LOGIN_PATH, params, "UTF-8");
+            if (result.length() > 1){
+                JSONObject jsonObject = JSON.parseObject(result);
+                String code = jsonObject.getString("code");
+                String userImgUrl = jsonObject.getString("headImgUrl");
+                LogUtil.i(TAG,"code:"+code +" headImgUrl:"+userImgUrl);
+                SpUtil.putString(AppConstants.AVATAR_SERVER_PATH,userImgUrl);
+                return code;
+            }
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +80,7 @@ public class UserLoginRegUtil {
      * @param user
      * @return
      */
-    public static String getRegisterStatus(User user) {
+    public static String getRegisterStatus(UserInfo user) {
         Map<String, String> params = new HashMap<>();
         params.put("userName", user.name);
         params.put("email", user.email);

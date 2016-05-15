@@ -22,7 +22,7 @@ public class AppContext extends BaseApplication {
 
 
 //    private void initLogin() {
-//        User user = getLoginUser();
+//        UserInfo user = getLoginUser();
 //        if (null != user && user.getId() > 0) {
 //            login = true;
 //            loginUid = user.getId();
@@ -158,7 +158,7 @@ public class AppContext extends BaseApplication {
 //     * @param user 用户信息
 //     */
 //    @SuppressWarnings("serial")
-//    public void saveUserInfo(final User user) {
+//    public void saveUserInfo(final UserInfo user) {
 //        this.loginUid = user.getId();
 //        this.login = true;
 //        setProperties(new Properties() {
@@ -189,7 +189,7 @@ public class AppContext extends BaseApplication {
 //     * @param user
 //     */
 //    @SuppressWarnings("serial")
-//    public void updateUserInfo(final User user) {
+//    public void updateUserInfo(final UserInfo user) {
 //        setProperties(new Properties() {
 //            {
 //                setProperty("user.name", user.getName());
@@ -210,8 +210,8 @@ public class AppContext extends BaseApplication {
 //     *
 //     * @return
 //     */
-//    public User getLoginUser() {
-//        User user = new User();
+//    public UserInfo getLoginUser() {
+//        UserInfo user = new UserInfo();
 //        user.setId(StringUtils.toInt(getProperty("user.uid"), 0));
 //        user.setName(getProperty("user.name"));
 //        user.setPortrait(getProperty("user.face"));

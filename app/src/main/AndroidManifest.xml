@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.wjustudio.phoneManager"
           android:versionCode="1"
-          android:versionName="天天开心版">
+          android:versionName="1.0.0">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -68,6 +68,7 @@
         <activity android:name=".activities.PhoneLocationActivity"/>
         <activity android:name=".activities.UserInfoActivity"/>
         <activity android:name=".activities.AppSettingActivity"/>
+        <activity android:name=".activities.AboutActivity"/>
         <activity
             android:name=".activities.AppLockActivity"
             android:excludeFromRecents="true"

@@ -37,7 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/primary"
+                android:background="@color/primary"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:text="一键清理"/>
 
             <ListView

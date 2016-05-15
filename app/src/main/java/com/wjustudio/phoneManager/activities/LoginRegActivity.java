@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
-import com.wjustudio.phoneManager.javaBean.User;
+import com.wjustudio.phoneManager.javaBean.UserInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;
@@ -435,8 +435,8 @@ public class LoginRegActivity extends BaseActivity {
                     toast("两次输入的密码不一致");
                 } else {
 
-                    User user = new User(nameStr, pwdStr, emailStr);
-                    new AsyncTask<User, Void, String>() {
+                    UserInfo user = new UserInfo(nameStr, pwdStr, emailStr,"");
+                    new AsyncTask<UserInfo, Void, String>() {
                         @Override
                         protected void onPreExecute() {
                             super.onPreExecute();
@@ -444,7 +444,7 @@ public class LoginRegActivity extends BaseActivity {
                         }
 
                         @Override
-                        protected String doInBackground(User... params) {
+                        protected String doInBackground(UserInfo... params) {
 
                             return UserLoginRegUtil.getRegisterStatus(params[0]);
                         }

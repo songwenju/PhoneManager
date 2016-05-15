@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.ToastUtil;
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        Fresco.initialize(mContext);
         setContentView(getLayoutID());
         onInitView();
         onInitListener();

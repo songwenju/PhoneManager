@@ -562,4 +562,13 @@ public class StringUtils {
         return df.format(new Date());
     }
 
+    /**
+     * 返回分割符之后的字符串
+     * @param s
+     * @param splite
+     * @return
+     */
+    public static String spliteLast(String s,String splite){
+        return s.substring(s.lastIndexOf(splite)+1);
+    }
 }

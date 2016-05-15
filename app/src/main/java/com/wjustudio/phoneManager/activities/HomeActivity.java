@@ -2,6 +2,7 @@ package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.HomeMainAdapter;
@@ -31,7 +33,6 @@ import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
-import com.wjustudio.phoneManager.widgt.CircleImageView;
 import com.wjustudio.phoneManager.widgt.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Bind(R.id.dl_left)
     DrawerLayout mDrawerLayout;
     @Bind(R.id.iv_avatar)
-    CircleImageView mIvAvatar;
+    SimpleDraweeView mIvAvatar;
     @Bind(R.id.user_name)
     TextView mUserName;
     @Bind(R.id.tv_left_setting)
@@ -297,6 +298,14 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     protected void onResume() {
         super.onResume();
+        LogUtil.i(this, "resume");
+        String spUrl = SpUtil.getString(AppConstants.AVATAR_SERVER_PATH, "");
+        if (spUrl.equals("")) {
+            mIvAvatar.setImageResource(R.mipmap.login_default_face);
+        } else {
+            Uri uri = Uri.parse(spUrl);
+            mIvAvatar.setImageURI(uri);
+        }
         String userName = SpUtil.getString(AppConstants.LOGIN_USER, "");
         mUserName.setText(userName.equals("") ? "未登录" : userName);
     }

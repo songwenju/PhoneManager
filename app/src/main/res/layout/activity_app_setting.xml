@@ -3,6 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <com.wjustudio.phoneManager.widgt.CommonTitleLayout
@@ -11,20 +12,20 @@
         android:layout_height="wrap_content"/>
 
     <LinearLayout
+        android:id="@+id/user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.wjustudio.phoneManager.widgt.CircleImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@null"
-            android:src="@mipmap/login_default_face"
+            fresco:roundAsCircle = "true"
+            fresco:placeholderImage="@mipmap/login_default_face"
             app:border_color="@color/white"
             app:border_width="2dip"/>
 
@@ -34,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="swj"
             android:textColor="@color/text_gray"
             android:textSize="20sp"/>
@@ -43,32 +44,37 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="10dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/split_color"/>
 
 
     <RelativeLayout
+        android:id="@+id/rl_switch_day_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:minHeight="60dp"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:text="切换日夜间模式"
             android:textColor="@color/text_gray"
             android:textSize="20sp"/>
 
         <com.wjustudio.phoneManager.lib.switchButton.SwitchButton
+            android:id="@+id/sb_md"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/SwitchButtonStyleMD"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"/>
@@ -77,36 +83,65 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="10dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/split_color"/>
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_about"
+        android:minHeight="60dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:text="关于"
         android:textColor="@color/text_gray"
         android:textSize="20sp"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="10dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/split_color"/>
+
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_version"
+        android:minHeight="60dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="推荐软件管家"
+        android:gravity="center_vertical"
+        android:text="版本号："
         android:textColor="@color/text_gray"
         android:textSize="20sp"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/split_color"/>
+    <TextView
+        android:id="@+id/tv_share"
+        android:minHeight="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:text="推荐软件管家"
+        android:textColor="@color/text_gray"
+        android:textSize="20sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/split_color"/>
 
 </LinearLayout>
