@@ -21,7 +21,12 @@ import java.util.ArrayList;
 
 public class ContactUtils {
 
-    public static ArrayList<ContactInfo> getContact(Context context) {
+    /**
+     * 获得系统所有联系人信息
+     * @param context
+     * @return
+     */
+    public static ArrayList<ContactInfo> getContactList(Context context) {
         ArrayList<ContactInfo> listMembers = new ArrayList<>();
         Cursor cursor = null;
         try {

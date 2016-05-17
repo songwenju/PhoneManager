@@ -44,6 +44,10 @@ public class ProgressBizImpl implements IProgressBiz {
     }
 
 
+    /**
+     * Android Lollipop版本以下获得进程的方法
+     * @return
+     */
     public List<ProgressInfo> getTaskInfosForLowLevel() {
         List<ProgressInfo> progressInfoList = new ArrayList<>();
         ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
@@ -93,8 +97,6 @@ public class ProgressBizImpl implements IProgressBiz {
         // 应用程序包管理器
         PackageManager pm = mContext.getPackageManager();
         // 获取正在运行的程序信息, 就是以下粗体的这句代码,获取系统运行的进程     要使用这个方法，需要加载
-        //　import ProcessManager;
-        //　import AndroidAppProcess;  这两个包, 这两个包附件可以下载
 
         List<AndroidAppProcess> androidAppProcessList = ProcessManager.getRunningAppProcesses();
         List<ProgressInfo> progressInfoList = new ArrayList<>();

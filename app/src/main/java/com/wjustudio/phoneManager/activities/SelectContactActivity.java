@@ -52,7 +52,7 @@ public class SelectContactActivity extends BaseActivity {
     @Override
     protected void onInitData() {
         mContext = this;
-        mContactList = ContactUtils.getContact(mContext);
+        mContactList = ContactUtils.getContactList(mContext);
         for (ContactInfo contact:mContactList) {
             LogUtil.i(this,contact.toString());
         }

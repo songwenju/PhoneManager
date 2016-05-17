@@ -83,7 +83,7 @@ public class BackUpActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.backup_contact:
                 //1.获得通讯录信息
-                List<ContactInfo> mContactList = ContactUtils.getContact(mContext);
+                List<ContactInfo> mContactList = ContactUtils.getContactList(mContext);
                 //2.拼接成json串写入文件，文件名带日期
                 writeToJsonFile(mContactList);
                 //3.将文件上传到服务器，并将用户信息和文件信息写入服务器数据库（和user数据库一对多）
