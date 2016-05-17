@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wjustudio.phoneManager.widgt.RevealLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/left_item_selector"
     android:clickable="true">
 
     <RelativeLayout
@@ -45,19 +44,20 @@
 
             <ImageView
                 android:id="@+id/modify"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:src="@mipmap/modify"/>
 
             <ImageView
                 android:id="@+id/delete"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_width="25dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp"
                 android:layout_weight="1"
                 android:src="@mipmap/delete"/>
         </LinearLayout>
 
     </RelativeLayout>
-</com.wjustudio.phoneManager.widgt.RevealLayout>
+</LinearLayout>

@@ -427,13 +427,21 @@ public class CommonUtil {
      * @return
      */
     public static boolean isCorrectUrl(String str){
-        Pattern p;
+        Pattern p1,p2;
         Matcher m;
         boolean b;
         //验证邮箱
-        p = Pattern.compile("[a-zA-z]+://[^\\s]*");
-        m = p.matcher(str);
-        b = m.matches();
+
+
+        p1 = Pattern.compile("[a-zA-z]+://[^\\s]*");  // 验证http的
+        p2 = Pattern.compile("([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?");  // 验证不带http的
+        if (str.length() > 9) {
+            m = p1.matcher(str);
+            b = m.matches();
+        } else {
+            m = p2.matcher(str);
+            b = m.matches();
+        }
         return b;
     }
 

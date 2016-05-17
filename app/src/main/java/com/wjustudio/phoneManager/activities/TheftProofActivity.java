@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.SecurityActivityAdapter;
@@ -28,6 +29,8 @@ public class TheftProofActivity extends BaseActivity {
     RecyclerView mRvSecurity;
     @Bind(R.id.ctl_common_title)
     CommonTitleLayout mCommonTitleLayout;
+    @Bind(R.id.tv_proof_remind)
+    TextView mTvProof_remind;
 
     private ArrayList<TheftProofInfo> mList;
     private int[] mIconArray = {
@@ -69,6 +72,13 @@ public class TheftProofActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isOpenProof = CommonUtil.isRunningService(mContext, "com.wjustudio.phoneManager.service.TheftProofService");
+        mTvProof_remind.setText(isOpenProof ? "手机防盗功能已经激活" : "手机防盗关闭，请去设置页面打开");
+    }
+
+    @Override
     protected void onSetViewData() {
         mCommonTitleLayout.setTitle("手机防盗");
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -89,14 +99,15 @@ public class TheftProofActivity extends BaseActivity {
         mCommonTitleLayout.setOnSettingImgClickListener(new CommonTitleLayout.OnSettingImgClickListener() {
             @Override
             public void onSettingImgClick() {
-                Intent intent = new Intent(mContext,TheftProofSettingActivity.class);
+                Intent intent = new Intent(mContext, TheftProofSettingActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     @Override
-    protected void processClick(View v) {}
+    protected void processClick(View v) {
+    }
 
 
 }

@@ -28,7 +28,7 @@ import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.activities.CaptureActivity;
+import com.wjustudio.phoneManager.activities.QrCodeCaptureActivity;
 import com.wjustudio.phoneManager.lib.zxing.camera.CameraManager;
 import com.wjustudio.phoneManager.lib.zxing.view.ViewfinderResultPointCallback;
 
@@ -41,7 +41,7 @@ public final class CaptureActivityHandler extends Handler {
 
   private static final String TAG = CaptureActivityHandler.class.getSimpleName();
 
-  private final CaptureActivity activity;
+  private final QrCodeCaptureActivity activity;
   private final DecodeThread decodeThread;
   private State state;
 
@@ -51,7 +51,7 @@ public final class CaptureActivityHandler extends Handler {
     DONE
   }
 
-  public CaptureActivityHandler(CaptureActivity activity, Vector<BarcodeFormat> decodeFormats,
+  public CaptureActivityHandler(QrCodeCaptureActivity activity, Vector<BarcodeFormat> decodeFormats,
                                 String characterSet) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,

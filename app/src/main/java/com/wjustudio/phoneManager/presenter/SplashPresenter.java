@@ -3,6 +3,7 @@ package com.wjustudio.phoneManager.presenter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
+import android.os.Handler;
 
 import com.lidroid.xutils.util.IOUtils;
 import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
@@ -21,25 +22,34 @@ public class SplashPresenter {
     private CheckVersionBizImpl mCheckVersionBiz;
     private Context mContext;
 
-    public SplashPresenter (Context context) {
+    public SplashPresenter(Context context) {
         mContext = context;
         mCheckVersionBiz = new CheckVersionBizImpl(mContext);
     }
 
     /**
      * 请求网络更新
+     *
      * @param packageInfo
      */
     public void getUpdate(PackageInfo packageInfo) {
-        final int versionCode = packageInfo.versionCode;
+        new Handler().postDelayed(new Runnable(){
 
-        //请求网络在子线程
-        new Thread(new Runnable() {
-            @Override
             public void run() {
-                mCheckVersionBiz.checkVersion(String.valueOf(versionCode));
+               mCheckVersionBiz.enterHomeActivity();
             }
-        }).start();
+
+        }, 2000);
+//        final int versionCode = packageInfo.versionCode;
+////
+////        //请求网络在子线程
+////        new Thread(new Runnable() {
+////            @Override
+////            public void run() {
+////                mCheckVersionBiz.checkVersion(String.valueOf(versionCode));
+////            }
+////        }).start();
+
     }
 
     /**
@@ -51,6 +61,7 @@ public class SplashPresenter {
 
     /**
      * 拷贝数据库到手机中
+     *
      * @param dbName
      */
     public void copyDbFromAssets(String dbName) {
@@ -60,17 +71,17 @@ public class SplashPresenter {
         try {
             inputStream = assets.open(dbName);
             outputStream = new FileOutputStream(
-                    new File(mContext.getFilesDir(),dbName));
+                    new File(mContext.getFilesDir(), dbName));
             int len;
             byte[] b = new byte[1024];
-            while ((len = inputStream.read(b))!= -1) {
+            while ((len = inputStream.read(b)) != -1) {
                 outputStream.write(b, 0, len);
                 outputStream.flush();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             IOUtils.closeQuietly(inputStream);
             IOUtils.closeQuietly(outputStream);
         }

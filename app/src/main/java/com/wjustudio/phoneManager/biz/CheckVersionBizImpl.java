@@ -2,28 +2,20 @@ package com.wjustudio.phoneManager.biz;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.activities.HomeActivity;
 import com.wjustudio.phoneManager.activities.SplashActivity;
-import com.wjustudio.phoneManager.javaBean.VersionInfo;
-import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
-import com.wjustudio.phoneManager.utils.OkHttpUtil;
 import com.wjustudio.phoneManager.utils.ToastUtil;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * 作者：songwenju on 2015/12/20 18:21
@@ -39,60 +31,65 @@ public class CheckVersionBizImpl implements ICheckVersionBiz {
 
     @Override
     public void checkVersion(String versionCode) {
-        try {
-            String jsonString = OkHttpUtil.getStringFromServer(AppConstants.VERSION_URL);
-            if (TextUtils.isEmpty(jsonString)) {
-                enterHomeActivity();
-            } else {
-                final VersionInfo versionInfo = JSON.parseObject(jsonString, VersionInfo.class);
-                LogUtil.e(this, versionInfo.desc);
-                LogUtil.e(this, versionInfo.version);
-                LogUtil.e(this, jsonString);
-                if (!versionCode.equals(versionInfo.version)) {
-                    //存在新版本,弹出对话框,下载后弹出安装界面.
-                    LogUtil.e(this, "存在新版本");
-                    CommonUtil.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            CommonUtil.showInfoDialog(mContext, versionInfo.desc, "发现新版本"
-                                    , "确定", "取消", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            //下载app
-                                            download(versionInfo.downloadUrl);
-                                        }
-                                    },
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            enterHomeActivity();
-                                        }
-                                    },
-                                    new DialogInterface.OnCancelListener() {
-                                        @Override
-                                        public void onCancel(DialogInterface dialog) {
-                                            enterHomeActivity();
-                                        }
-                                    }
-                            );
-                        }
-                    });
-                } else {
-                    //不存在新版本,进入主界面
-                    LogUtil.e(this, "不存在新版本");
-                    CommonUtil.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            enterHomeActivity();
-                        }
-                    }, 1000);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            String jsonString = OkHttpUtil.getStringFromServer(AppConstants.VERSION_URL);
+//            if (TextUtils.isEmpty(jsonString)) {
+//                enterHomeActivity();
+//            } else {
+//                final VersionInfo versionInfo = JSON.parseObject(jsonString, VersionInfo.class);
+//                LogUtil.i(this, versionInfo.desc);
+//                LogUtil.i(this, versionInfo.version);
+//                LogUtil.i(this, jsonString);
+//                if (!versionCode.equals(versionInfo.version)) {
+//                    //存在新版本,弹出对话框,下载后弹出安装界面.
+//                    LogUtil.e(this, "存在新版本");
+//                    CommonUtil.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            CommonUtil.showInfoDialog(mContext, versionInfo.desc, "发现新版本"
+//                                    , "确定", "取消", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            //下载app
+//                                            download(versionInfo.downloadUrl);
+//                                        }
+//                                    },
+//                                    new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            enterHomeActivity();
+//                                        }
+//                                    },
+//                                    new DialogInterface.OnCancelListener() {
+//                                        @Override
+//                                        public void onCancel(DialogInterface dialog) {
+//                                            enterHomeActivity();
+//                                        }
+//                                    }
+//                            );
+//                        }
+//                    });
+//                } else {
+//                    //不存在新版本,进入主界面
+//                    LogUtil.e(this, "不存在新版本");
+//                    CommonUtil.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            enterHomeActivity();
+//                        }
+//                    }, 1000);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        CommonUtil.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                enterHomeActivity();
+//            }
+//        }, 3000);
     }
 
     /**

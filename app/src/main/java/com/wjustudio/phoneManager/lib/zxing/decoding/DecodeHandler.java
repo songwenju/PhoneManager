@@ -29,7 +29,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.wjustudio.phoneManager.R;
-import com.wjustudio.phoneManager.activities.CaptureActivity;
+import com.wjustudio.phoneManager.activities.QrCodeCaptureActivity;
 import com.wjustudio.phoneManager.lib.zxing.camera.CameraManager;
 import com.wjustudio.phoneManager.lib.zxing.camera.PlanarYUVLuminanceSource;
 
@@ -40,10 +40,10 @@ final class DecodeHandler extends Handler {
 
   private static final String TAG = DecodeHandler.class.getSimpleName();
 
-  private final CaptureActivity activity;
+  private final QrCodeCaptureActivity activity;
   private final MultiFormatReader multiFormatReader;
 
-  DecodeHandler(CaptureActivity activity, Hashtable<DecodeHintType, Object> hints) {
+  DecodeHandler(QrCodeCaptureActivity activity, Hashtable<DecodeHintType, Object> hints) {
     multiFormatReader = new MultiFormatReader();
     multiFormatReader.setHints(hints);
     this.activity = activity;

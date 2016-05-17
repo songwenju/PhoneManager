@@ -22,6 +22,7 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/phone_lost_title_bg"/>
         <TextView
+            android:id="@+id/tv_proof_remind"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/img_lost_title"

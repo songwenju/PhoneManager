@@ -48,6 +48,8 @@ import rx.schedulers.Schedulers;
  * 应用管理的fragment
  */
 public class AppMgrFragment extends BaseFragment {
+    @Bind(R.id.ll_remain)
+    LinearLayout mLlRemain;
     @Bind(R.id.tv_phone_remain)
     TextView mTvPhoneRemain;
     @Bind(R.id.tv_sd_remain)
@@ -247,6 +249,7 @@ public class AppMgrFragment extends BaseFragment {
 //        mAppMgrAdapter.setList(mUserAppList,mSystemAppList);
         mAppListTitle.setVisibility(View.VISIBLE);
         mLinearLayout.setVisibility(View.GONE);
+        mLlRemain.setVisibility(View.VISIBLE);
         mAppRecyclerView.setVisibility(View.VISIBLE);
     }
 

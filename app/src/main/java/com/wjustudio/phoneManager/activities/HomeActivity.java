@@ -183,7 +183,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         String[] iconNames = CommonUtil.getStringArray(R.array.icon_name);
         for (int i = 0; i < mIconArray.length; i++) {
             IconInfo iconInfo = new IconInfo(mIconArray[i], iconNames[i]);
-            LogUtil.e(this, iconNames[i]);
+            LogUtil.i(this, iconNames[i]);
             mMainPageIcons.add(iconInfo);
         }
 
@@ -228,7 +228,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             @Override
             public void onItemClick(View view, int position) {
                 if (position == 0) {
-                    Intent intent = new Intent(mContext, CaptureActivity.class);
+                    Intent intent = new Intent(mContext, QrCodeCaptureActivity.class);
                     mContext.startActivity(intent);
                 } else if (position == 1) {
                     String user = SpUtil.getString(AppConstants.LOGIN_USER, "");

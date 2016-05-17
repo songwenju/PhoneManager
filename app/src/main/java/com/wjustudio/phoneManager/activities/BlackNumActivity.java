@@ -1,6 +1,7 @@
 package com.wjustudio.phoneManager.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
@@ -184,12 +185,7 @@ public class BlackNumActivity extends BaseActivity {
         mBlackNumAdapter.setOnProcessClickListener(new BlackNumAdapter.ProcessClickListener() {
             @Override
             public void onDeleteClick(BlackNumInfo blackNumInfo) {
-                mBlackNumInfoList.remove(blackNumInfo);
-                mBlackNumBiz.deleteBlackNum(blackNumInfo);
-                mBlackNumAdapter.notifyDataSetChanged();
-                if (mBlackNumInfoList.size() == 0) {
-                    mTvBlackNumRemind.setVisibility(View.VISIBLE);
-                }
+                shoDeleteDialog(blackNumInfo);
             }
 
             @Override
@@ -200,6 +196,24 @@ public class BlackNumActivity extends BaseActivity {
         });
     }
 
+    private void shoDeleteDialog(final BlackNumInfo blackNumInfo) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
+        builder.setTitle("删除黑名单号码");
+        builder.setMessage("是否删除黑名单号码"+blackNumInfo.getBlackNum()+"?");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mBlackNumInfoList.remove(blackNumInfo);
+                mBlackNumBiz.deleteBlackNum(blackNumInfo);
+                mBlackNumAdapter.notifyDataSetChanged();
+                if (mBlackNumInfoList.size() == 0) {
+                    mTvBlackNumRemind.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.create().show();
+    }
     @Override
     protected void onSetViewData() {
         if (mBlackNumInfoList.size() == 0) {

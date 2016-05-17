@@ -21,7 +21,6 @@
             android:id="@+id/et_phone_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="13522410381"
             android:hint="@string/black_num_hint"
             android:inputType="phone"
             android:textColor="@color/text_gray"/>
