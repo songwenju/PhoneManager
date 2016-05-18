@@ -160,7 +160,7 @@ public class QrCodeCaptureActivity extends BaseActivity implements Callback {
                 startActivity(intent);
             } else {
                 //跳转到activity中，并显示文本
-                Intent resultIntent = new Intent(this, QrCodeScanActivity.class);
+                Intent resultIntent = new Intent(this, QrCodeScanResultActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("result", resultString);
 

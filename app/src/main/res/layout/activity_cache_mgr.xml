@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="您的手机干净无比,不用清理"
+            android:text="您的手机已经很干净了！"
             android:textColor="#000000"
             android:textSize="18sp"
             android:visibility="gone"/>

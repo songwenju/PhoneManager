@@ -17,6 +17,7 @@ import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.UserInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
+import com.wjustudio.phoneManager.utils.MD5Utils;
 import com.wjustudio.phoneManager.utils.SpUtil;
 import com.wjustudio.phoneManager.utils.StatusBarUtils;
 import com.wjustudio.phoneManager.utils.RequestServerUtil;
@@ -123,7 +124,7 @@ public class LoginRegActivity extends BaseActivity {
                                 resetPwdDialog.dismiss();
                             }
                         }
-                    }.execute(email,pwdStr);
+                    }.execute(email, MD5Utils.decode(pwdStr));
                 }
             }
         });
@@ -375,7 +376,7 @@ public class LoginRegActivity extends BaseActivity {
                             }
                         }
 
-                    }.execute(userStr, pwdStr);
+                    }.execute(userStr, MD5Utils.decode(pwdStr));
 
 
                 }
@@ -435,7 +436,7 @@ public class LoginRegActivity extends BaseActivity {
                     toast("两次输入的密码不一致");
                 } else {
 
-                    UserInfo user = new UserInfo(nameStr, pwdStr, emailStr,"");
+                    UserInfo user = new UserInfo(nameStr, MD5Utils.decode(pwdStr), emailStr,"");
                     new AsyncTask<UserInfo, Void, String>() {
                         @Override
                         protected void onPreExecute() {

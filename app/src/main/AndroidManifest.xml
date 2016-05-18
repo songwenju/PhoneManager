@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
@@ -64,7 +65,7 @@
         <activity android:name=".activities.BlackNumSettingActivity"/>
         <activity android:name=".activities.SoftMgrSettingActivity"/>
         <activity android:name=".activities.QrCodeCaptureActivity"/>
-        <activity android:name=".activities.QrCodeScanActivity"/>
+        <activity android:name=".activities.QrCodeScanResultActivity"/>
         <activity android:name=".activities.PhoneLocationActivity"/>
         <activity android:name=".activities.UserInfoActivity"/>
         <activity android:name=".activities.AppSettingActivity"/>
