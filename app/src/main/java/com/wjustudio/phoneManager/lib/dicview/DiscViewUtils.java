@@ -7,9 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 
-/**
- * Created by panyi on 2015/8/5.
- */
+
 public class DiscViewUtils {
 
     //drawable转Bitamp

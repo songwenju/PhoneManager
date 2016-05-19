@@ -65,6 +65,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     RecyclerView mRvLeftMenuContent;
     @Bind(R.id.rl_left_head)
     RelativeLayout mRlLeftHead;
+    @Bind(R.id.btn_speed)
+    Button mBtnSpeed;
 
     private List<IconInfo> mMainPageIcons;
     private List<IconInfo> mLeftPageIcons;
@@ -197,7 +199,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void onSetViewData() {
-        mDiscView.setValue(100);
+        mDiscView.setValue(20);
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
         int windowHeight = windowSize.get("height");
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mDiscView.getLayoutParams();
@@ -340,6 +342,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     protected void onInitListener() {
         mIvAvatar.setOnClickListener(this);
         mTvLeftSetting.setOnClickListener(this);
+        mBtnSpeed.setOnClickListener(this);
     }
 
     @Override
@@ -360,8 +363,11 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
                 Intent intent = new Intent(this, AppSettingActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_speed:
+                toast("一键加速！");
+                mDiscView.setTwoValue(20,70);
+            break;
         }
     }
-
 
 }

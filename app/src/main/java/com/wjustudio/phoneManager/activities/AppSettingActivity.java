@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -99,8 +100,14 @@ public class AppSettingActivity extends BaseActivity {
         Intent intent;
         switch (v.getId()) {
             case R.id.user_info:
-                intent = new Intent(mContext, UserInfoActivity.class);
-                startActivity(intent);
+                if (TextUtils.isEmpty(SpUtil.getString(AppConstants.LOGIN_USER, ""))) {
+                    intent = new Intent(mContext,LoginRegActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(mContext, UserInfoActivity.class);
+                    startActivity(intent);
+
+                }
                 break;
             case R.id.tv_about:
                 intent = new Intent(mContext, AboutActivity.class);

@@ -23,16 +23,33 @@
             app:dvBottomCircleIsShow="true"
             app:dvCircleMode="dot"
             app:dvStrokenWidth="13dp"/-->
-        <com.wjustudio.phoneManager.lib.dicview.DiscView
-            android:id="@+id/disc_view"
-            app:dvStrokenWidth="15dp"
-            app:dvBottomCircleIsShow="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/mainColor"
-            app:dvStartRotateAngle="60"
-            app:dvAngleRotateSpan="240"
-            app:dvOuterCircleShow="true"
-            android:layout_width="fill_parent"
-            android:layout_height="220dp" />
+            android:orientation="vertical">
+
+            <com.wjustudio.phoneManager.lib.dicview.DiscView
+                android:id="@+id/disc_view"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                app:dvAngleRotateSpan="240"
+                app:dvBottomCircleIsShow="true"
+                app:dvOuterCircleShow="true"
+                app:dvStartRotateAngle="60"
+                app:dvStrokenWidth="15dp"/>
+            <Button
+                android:id="@+id/btn_speed"
+                android:layout_marginTop="-50dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textColor="@color/white"
+                android:background="@color/mainColor"
+                android:text="一键加速"/>
+
+        </LinearLayout>
+
 
         <ListView
             android:id="@+id/lv_appList"
@@ -47,6 +64,6 @@
         android:layout_gravity="start"
         android:background="#fff">
 
-        <include layout="@layout/main_menu" />
+        <include layout="@layout/main_menu"/>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

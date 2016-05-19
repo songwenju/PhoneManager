@@ -113,8 +113,45 @@ public class DiscView extends FrameLayout {
 
 
     public void setValue(int value) {
+
         setValue(value, ANIMATION_DURING);
     }
+
+    public void setTwoValue(int startValue,int endValue) {
+        setValue(startValue,endValue,ANIMATION_DURING);
+    }
+
+    private void setValue(int startValue, int endValue, int animationDuring) {
+        startValue = (int)(startValue * 2.4);
+        endValue = (int)(endValue * 2.4);
+        if (animator.isRunning()){
+            animator.cancel();
+            mCircleView.clearAnimation();
+        }
+        animator = ValueAnimator.ofInt(startValue,endValue);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setDuration(animationDuring);
+        animator.start();
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                mCircleView.setValue(value);
+                contentValueText.setText("" + (int)(value / 2.4));
+            }
+        });
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCircleView.startAnimation(afterAnimation);
+            }
+
+            public void onAnimationCancel(Animator animation) {
+            }
+        });
+    }
+
 
     /**
      * 设置指示器的值 min - max之间
@@ -122,11 +159,11 @@ public class DiscView extends FrameLayout {
      * @param value
      */
     public void setValue(int value, int duration) {
+        value = (int) (value * 2.4);
         if (animator.isRunning()) {//上次动画未结束
             animator.cancel();//取消上次动画
             mCircleView.clearAnimation();
         }
-
         animator = ValueAnimator.ofInt(0, value);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());//先加速 后减速差值
         animator.setDuration(duration);
@@ -136,7 +173,7 @@ public class DiscView extends FrameLayout {
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
                 mCircleView.setValue(value);
-                contentValueText.setText("" + value);
+                contentValueText.setText("" + (int)(value / 2.4));
             }
         });
 

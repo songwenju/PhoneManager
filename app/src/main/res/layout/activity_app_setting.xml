@@ -36,9 +36,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="swj"
+            android:text="未登录,点击登陆"
             android:textColor="@color/text_gray"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
