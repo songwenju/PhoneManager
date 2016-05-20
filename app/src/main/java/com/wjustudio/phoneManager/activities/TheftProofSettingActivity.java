@@ -54,7 +54,7 @@ public class TheftProofSettingActivity extends BaseActivity {
 
     @Override
     protected void onInitData() {
-        mIsOpenProof = CommonUtil.isRunningService(mContext, "com.wjustudio.phoneManager.service.TheftProofService");
+        mIsOpenProof = CommonUtil.isRunningService(mContext, AppConstants.THEFT_PROOF_SERVICE);
         mSbMd.setChecked(mIsOpenProof);
     }
 

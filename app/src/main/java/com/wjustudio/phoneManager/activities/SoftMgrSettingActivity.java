@@ -43,7 +43,7 @@ public class SoftMgrSettingActivity extends BaseSimpleSettingActivity{
 
     @Override
     protected String getServiceFullName() {
-        return "com.wjustudio.phoneManager.service.LockAppService";
+        return AppConstants.LOCK_APP_SERVICE;
     }
 
     @Override

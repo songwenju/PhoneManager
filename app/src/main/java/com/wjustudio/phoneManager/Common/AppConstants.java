@@ -42,4 +42,9 @@ public class AppConstants {
     public static final String IMAGE_FILE_NAME = "avatarImage.jpg";// 头像文件名称
     public static final String AVATAR_SERVER_PATH = "avatarServerPath";// 头像文件名称
 
+    //app service name
+    public static final String THEFT_PROOF_SERVICE = "com.wjustudio.phoneManager.service.TheftProofService";
+    public static final String BLACK_NUM_SERVICE = "com.wjustudio.phoneManager.service.BlackNumService";
+    public static final String LOCK_APP_SERVICE = "com.wjustudio.phoneManager.service.LockAppService";
+
 }

@@ -12,8 +12,8 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
 import com.wjustudio.phoneManager.activities.AppLockActivity;
-import com.wjustudio.phoneManager.biz.AppLockBizImpl;
-import com.wjustudio.phoneManager.biz.IAppLockBiz;
+import com.wjustudio.phoneManager.presenter.AppLockBizImpl;
+import com.wjustudio.phoneManager.presenter.IAppLockBiz;
 import com.wjustudio.phoneManager.javaBean.AppLockInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.RunningActivityUtil;

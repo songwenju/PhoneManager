@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.telephony.SmsMessage;
 
 import com.wjustudio.phoneManager.Common.AppConstants;
-import com.wjustudio.phoneManager.biz.TheftProofBizImpl;
+import com.wjustudio.phoneManager.presenter.TheftProofBizImpl;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;
 import com.wjustudio.phoneManager.utils.SpUtil;

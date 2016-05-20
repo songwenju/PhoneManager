@@ -27,6 +27,7 @@ import com.wjustudio.phoneManager.adapter.LeftMenuAdapter;
 import com.wjustudio.phoneManager.base.BaseActivity;
 import com.wjustudio.phoneManager.javaBean.IconInfo;
 import com.wjustudio.phoneManager.lib.dicview.DiscView;
+import com.wjustudio.phoneManager.presenter.HomeActivityPresenter;
 import com.wjustudio.phoneManager.service.BlackNumService;
 import com.wjustudio.phoneManager.service.TheftProofService;
 import com.wjustudio.phoneManager.utils.CommonUtil;
@@ -77,6 +78,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private int[] mLeftIconArray = {R.mipmap.icon_safe, R.mipmap.icon_safe, R.mipmap.icon_safe};
     private ActionBar mActionBar;
     private AlertDialog mPwdSetDialog, mPwdInputDialog;
+    private HomeActivityPresenter mHomeActivityPresenter;
 
 
     @Override
@@ -180,7 +182,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         setSupportActionBar(mToolbar);
         //设置drawerLayout
         setDrawerLayout();
-
+        mHomeActivityPresenter = new HomeActivityPresenter(mContext);
         mMainPageIcons = new ArrayList<>();
         String[] iconNames = CommonUtil.getStringArray(R.array.icon_name);
         for (int i = 0; i < mIconArray.length; i++) {
@@ -199,7 +201,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void onSetViewData() {
-        mDiscView.setValue(20);
+        mDiscView.setValue(mHomeActivityPresenter.getCurrentScore());
         HashMap<String, Integer> windowSize = CommonUtil.getWindowSize(this);
         int windowHeight = windowSize.get("height");
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mDiscView.getLayoutParams();

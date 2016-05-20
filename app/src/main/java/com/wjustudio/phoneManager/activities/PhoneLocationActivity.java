@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseActivity;
-import com.wjustudio.phoneManager.biz.IPhoneLocationBiz;
-import com.wjustudio.phoneManager.biz.PhoneLocationBizImpl;
+import com.wjustudio.phoneManager.presenter.IPhoneLocationBiz;
+import com.wjustudio.phoneManager.presenter.PhoneLocationBizImpl;
 import com.wjustudio.phoneManager.widgt.CommonTitleLayout;
 
 import butterknife.Bind;

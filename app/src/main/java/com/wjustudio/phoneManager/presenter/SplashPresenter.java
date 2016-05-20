@@ -6,7 +6,6 @@ import android.content.res.AssetManager;
 import android.os.Handler;
 
 import com.lidroid.xutils.util.IOUtils;
-import com.wjustudio.phoneManager.biz.CheckVersionBizImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;

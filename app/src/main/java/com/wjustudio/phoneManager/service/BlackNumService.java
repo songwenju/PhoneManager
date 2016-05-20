@@ -16,7 +16,7 @@ import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.ITelephony;
-import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
+import com.wjustudio.phoneManager.presenter.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
 

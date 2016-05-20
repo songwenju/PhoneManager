@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
-import com.wjustudio.phoneManager.biz.AppLockBizImpl;
-import com.wjustudio.phoneManager.biz.IAppLockBiz;
+import com.wjustudio.phoneManager.presenter.AppLockBizImpl;
+import com.wjustudio.phoneManager.presenter.IAppLockBiz;
 import com.wjustudio.phoneManager.javaBean.AppInfo;
 
 import java.util.ArrayList;

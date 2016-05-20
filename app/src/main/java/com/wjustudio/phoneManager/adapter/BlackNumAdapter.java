@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.base.BaseRecycleViewAdapter;
-import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
+import com.wjustudio.phoneManager.presenter.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
 

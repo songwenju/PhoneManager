@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.wjustudio.phoneManager.R;
 import com.wjustudio.phoneManager.adapter.BlackNumAdapter;
 import com.wjustudio.phoneManager.base.BaseActivity;
-import com.wjustudio.phoneManager.biz.BlackNumBizImpl;
+import com.wjustudio.phoneManager.presenter.BlackNumBizImpl;
 import com.wjustudio.phoneManager.javaBean.BlackNumInfo;
 import com.wjustudio.phoneManager.utils.CommonUtil;
 import com.wjustudio.phoneManager.utils.LogUtil;

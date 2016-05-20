@@ -2,8 +2,8 @@ package com.wjustudio.phoneManager;
 
 import android.test.AndroidTestCase;
 
-import com.wjustudio.phoneManager.biz.IProgressBiz;
-import com.wjustudio.phoneManager.biz.ProgressBizImpl;
+import com.wjustudio.phoneManager.presenter.IProgressBiz;
+import com.wjustudio.phoneManager.presenter.ProgressBizImpl;
 import com.wjustudio.phoneManager.javaBean.ProgressInfo;
 import com.wjustudio.phoneManager.utils.LogUtil;
 

@@ -1,5 +1,6 @@
 package com.wjustudio.phoneManager.activities;
 
+import com.wjustudio.phoneManager.Common.AppConstants;
 import com.wjustudio.phoneManager.base.BaseSimpleSettingActivity;
 import com.wjustudio.phoneManager.service.TheftProofService;
 
@@ -26,7 +27,7 @@ public class BlackNumSettingActivity extends BaseSimpleSettingActivity {
 
     @Override
     protected String getServiceFullName() {
-        return "com.wjustudio.phoneManager.service.BlackNumService";
+        return AppConstants.BLACK_NUM_SERVICE;
     }
 
     @Override
