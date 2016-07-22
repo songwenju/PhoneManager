@@ -1,6 +1,7 @@
 package com.example.rxjavademo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAppMgrAdapter);
     }
 
+
+    public void click(View view){
+        startActivity(new Intent(this,ButtonActivity.class));
+    }
     @Override
     protected void onDestroy() {
         if (mSubscription != null && !mSubscription.isUnsubscribed()){
